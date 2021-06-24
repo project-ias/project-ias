@@ -20,9 +20,36 @@ app.get('/', (req, res) => {
     res.send('helo')
 })
 
-app.post('/search', (req, res) => {
+app.post('/search', async (req, res) => {
     const query = req.body.query
-    res.send(query)
+    
+    let search_response;
+    search_response = await client.index("pyqs").search(query, {'limit': 1000});
+
+    if(search_response.hits.length > 0)  
+      res.json(search_response);
+    else {
+      const search_words_for_right_trim = query.split(" ");
+      const search_words_for_left_trim = query.split(" ");
+
+      // Till there is atleast one result, keep trimming words from the query
+      while(search_response.hits.length === 0 && (search_words_for_left_trim.length + search_words_for_right_trim.length !== 0)) {
+        // initially words are trimmed from the right hand side
+        if(search_words_for_right_trim.length !== 0) {
+          search_words_for_right_trim.pop()
+          const new_query = search_words_for_right_trim.join(' ')
+          search_response = await client.index(access_token).search(new_query);
+        }
+        // if trimming from right has not fetched any results, words are trimmed from the left hand side
+        else {
+          search_words_for_left_trim.shift()
+          const new_query = search_words_for_left_trim.join(' ')
+          search_response = await client.index(access_token).search(new_query);
+        }
+      }
+      res.json(search_response)
+    }
+    
 })
 
 
