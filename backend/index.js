@@ -38,13 +38,13 @@ app.post('/search', async (req, res) => {
         if(search_words_for_right_trim.length !== 0) {
           search_words_for_right_trim.pop()
           const new_query = search_words_for_right_trim.join(' ')
-          search_response = await client.index(access_token).search(new_query);
+          search_response = await client.index("pyqs").search(new_query);
         }
         // if trimming from right has not fetched any results, words are trimmed from the left hand side
         else {
           search_words_for_left_trim.shift()
           const new_query = search_words_for_left_trim.join(' ')
-          search_response = await client.index(access_token).search(new_query);
+          search_response = await client.index("pyqs").search(new_query);
         }
       }
       res.json(search_response)
