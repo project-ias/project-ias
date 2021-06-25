@@ -6,16 +6,16 @@ const client = new MeiliSearch({
 });
 
 const fs = require('fs');
-fs.readFile('pyq_scrapers/pyqs.json', async (err, data) => {
+fs.readFile('pyq_scrapers/content.json', async (err, data) => {
     if (err) throw err;
-    let json_data = JSON.parse(data)["pyqs"];
+    let json_data = JSON.parse(data)["content"];
     let array_length = json_data.length;
     for(let i = 0; i < array_length; i++) {
         
         json_data[i]["id"] = i
         // console.log(json_data[i])
-        const added = await client.index('pyqs').addDocuments([ json_data[i] ])
-        console.log("added ",added)
+        const x = await client.index('content').addDocuments([ json_data[i] ])
+        console.log("added ",x)
     } 
 
 });
