@@ -13,7 +13,8 @@ data["content"] = []
 # "link": "",
 # "orginal_source": "",
 # "tags": [],
-# "exam" : "GS"
+# "exam" : "GS",
+# "title": ""
 # }
 
 just_scraped = datetime.now()
@@ -62,9 +63,10 @@ while no_articles_not_found:
                         'link': heading.a['href'],
                         'orginal_source': a['href'],
                         'tags': tags,
-                        'exam': exam
+                        'exam': exam,
+                        'title': heading.a.text
                     })
         print("len ",len(data["content"]))
-
+    
 with open('content.json', 'w') as f:
         json.dump(data, f)
