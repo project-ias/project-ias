@@ -1,5 +1,7 @@
 import React, { useState } from 'react'
 import axios from 'axios'
+import ReactHtmlParser from 'react-html-parser'
+import { parse } from 'node-html-parser'
 import { BACKEND_URL } from '../constants/constants'
 
 export default function SearchPage() {
@@ -7,6 +9,12 @@ export default function SearchPage() {
     const [pyqs, setPyqs] = useState([])
     const [content, setContent] = useState([])
 
+    function removePrevNext(htmlString) {
+        let parsedHtml = parse(htmlString)
+        parsedHtml.querySelector(".next-post").remove()
+        return parsedHtml.toString()
+    }
+    
     function handleChange(e) {
         console.log("e.",e.target.value)
         const query = e.target.value
@@ -65,6 +73,7 @@ export default function SearchPage() {
                             pyqs.map(item => (
                                 <div key={item['id']}>
                                     <h4>{item['question']} ({item['year']})</h4>
+                                    <div>{}</div>
                                     <p><strong>Topics:</strong> {item['topics'].join(',')}</p>
                                     <br/>
                                 </div>
@@ -75,7 +84,8 @@ export default function SearchPage() {
                         {content &&
                             content.map(item => (
                                 <div key={item['id']}>
-                                    <h4>{item['link']} ({item['exam']})</h4>
+                                    <h4><a href={item['link']}>{item['title']}</a> ({item['exam']})</h4>
+                                    <div>{ReactHtmlParser(removePrevNext(item['content']))}</div>
                                     <p><strong>Topics:</strong> {item['tags'].join(',')}</p>
                                     <br/>
                                 </div>
