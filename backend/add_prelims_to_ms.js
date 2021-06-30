@@ -1,4 +1,4 @@
-crypto = require("crypto")
+const crypto = require("crypto")
 const { MeiliSearch } = require("meilisearch")
 
 const client = new MeiliSearch({

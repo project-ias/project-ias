@@ -1,4 +1,5 @@
 const { MeiliSearch } = require("meilisearch")
+crypto = require("crypto")
 
 const client = new MeiliSearch({
     host: "http://localhost:7700",
@@ -11,8 +12,8 @@ fs.readFile('pyq_scrapers/pyqs.json', async (err, data) => {
     let json_data = JSON.parse(data)["pyqs"];
     let array_length = json_data.length;
     for(let i = 0; i < array_length; i++) {
-        
-        json_data[i]["id"] = i
+        const id = crypto.randomBytes(20).toString('hex');
+        json_data[i]["id"] = id
         // console.log(json_data[i])
         const added = await client.index('pyqs').addDocuments([ json_data[i] ])
         console.log("added ",added)
