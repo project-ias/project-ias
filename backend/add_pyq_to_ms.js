@@ -1,5 +1,5 @@
 const { MeiliSearch } = require("meilisearch")
-crypto = require("crypto")
+const crypto = require("crypto")
 
 const client = new MeiliSearch({
     host: "http://localhost:7700",

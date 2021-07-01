@@ -3,8 +3,41 @@ import axios from 'axios'
 import ReactHtmlParser from 'react-html-parser'
 import { parse } from 'node-html-parser'
 import { BACKEND_URL } from '../constants/constants'
+import { InstantSearch, SearchBox, Hits, Highlight, RefinementList } from 'react-instantsearch-dom';
+import { instantMeiliSearch } from '@meilisearch/instant-meilisearch';
 
-export default function SearchPage() {
+
+const searchClient = instantMeiliSearch(
+    "http://localhost:7700",
+    "masterKey"
+  );
+
+function Hit(props) {
+    console.log("props is ",props)
+    return(
+        <div>
+            {props.hit.question} 
+            
+            <br/>
+            <b>Options:</b>
+            {props.hit.options.map(item => {
+                return(
+                    <div>
+                       <input type="checkbox"  value={item} name={item} />
+                        <label for={item}>{item}</label><br/>
+                    </div>
+                )
+            })}
+            
+            <br/>
+            <b>Explanation:</b>
+            {ReactHtmlParser(props.hit.explanation)}
+        </div>
+    )
+// return <Highlight attribute="name" hit={props.hit} />;
+}
+
+export default function SearchPage () {
 
     const [pyqs, setPyqs] = useState([])
     const [content, setContent] = useState([])
@@ -65,10 +98,7 @@ export default function SearchPage() {
         <h1>Project IAS</h1>
 
         <input  onKeyUp={processChange}/>
-        <table>
-            <tbody>
-                <tr>
-                    <td> 
+                {/* <h1>PYQ Mains</h1>
                         {pyqs &&
                             pyqs.map(item => (
                                 <div key={item['id']}>
@@ -79,8 +109,8 @@ export default function SearchPage() {
                                 </div>
                             ))
                         }
-                    </td>
-                    <td>
+                    
+                    <h1>Dhristi IAS Content</h1>
                         {content &&
                             content.map(item => (
                                 <div key={item['id']}>
@@ -90,11 +120,29 @@ export default function SearchPage() {
                                     <br/>
                                 </div>
                             ))
-                            }
-                    </td>
-                </tr>
-            </tbody>
-        </table>
+
+                        } */}
+
+                 <h1>Prelims</h1>
+                    <InstantSearch
+                        indexName="prelims"
+                        searchClient={searchClient}
+                    >
+                        <SearchBox />
+                        {/* <RefinementList attribute="exam" /> */}
+                        <Hits hitComponent={Hit} />
+                    </InstantSearch>
+                  
        
     </div>)
+    // return(
+    //     <InstantSearch
+    //     indexName="pyqs"
+    //     searchClient={searchClient}
+    //   >
+    //     <SearchBox />
+    //     <RefinementList attribute="exam" />
+    //     <Hits hitComponent={Hit} />
+    //   </InstantSearch>
+    // )
 }
