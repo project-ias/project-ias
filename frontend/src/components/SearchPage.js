@@ -14,41 +14,56 @@ import { instantMeiliSearch } from "@meilisearch/instant-meilisearch";
 
 const searchClient = instantMeiliSearch("http://localhost:7700", "masterKey");
 
-function Hit(props) {
-  console.log("props is ", props);
-  return (
-    <div>
-      {props.hit.question}
-
-      <br />
-      <b>Options:</b>
-      {props.hit.options.map((item) => {
-        return (
-          <div>
-            <input type="checkbox" value={item} name={item} />
-            <label for={item}>{item}</label>
-            <br />
-          </div>
-        );
-      })}
-
-      <br />
-      <b>Explanation:</b>
-      {ReactHtmlParser(props.hit.explanation)}
-    </div>
-  );
-  // return <Highlight attribute="name" hit={props.hit} />;
-}
-
 export default function SearchPage() {
   const [pyqs, setPyqs] = useState([]);
   const [content, setContent] = useState([]);
   const [examType, setExamType] = useState("Prelims");
+  const [selectedIds, setSelectedIds] = useState([]);
 
   function removePrevNext(htmlString) {
     let parsedHtml = parse(htmlString);
     parsedHtml.querySelector(".next-post").remove();
     return parsedHtml.toString();
+  }
+
+  const handleSolutionClick = (selectedId) => {
+    if (selectedIds.indexOf(selectedId) === -1) {
+      setSelectedIds((Ids) => [...Ids, selectedId]);
+    } else {
+      setSelectedIds((Ids) => Ids.filter((Id) => Id !== selectedId));
+    }
+  };
+
+  function Hit(props) {
+    console.log("props is ", props);
+    return (
+      <div>
+        <div className="question">{props.hit.question}</div>
+        <div className="options">
+          Options:
+          {props.hit.options.map((item) => {
+            return (
+              <div>
+                <input type="checkbox" value={item} name={item} />
+                <label for={item}>{item}</label>
+              </div>
+            );
+          })}
+        </div>
+
+        <div
+          className="solution"
+          onClick={() => handleSolutionClick(props.hit.id)}
+        >
+          <span className="show">
+            {selectedIds.includes(props.hit.id) ? "Hide Answer" : "Show Answer"}
+          </span>
+          {selectedIds.includes(props.hit.id) &&
+            ReactHtmlParser(props.hit.explanation)}
+        </div>
+      </div>
+    );
+    // return <Highlight attribute="name" hit={props.hit} />;
   }
 
   function handleChange(e) {
