@@ -1,11 +1,11 @@
-import { BrowserRouter, Route } from 'react-router-dom';
-
-import SearchPage from './components/SearchPage'
+import { BrowserRouter, Route } from "react-router-dom";
+import "./styles/main.scss";
+import SearchPage from "./components/SearchPage";
 
 function App() {
   return (
     <BrowserRouter>
-        <Route path='/' component={SearchPage} />
+      <Route path="/" component={SearchPage} />
     </BrowserRouter>
   );
 }
