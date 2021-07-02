@@ -1,0 +1,35 @@
+@import "instantSearch.scss";
+
+.main {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+
+  .title {
+    margin: 1rem 0.5rem;
+  }
+
+  .types {
+    display: flex;
+    background-color: white;
+    max-width: 1000px;
+    color: #8a8a8a;
+    border: 2px solid #f1f1f1;
+    border-radius: 10px;
+    margin: 1rem 0.5rem;
+
+    .type {
+      flex-grow: 1;
+      min-width: 40%;
+      text-align: center;
+      padding: 0.5rem 1rem;
+      border-radius: 10px;
+      cursor: pointer;
+    }
+
+    .current {
+      background-color: #ebf3ff;
+      color: #065cd8;
+    }
+  }
+}

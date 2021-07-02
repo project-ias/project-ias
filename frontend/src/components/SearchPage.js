@@ -43,6 +43,7 @@ function Hit(props) {
 export default function SearchPage() {
   const [pyqs, setPyqs] = useState([]);
   const [content, setContent] = useState([]);
+  const [examType, setExamType] = useState("Prelims");
 
   function removePrevNext(htmlString) {
     let parsedHtml = parse(htmlString);
@@ -125,8 +126,21 @@ export default function SearchPage() {
                             ))
 
                         } */}
+      <div className="types">
+        <div
+          className={`type ${examType === "Prelims" && "current"}`}
+          onClick={() => setExamType("Prelims")}
+        >
+          Prelims
+        </div>
+        <div
+          className={`type ${examType === "Mains" && "current"}`}
+          onClick={() => setExamType("Mains")}
+        >
+          Mains
+        </div>
+      </div>
 
-      <h2>Prelims</h2>
       <InstantSearch indexName="prelims" searchClient={searchClient}>
         <SearchBox />
         {/* <RefinementList attribute="exam" /> */}
