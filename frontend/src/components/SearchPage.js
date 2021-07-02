@@ -97,8 +97,8 @@ export default function SearchPage () {
     return(<div>
         <h1>Project IAS</h1>
 
-        <input  onKeyUp={processChange}/>
-                {/* <h1>PYQ Mains</h1>
+        {/* <input  onKeyUp={processChange}/>
+                <h1>PYQ Mains</h1>
                         {pyqs &&
                             pyqs.map(item => (
                                 <div key={item['id']}>
