@@ -29,6 +29,7 @@ mapping = {
     'c': 2,
     'd': 3
 }
+# change the 2019 -> 2020 to get 2020 prelims questions
 baseURL = "file:///home/rka/0repos/neera/project-ias/backend/pyq_scrapers/2019/2019.html"
 driver = webdriver.Chrome()
 driver.get(baseURL)
