@@ -12,12 +12,15 @@ import {
 } from "react-instantsearch-dom";
 import { instantMeiliSearch } from "@meilisearch/instant-meilisearch";
 
-const searchClient = instantMeiliSearch("https://6e5aec93d8f8.ngrok.io", "masterKey");
+const searchClient = instantMeiliSearch(
+  "https://6e5aec93d8f8.ngrok.io",
+  "masterKey"
+);
 
 export default function SearchPage() {
   const [pyqs, setPyqs] = useState([]);
   const [content, setContent] = useState([]);
-  const [examType, setExamType] = useState("Prelims");
+  const [examType, setExamType] = useState("prelims");
   const [selectedIds, setSelectedIds] = useState([]);
 
   function removePrevNext(htmlString) {
@@ -34,14 +37,14 @@ export default function SearchPage() {
     }
   };
 
-  function Hit(props) {
+  function HitPrelims(props) {
     console.log("props is ", props);
     return (
       <div>
         <div className="question">{props.hit.question}</div>
         <div className="options">
           Options:
-          {props.hit.options.map((item) => {
+          {props.hit?.options?.map((item) => {
             return (
               <div>
                 <input type="checkbox" value={item} name={item} />
@@ -61,6 +64,21 @@ export default function SearchPage() {
           {selectedIds.includes(props.hit.id) &&
             ReactHtmlParser(props.hit.explanation)}
         </div>
+      </div>
+    );
+    // return <Highlight attribute="name" hit={props.hit} />;
+  }
+
+  function HitPyqs(props) {
+    console.log("props is ", props);
+    return (
+      <div>
+        <div className="question">{props.hit.question}</div>({props.hit["year"]}
+        )
+        <p>
+          <strong>Topics:</strong> {props.hit?.topics?.join(",")}
+        </p>
+        <span> Exam Type: {props.hit["exam"]} </span>
       </div>
     );
     // return <Highlight attribute="name" hit={props.hit} />;
@@ -143,23 +161,27 @@ export default function SearchPage() {
                         } */}
       <div className="types">
         <div
-          className={`type ${examType === "Prelims" && "current"}`}
-          onClick={() => setExamType("Prelims")}
+          className={`type ${examType === "prelims" && "current"}`}
+          onClick={() => setExamType("prelims")}
         >
           Prelims
         </div>
         <div
-          className={`type ${examType === "Mains" && "current"}`}
-          onClick={() => setExamType("Mains")}
+          className={`type ${examType === "pyqs" && "current"}`}
+          onClick={() => setExamType("pyqs")}
         >
           Mains
         </div>
       </div>
 
-      <InstantSearch indexName="prelims" searchClient={searchClient}>
+      <InstantSearch indexName={examType} searchClient={searchClient}>
         <SearchBox />
         {/* <RefinementList attribute="exam" /> */}
-        <Hits hitComponent={Hit} />
+        {examType === "prelims" ? (
+          <Hits hitComponent={HitPrelims} />
+        ) : (
+          <Hits hitComponent={HitPyqs} />
+        )}
       </InstantSearch>
     </div>
   );
