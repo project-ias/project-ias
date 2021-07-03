@@ -159,23 +159,24 @@ export default function SearchPage() {
                             ))
 
                         } */}
-      <div className="types">
-        <div
-          className={`type ${examType === "prelims" && "current"}`}
-          onClick={() => setExamType("prelims")}
-        >
-          Prelims
-        </div>
-        <div
-          className={`type ${examType === "pyqs" && "current"}`}
-          onClick={() => setExamType("pyqs")}
-        >
-          Mains
-        </div>
-      </div>
-
       <InstantSearch indexName={examType} searchClient={searchClient}>
         <SearchBox />
+
+        <div className="types">
+          <div
+            className={`type ${examType === "prelims" && "current"}`}
+            onClick={() => setExamType("prelims")}
+          >
+            Prelims
+          </div>
+          <div
+            className={`type ${examType === "pyqs" && "current"}`}
+            onClick={() => setExamType("pyqs")}
+          >
+            Mains
+          </div>
+        </div>
+
         {/* <RefinementList attribute="exam" /> */}
         {examType === "prelims" ? (
           <Hits hitComponent={HitPrelims} />
@@ -185,14 +186,4 @@ export default function SearchPage() {
       </InstantSearch>
     </div>
   );
-  // return(
-  //     <InstantSearch
-  //     indexName="pyqs"
-  //     searchClient={searchClient}
-  //   >
-  //     <SearchBox />
-  //     <RefinementList attribute="exam" />
-  //     <Hits hitComponent={Hit} />
-  //   </InstantSearch>
-  // )
 }
