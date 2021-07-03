@@ -7,6 +7,7 @@ import {
   InstantSearch,
   SearchBox,
   Hits,
+  Index,
   Highlight,
   RefinementList,
 } from "react-instantsearch-dom";
@@ -37,8 +38,21 @@ export default function SearchPage() {
     }
   };
 
+  function ReturnHitComponent(selectedType) {
+    switch (selectedType) {
+      case "prelims":
+        return HitPrelims;
+        break;
+      case "pyqs":
+        return HitPyqs;
+        break;
+      case "content":
+        return HitDrishti;
+        break;
+    }
+  }
+
   function HitPrelims(props) {
-    console.log("props is ", props);
     return (
       <div>
         <div className="question">{props.hit.question}</div>
@@ -70,7 +84,6 @@ export default function SearchPage() {
   }
 
   function HitPyqs(props) {
-    console.log("props is ", props);
     return (
       <div>
         <div className="question">{props.hit.question}</div>({props.hit["year"]}
@@ -82,6 +95,24 @@ export default function SearchPage() {
       </div>
     );
     // return <Highlight attribute="name" hit={props.hit} />;
+  }
+
+  function HitDrishti(props) {
+    return (
+      <div>
+        <h4>
+          <a href={props.hit.link}>{props.hit.title}</a> ({props.hit.exam})
+        </h4>
+        <div>
+          {props.hit.content &&
+            ReactHtmlParser(removePrevNext(props.hit.content))}
+        </div>
+        <p>
+          <strong>Topics:</strong> {props.hit?.tags?.join(",")}
+        </p>
+        <br />
+      </div>
+    );
   }
 
   function handleChange(e) {
@@ -175,14 +206,15 @@ export default function SearchPage() {
           >
             Mains
           </div>
+          <div
+            className={`type ${examType === "content" && "current"}`}
+            onClick={() => setExamType("content")}
+          >
+            Read
+          </div>
         </div>
 
-        {/* <RefinementList attribute="exam" /> */}
-        {examType === "prelims" ? (
-          <Hits hitComponent={HitPrelims} />
-        ) : (
-          <Hits hitComponent={HitPyqs} />
-        )}
+        <Hits hitComponent={ReturnHitComponent(examType)} />
       </InstantSearch>
     </div>
   );
