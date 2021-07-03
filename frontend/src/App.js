@@ -5,7 +5,9 @@ import SearchPage from "./components/SearchPage";
 function App() {
   return (
     <BrowserRouter>
-      <Route path="/" component={SearchPage} />
+      <div className="App">
+        <Route path="/" component={SearchPage} />
+      </div>
     </BrowserRouter>
   );
 }
