@@ -1,4 +1,7 @@
+@import "mixins.scss";
 @import "instantSearch.scss";
+@import "app.scss";
+@import "typography.scss";
 
 .main {
   display: flex;
@@ -6,13 +9,18 @@
   justify-content: center;
 
   .title {
+    text-align: center;
     margin: 1rem 0.5rem;
+    font-size: 5rem;
+
+    @include sm {
+      font-size: 3.5rem;
+    }
   }
 
   .types {
     display: flex;
     background-color: white;
-    max-width: 1000px;
     color: #8a8a8a;
     border: 2px solid #f1f1f1;
     border-radius: 4px;

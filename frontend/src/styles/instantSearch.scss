@@ -1,17 +1,19 @@
 .ais-SearchBox-form {
   display: flex;
+  flex-direction: row;
   align-items: center;
   position: relative;
-  max-width: 1000px;
+  min-width: 1000px;
   margin: 0 0.5rem;
 
   .ais-SearchBox-input {
     padding: 0 1rem;
     width: 100%;
     height: 3.5rem;
-    font-size: 1.2rem;
     margin: 0 0 1rem 0;
 
+    font-size: inherit;
+    font-family: inherit;
     background: #fff;
     border: 1px solid #e0e0e0;
     box-sizing: border-box;
@@ -34,6 +36,10 @@
     svg {
       height: 23px;
       width: 23px;
+    }
+
+    @include sm {
+      right: 10px;
     }
   }
 
@@ -64,6 +70,14 @@
         }
       }
     }
+
+    @include sm {
+      right: 45 px;
+    }
+  }
+
+  @include sm {
+    min-width: auto;
   }
 }
 
@@ -82,10 +96,6 @@
       list-style: none;
       padding: 1rem;
       margin: 1rem 0;
-
-      .question {
-        font-size: 1.3rem;
-      }
 
       .options {
         margin: 0.5rem 0;
