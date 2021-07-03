@@ -12,7 +12,7 @@ import {
 } from "react-instantsearch-dom";
 import { instantMeiliSearch } from "@meilisearch/instant-meilisearch";
 
-const searchClient = instantMeiliSearch("http://localhost:7700", "masterKey");
+const searchClient = instantMeiliSearch("https://6e5aec93d8f8.ngrok.io", "masterKey");
 
 export default function SearchPage() {
   const [pyqs, setPyqs] = useState([]);
