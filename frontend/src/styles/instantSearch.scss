@@ -1,8 +1,9 @@
 .ais-SearchBox-form {
   display: flex;
+  flex-direction: row;
   align-items: center;
   position: relative;
-  max-width: 1000px;
+  min-width: 1000px;
   margin: 0 0.5rem;
 
   .ais-SearchBox-input {
@@ -35,6 +36,10 @@
       height: 23px;
       width: 23px;
     }
+
+    @include sm {
+      right: 10px;
+    }
   }
 
   .ais-SearchBox-reset {
@@ -64,6 +69,14 @@
         }
       }
     }
+
+    @include sm {
+      right: 45 px;
+    }
+  }
+
+  @include sm {
+    min-width: auto;
   }
 }
 
@@ -82,10 +95,6 @@
       list-style: none;
       padding: 1rem;
       margin: 1rem 0;
-
-      .question {
-        font-size: 1.3rem;
-      }
 
       .options {
         margin: 0.5rem 0;
