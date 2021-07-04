@@ -97,6 +97,31 @@
       padding: 1rem;
       margin: 1rem 0;
 
+      .ais-Highlight-highlighted {
+        position: relative;
+        font-weight: bolder;
+        padding: 0.3rem 0;
+        margin: 0;
+
+        background: linear-gradient(
+            104deg,
+            rgba(130, 255, 173, 0) 0.9%,
+            rgba(130, 255, 173, 1.25) 2.4%,
+            rgba(130, 255, 173, 0.5) 5.8%,
+            rgba(130, 255, 173, 0.1) 93%,
+            rgba(130, 255, 173, 0.7) 96%,
+            rgba(130, 255, 1732, 0) 98%
+          ),
+          linear-gradient(
+            183deg,
+            rgba(130, 255, 173, 0) 0%,
+            rgba(130, 255, 173, 0.3) 7.9%,
+            rgba(130, 255, 173, 0) 15%
+          );
+        box-decoration-break: clone;
+        -webkit-box-decoration-break: clone;
+        border-radius: 7.5px;
+      }
       .options {
         margin: 0.5rem 0;
 

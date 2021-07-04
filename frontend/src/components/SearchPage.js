@@ -10,6 +10,7 @@ import {
   Index,
   Highlight,
   RefinementList,
+  connectHighlight,
 } from "react-instantsearch-dom";
 import { instantMeiliSearch } from "@meilisearch/instant-meilisearch";
 
@@ -55,7 +56,8 @@ export default function SearchPage() {
   function HitPrelims(props) {
     return (
       <div>
-        <div className="question">{props.hit.question}</div>
+        {/* <div className="question">{props.hit.question}</div> */}
+        <Highlight attribute="question" hit={props.hit} />
         <div className="options">
           Options:
           {props.hit?.options?.map((item) => {
@@ -86,8 +88,7 @@ export default function SearchPage() {
   function HitPyqs(props) {
     return (
       <div>
-        <div className="question">{props.hit.question}</div>({props.hit["year"]}
-        )
+        <Highlight attribute="question" hit={props.hit} />({props.hit["year"]})
         <p>
           <strong>Topics:</strong> {props.hit?.topics?.join(",")}
         </p>
@@ -97,6 +98,28 @@ export default function SearchPage() {
     // return <Highlight attribute="name" hit={props.hit} />;
   }
 
+  // const CustomHighlight = connectHighlight(({ highlight, attribute, hit }) => {
+  //   const parsedHit = highlight({
+  //     highlightProperty: "_highlightResult",
+  //     attribute,
+  //     hit,
+  //   });
+
+  //   return (
+  //     <div>
+  //       {ReactHtmlParser(hit.content).map((part) =>
+  //         part.isHighlighted ? (
+  //           <em className="ais-Highlight-highlighted">
+  //             {ReactHtmlParser(part.value)}
+  //           </em>
+  //         ) : (
+  //           ReactHtmlParser(part.value)
+  //         )
+  //       )}
+  //     </div>
+  //   );
+  // });
+
   function HitDrishti(props) {
     return (
       <div>
@@ -104,8 +127,12 @@ export default function SearchPage() {
           <a href={props.hit.link}>{props.hit.title}</a> ({props.hit.exam})
         </h4>
         <div>
+          {/* <Highlight attribute="content" hit={props.hit} /> */}
           {props.hit.content &&
             ReactHtmlParser(removePrevNext(props.hit.content))}
+          {/* {props.hit.content && (
+            <CustomHighlight attribute="content" hit={props.hit} />
+          )} */}
         </div>
         <p>
           <strong>Topics:</strong> {props.hit?.tags?.join(",")}
