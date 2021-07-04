@@ -7,17 +7,22 @@ import {
   InstantSearch,
   SearchBox,
   Hits,
+  Index,
   Highlight,
   RefinementList,
+  connectHighlight,
 } from "react-instantsearch-dom";
 import { instantMeiliSearch } from "@meilisearch/instant-meilisearch";
 
-const searchClient = instantMeiliSearch("http://localhost:7700", "masterKey");
+const searchClient = instantMeiliSearch(
+  "https://6e5aec93d8f8.ngrok.io",
+  "masterKey"
+);
 
 export default function SearchPage() {
   const [pyqs, setPyqs] = useState([]);
   const [content, setContent] = useState([]);
-  const [examType, setExamType] = useState("Prelims");
+  const [examType, setExamType] = useState("prelims");
   const [selectedIds, setSelectedIds] = useState([]);
 
   function removePrevNext(htmlString) {
@@ -34,14 +39,28 @@ export default function SearchPage() {
     }
   };
 
-  function Hit(props) {
-    console.log("props is ", props);
+  function ReturnHitComponent(selectedType) {
+    switch (selectedType) {
+      case "prelims":
+        return HitPrelims;
+        break;
+      case "pyqs":
+        return HitPyqs;
+        break;
+      case "content":
+        return HitDrishti;
+        break;
+    }
+  }
+
+  function HitPrelims(props) {
     return (
       <div>
-        <div className="question">{props.hit.question}</div>
+        {/* <div className="question">{props.hit.question}</div> */}
+        <Highlight attribute="question" hit={props.hit} />
         <div className="options">
           Options:
-          {props.hit.options.map((item) => {
+          {props.hit?.options?.map((item) => {
             return (
               <div>
                 <input type="checkbox" value={item} name={item} />
@@ -64,6 +83,63 @@ export default function SearchPage() {
       </div>
     );
     // return <Highlight attribute="name" hit={props.hit} />;
+  }
+
+  function HitPyqs(props) {
+    return (
+      <div>
+        <Highlight attribute="question" hit={props.hit} />({props.hit["year"]})
+        <p>
+          <strong>Topics:</strong> {props.hit?.topics?.join(",")}
+        </p>
+        <span> Exam Type: {props.hit["exam"]} </span>
+      </div>
+    );
+    // return <Highlight attribute="name" hit={props.hit} />;
+  }
+
+  // const CustomHighlight = connectHighlight(({ highlight, attribute, hit }) => {
+  //   const parsedHit = highlight({
+  //     highlightProperty: "_highlightResult",
+  //     attribute,
+  //     hit,
+  //   });
+
+  //   return (
+  //     <div>
+  //       {ReactHtmlParser(hit.content).map((part) =>
+  //         part.isHighlighted ? (
+  //           <em className="ais-Highlight-highlighted">
+  //             {ReactHtmlParser(part.value)}
+  //           </em>
+  //         ) : (
+  //           ReactHtmlParser(part.value)
+  //         )
+  //       )}
+  //     </div>
+  //   );
+  // });
+
+  function HitDrishti(props) {
+    return (
+      <div>
+        <h4>
+          <a href={props.hit.link}>{props.hit.title}</a> ({props.hit.exam})
+        </h4>
+        <div>
+          {/* <Highlight attribute="content" hit={props.hit} /> */}
+          {props.hit.content &&
+            ReactHtmlParser(removePrevNext(props.hit.content))}
+          {/* {props.hit.content && (
+            <CustomHighlight attribute="content" hit={props.hit} />
+          )} */}
+        </div>
+        <p>
+          <strong>Topics:</strong> {props.hit?.tags?.join(",")}
+        </p>
+        <br />
+      </div>
+    );
   }
 
   function handleChange(e) {
@@ -141,36 +217,32 @@ export default function SearchPage() {
                             ))
 
                         } */}
-      <div className="types">
-        <div
-          className={`type ${examType === "Prelims" && "current"}`}
-          onClick={() => setExamType("Prelims")}
-        >
-          Prelims
-        </div>
-        <div
-          className={`type ${examType === "Mains" && "current"}`}
-          onClick={() => setExamType("Mains")}
-        >
-          Mains
-        </div>
-      </div>
-
-      <InstantSearch indexName="prelims" searchClient={searchClient}>
+      <InstantSearch indexName={examType} searchClient={searchClient}>
         <SearchBox />
-        {/* <RefinementList attribute="exam" /> */}
-        <Hits hitComponent={Hit} />
+
+        <div className="types">
+          <div
+            className={`type ${examType === "prelims" && "current"}`}
+            onClick={() => setExamType("prelims")}
+          >
+            Prelims
+          </div>
+          <div
+            className={`type ${examType === "pyqs" && "current"}`}
+            onClick={() => setExamType("pyqs")}
+          >
+            Mains
+          </div>
+          <div
+            className={`type ${examType === "content" && "current"}`}
+            onClick={() => setExamType("content")}
+          >
+            Read
+          </div>
+        </div>
+
+        <Hits hitComponent={ReturnHitComponent(examType)} />
       </InstantSearch>
     </div>
   );
-  // return(
-  //     <InstantSearch
-  //     indexName="pyqs"
-  //     searchClient={searchClient}
-  //   >
-  //     <SearchBox />
-  //     <RefinementList attribute="exam" />
-  //     <Hits hitComponent={Hit} />
-  //   </InstantSearch>
-  // )
 }
