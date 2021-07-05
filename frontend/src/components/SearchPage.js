@@ -25,6 +25,11 @@ export default function SearchPage() {
   const [examType, setExamType] = useState("prelims");
   const [selectedIds, setSelectedIds] = useState([]);
 
+  // DNS
+  const [dnsTitle, setDNSTitle] = useState('')
+  const [dnsLink, setDNSLink] = useState('')
+
+
   function removePrevNext(htmlString) {
     let parsedHtml = parse(htmlString);
     parsedHtml.querySelector(".next-post").remove();
@@ -143,40 +148,60 @@ export default function SearchPage() {
   }
 
   function handleChange(e) {
-    console.log("e.", e.target.value);
     const query = e.target.value;
     const data = { query: query };
     const PYQ_URL = `${BACKEND_URL}/search_pyq`;
+    const DNS_URL = `${BACKEND_URL}/search_dns`;
     const Content_URL = `${BACKEND_URL}/search_content`;
 
     if (query !== "") {
       console.log("Non empty query", query);
       axios
-        .post(PYQ_URL, data)
+        .post(DNS_URL, data)
         .then((res) => {
-          console.log("res", res.data);
-          setPyqs(res.data.hits);
+         try {
+          console.log("res", res.data.hits[0].title);
+          console.log("res", res.data.hits[0].link.replace('/watch?v=','/embed/').replace('&t=', '?start='));
+
+          setDNSLink(res.data.hits[0].link.replace('/watch?v=','/embed/').replace('&t=', '?start='))
+          setDNSTitle(res.data.hits[0].title)
+         } catch(e) {
+          setDNSLink('')
+          setDNSTitle('')
+         } 
+
         })
         .catch((err) => {
           console.log("err is ", err);
         });
 
-      axios
-        .post(Content_URL, data)
-        .then((res) => {
-          console.log("content res", res.data);
-          setContent(res.data.hits);
-        })
-        .catch((err) => {
-          console.log("err is ", err);
-        });
+      // ENDPOINTS DEPRACATED 
+      // axios
+      //   .post(PYQ_URL, data)
+      //   .then((res) => {
+      //     console.log("res", res.data);
+      //     setPyqs(res.data.hits);
+      //   })
+      //   .catch((err) => {
+      //     console.log("err is ", err);
+      //   });
+
+      // axios
+      //   .post(Content_URL, data)
+      //   .then((res) => {
+      //     console.log("content res", res.data);
+      //     setContent(res.data.hits);
+      //   })
+        // .catch((err) => {
+        //   console.log("err is ", err);
+        // });
     } else if (query === "") {
       setPyqs([]);
       setContent([]);
     }
   }
 
-  function debounce(func, timeout = 300) {
+  function debounce(func, timeout = 100) {
     let timer;
     return (...args) => {
       clearTimeout(timer);
@@ -218,8 +243,15 @@ export default function SearchPage() {
 
                         } */}
       <InstantSearch indexName={examType} searchClient={searchClient}>
-        <SearchBox />
+        <SearchBox onChange={processChange}/>
 
+        {dnsLink !== '' &&
+          <div className="dns-video">
+            <h2 className='dns-title'>{dnsTitle}</h2>
+            <iframe width="100%" height="500" src={dnsLink} frameborder="0" allowfullscreen></iframe>
+          </div>
+
+        }
         <div className="types">
           <div
             className={`type ${examType === "prelims" && "current"}`}
