@@ -23,7 +23,9 @@ def remove_time_stamp(title_with_time_stamp):
     title_without_time_stamp = ''.join(characters)
     return title_without_time_stamp
 
-baseURL  = "file:///home/rka/0repos/neera/project-ias/backend/pyq_scrapers/rau_dns.html"
+print(remove_time_stamp('Conclusive land titling and its challenges â€“ (Polity & Governance) â€“ (03:02) (Land Titling System in India)'))
+
+baseURL  = "file:///home/rka/0repos/neera/project-ias/backend/pyq_scrapers/old_rau_dns.html"
 driver = webdriver.Chrome()
 driver.get(baseURL)
 time.sleep(3)
@@ -37,18 +39,23 @@ for ol in all_ols:
             print(list_item.text)
             yt_link = list_item.find_element_by_tag_name('a').get_attribute('href')
             cleaned_title = remove_time_stamp(list_item.text)
+        except  Exception as e:
+            print('###########################',e)
+
+        try:
             data['dns'].append(
                 {
                     'title': cleaned_title,
                     'link': yt_link
                 }
             )
-        except:
+        except Exception as e:
             print('---------------------------', list_item.text)
+            print(e)
 
 
 
-with open('rau_dns_latest.json', 'w') as f:
+with open('rau_dns_old.json', 'w') as f:
         json.dump(data, f)
 
 
