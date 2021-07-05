@@ -21,9 +21,9 @@
   .dns-video {
     text-align: center;
 
-   .dns-title {
-     text-align: center;
-   }
+    .dns-title {
+      text-align: center;
+    }
   }
 
   .types {
@@ -51,6 +51,24 @@
   .article-detail {
     img {
       width: 100%;
+    }
+  }
+
+  .dns-video {
+    margin: 0.5rem;
+    max-width: 1000px;
+
+    .dns-video-container {
+      position: relative;
+      padding: 0.5rem 0 56.25% 0;
+      height: 0;
+      iframe {
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+      }
     }
   }
 }
