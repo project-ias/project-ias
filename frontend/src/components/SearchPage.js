@@ -26,9 +26,8 @@ export default function SearchPage() {
   const [selectedIds, setSelectedIds] = useState([]);
 
   // DNS
-  const [dnsTitle, setDNSTitle] = useState('')
-  const [dnsLink, setDNSLink] = useState('')
-
+  const [dnsTitle, setDNSTitle] = useState("");
+  const [dnsLink, setDNSLink] = useState("");
 
   function removePrevNext(htmlString) {
     let parsedHtml = parse(htmlString);
@@ -159,23 +158,31 @@ export default function SearchPage() {
       axios
         .post(DNS_URL, data)
         .then((res) => {
-         try {
-          console.log("res", res.data.hits[0].title);
-          console.log("res", res.data.hits[0].link.replace('/watch?v=','/embed/').replace('&t=', '?start='));
+          try {
+            console.log("res", res.data.hits[0].title);
+            console.log(
+              "res",
+              res.data.hits[0].link
+                .replace("/watch?v=", "/embed/")
+                .replace("&t=", "?start=")
+            );
 
-          setDNSLink(res.data.hits[0].link.replace('/watch?v=','/embed/').replace('&t=', '?start='))
-          setDNSTitle(res.data.hits[0].title)
-         } catch(e) {
-          setDNSLink('')
-          setDNSTitle('')
-         } 
-
+            setDNSLink(
+              res.data.hits[0].link
+                .replace("/watch?v=", "/embed/")
+                .replace("&t=", "?start=")
+            );
+            setDNSTitle(res.data.hits[0].title);
+          } catch (e) {
+            setDNSLink("");
+            setDNSTitle("");
+          }
         })
         .catch((err) => {
           console.log("err is ", err);
         });
 
-      // ENDPOINTS DEPRACATED 
+      // ENDPOINTS DEPRACATED
       // axios
       //   .post(PYQ_URL, data)
       //   .then((res) => {
@@ -192,9 +199,9 @@ export default function SearchPage() {
       //     console.log("content res", res.data);
       //     setContent(res.data.hits);
       //   })
-        // .catch((err) => {
-        //   console.log("err is ", err);
-        // });
+      // .catch((err) => {
+      //   console.log("err is ", err);
+      // });
     } else if (query === "") {
       setPyqs([]);
       setContent([]);
@@ -243,15 +250,8 @@ export default function SearchPage() {
 
                         } */}
       <InstantSearch indexName={examType} searchClient={searchClient}>
-        <SearchBox onChange={processChange}/>
+        <SearchBox onChange={processChange} />
 
-        {dnsLink !== '' &&
-          <div className="dns-video">
-            <h2 className='dns-title'>{dnsTitle}</h2>
-            <iframe width="100%" height="500" src={dnsLink} frameborder="0" allowfullscreen></iframe>
-          </div>
-
-        }
         <div className="types">
           <div
             className={`type ${examType === "prelims" && "current"}`}
@@ -272,6 +272,20 @@ export default function SearchPage() {
             Read
           </div>
         </div>
+
+        {dnsLink !== "" && (
+          <div className="dns-video">
+            <h3 className="dns-title">{dnsTitle}</h3>
+            <div className="dns-video-container">
+              <iframe
+                title={dnsTitle}
+                src={dnsLink}
+                frameborder="0"
+                allowfullscreen
+              ></iframe>
+            </div>
+          </div>
+        )}
 
         <Hits hitComponent={ReturnHitComponent(examType)} />
       </InstantSearch>
