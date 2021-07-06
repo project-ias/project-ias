@@ -188,6 +188,7 @@ export default function SearchPage() {
     const data = { query: query };
     const PYQ_URL = `${BACKEND_URL}/search_pyq`;
     const DNS_URL = `${BACKEND_URL}/search_dns`;
+    const LOG_URL = `${BACKEND_URL}/log`
     const Content_URL = `${BACKEND_URL}/search_content`;
 
     if (query !== "") {
@@ -218,6 +219,23 @@ export default function SearchPage() {
         .catch((err) => {
           console.log("err is ", err);
         });
+
+      // Logging
+      const log = {
+        'query_data': {
+          'query': query,
+          'type': examType,
+          'time': new Date().toString()
+        }
+      }
+      axios
+        .post(LOG_URL, log)
+        .then(res => {
+          console.log('res',res.data)
+        })
+        .catch(err => {
+          console.log("err is ",err)
+        })
 
       // ENDPOINTS DEPRACATED
       // axios
