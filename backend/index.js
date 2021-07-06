@@ -2,6 +2,7 @@ const express = require("express");
 const cors = require("cors");
 const morgan = require("morgan");
 const { MeiliSearch } = require("meilisearch")
+const crypto = require("crypto")
 
 const app = express();
 app.use(express.json());
@@ -17,6 +18,16 @@ const client = new MeiliSearch({
 
 app.get('/', (req, res) => {
     res.send('helo')
+})
+
+app.post('/log',async  (req, res) => {
+  console.log("LOGGGG")
+  const query_data = req.body.query_data
+  console.log(client)
+  const id = crypto.randomBytes(20).toString('hex');
+  query_data['id'] = id
+  const x = await client.index('query_logs').addDocuments([ query_data ])
+  res.send('Added')
 })
 
 app.post('/search_pyq', async (req, res) => {
