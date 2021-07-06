@@ -25,6 +25,9 @@ export default function SearchPage() {
   const [examType, setExamType] = useState("prelims");
   const [selectedIds, setSelectedIds] = useState([]);
 
+  // marked ques
+  const [mains, setMains] = useState({})
+
   // DNS
   const [dnsTitle, setDNSTitle] = useState("");
   const [dnsLink, setDNSLink] = useState("");
@@ -58,6 +61,33 @@ export default function SearchPage() {
   }
 
   function HitPrelims(props) {
+    
+    let current_mains = mains
+    const Q = {}
+    if(current_mains[props.hit.id] === undefined) {
+      Q[props.hit.id] = {
+        'marked': '',
+        'answer': props.hit.answer
+      }
+
+    current_mains = {...current_mains, ...Q}
+    setMains(current_mains)
+    console.log(current_mains)
+   }
+
+   function markAns(ques_id, marked, answer) {
+    const id = ques_id.toString()
+    console.log("id is ",id)
+    const changed = {}
+    changed[id] = {
+      'marked': marked,
+      'answer': answer
+    }
+    console.log("changed ",{...mains, ...changed})
+    setMains({...mains, ...changed})
+   } 
+
+
     return (
       <div>
         {/* <div className="question">{props.hit.question}</div> */}
@@ -67,8 +97,15 @@ export default function SearchPage() {
           {props.hit?.options?.map((item) => {
             return (
               <div>
-                <input type="checkbox" value={item} name={item} />
-                <label for={item}>{item}</label>
+                <input type="radio" value={item} name={item} onChange={e => markAns(props.hit.id,e.target.value, props.hit.answer)} checked={ mains[props.hit.id] !== undefined && mains[props.hit.id]['marked'] !== '' && item === mains[props.hit.id]['marked']}/>
+                <label for={item}>{item} {
+                  // it should be defined and marked
+                  mains[props.hit.id] !== undefined && mains[props.hit.id]['marked'] !== '' ?
+                     item === mains[props.hit.id]['answer'] ? 'R' : 'W'
+                  : 'XXX'
+                }
+                {console.log("??",mains[props.hit.id] && mains[props.hit.id]['marked'] === mains[props.hit.id]['answer'], "for ", props.hit.id)}
+                </label>
               </div>
             );
           })}
