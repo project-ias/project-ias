@@ -77,7 +77,13 @@ export default function SearchPage() {
 
    function markAns(ques_id, marked) {
      let current_mains = mains
+     const id = ques_id
+
+     console.log("This has to be false ",current_mains[id] !== undefined && current_mains[id]['marked'] !== '')
      current_mains[ques_id]['marked'] = marked
+     
+     console.log("This has to be true now ",current_mains[id] !== undefined && current_mains[id]['marked'] !== '')
+     console.log("This is also true ",current_mains[id]['marked'] === current_mains[id]['answer'])
      console.log(current_mains)
      setMains(current_mains)
    } 
