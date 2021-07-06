@@ -101,8 +101,8 @@ export default function SearchPage() {
                 <label for={item}>{item} {
                   // it should be defined and marked
                   mains[props.hit.id] !== undefined && mains[props.hit.id]['marked'] !== '' ?
-                     item === mains[props.hit.id]['answer'] ? 'R' : 'W'
-                  : 'XXX'
+                     item === mains[props.hit.id]['answer'] ? '✔️' : '❌'
+                  : ''
                 }
                 {console.log("??",mains[props.hit.id] && mains[props.hit.id]['marked'] === mains[props.hit.id]['answer'], "for ", props.hit.id)}
                 </label>
