@@ -75,17 +75,16 @@ export default function SearchPage() {
     console.log(current_mains)
    }
 
-   function markAns(ques_id, marked) {
-     let current_mains = mains
-     const id = ques_id
-
-     console.log("This has to be false ",current_mains[id] !== undefined && current_mains[id]['marked'] !== '')
-     current_mains[ques_id]['marked'] = marked
-     
-     console.log("This has to be true now ",current_mains[id] !== undefined && current_mains[id]['marked'] !== '')
-     console.log("This is also true ",current_mains[id]['marked'] === current_mains[id]['answer'])
-     console.log(current_mains)
-     setMains(current_mains)
+   function markAns(ques_id, marked, answer) {
+    const id = ques_id.toString()
+    console.log("id is ",id)
+    const changed = {}
+    changed[id] = {
+      'marked': marked,
+      'answer': answer
+    }
+    console.log("changed ",{...mains, ...changed})
+    setMains({...mains, ...changed})
    } 
 
 
@@ -98,11 +97,11 @@ export default function SearchPage() {
           {props.hit?.options?.map((item) => {
             return (
               <div>
-                <input type="checkbox" value={item} name={item} onChange={e => markAns(props.hit.id,e.target.value)}/>
+                <input type="radio" value={item} name={item} onChange={e => markAns(props.hit.id,e.target.value, props.hit.answer)} checked={ mains[props.hit.id] !== undefined && mains[props.hit.id]['marked'] !== '' && item === mains[props.hit.id]['marked']}/>
                 <label for={item}>{item} {
                   // it should be defined and marked
                   mains[props.hit.id] !== undefined && mains[props.hit.id]['marked'] !== '' ?
-                     mains[props.hit.id]['marked'] === mains[props.hit.id]['answer'] ? 'R' : 'W'
+                     item === mains[props.hit.id]['answer'] ? 'R' : 'W'
                   : 'XXX'
                 }
                 {console.log("??",mains[props.hit.id] && mains[props.hit.id]['marked'] === mains[props.hit.id]['answer'], "for ", props.hit.id)}
