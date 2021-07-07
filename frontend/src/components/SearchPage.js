@@ -313,7 +313,8 @@ export default function SearchPage() {
 
   return (
     <div className="main">
-      <h1 className="title">Project IAS</h1>
+      <h2 className="title">Project IAS</h2>
+      <h3 className="subtitle" style={{ textAlign: 'center'}}>Search through PYQs, DNS & Reading Content </h3>
 
       {/* <input  onKeyUp={processChange}/>
                 <h1>PYQ Mains</h1>

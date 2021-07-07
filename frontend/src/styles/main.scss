@@ -13,6 +13,10 @@
     margin: 1rem 0.5rem;
     font-size: 5rem;
 
+  .subtitle {
+    text-align: center;
+  }
+
     @include sm {
       font-size: 3.5rem;
     }
