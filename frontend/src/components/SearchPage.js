@@ -14,6 +14,10 @@ import {
 } from "react-instantsearch-dom";
 import { instantMeiliSearch } from "@meilisearch/instant-meilisearch";
 
+import "react-loader-spinner/dist/loader/css/react-spinner-loader.css";
+import Loader from "react-loader-spinner";
+
+
 const searchClient = instantMeiliSearch(
   "https://6e5aec93d8f8.ngrok.io",
   "masterKey"
@@ -90,14 +94,26 @@ export default function SearchPage() {
 
     return (
       <div>
-        {/* <div className="question">{props.hit.question}</div> */}
-        <Highlight attribute="question" hit={props.hit} />
+        {props.hit.options == undefined ? 
+          <Loader
+          type="Puff"
+          color="#00BFFF"
+          height={100}
+          width={100}
+          visible={true} 
+          style = {{
+            textAlign: 'center'
+          }}
+        />
+        : 
+        <>
+          <Highlight attribute="question" hit={props.hit} />
         <div className="options">
           Options:
           {props.hit?.options?.map((item) => {
             return (
               <div>
-                <input type="radio" value={item} name={item} onChange={e => markAns(props.hit.id,e.target.value, props.hit.answer)} checked={ mains[props.hit.id] !== undefined && mains[props.hit.id]['marked'] !== '' && item === mains[props.hit.id]['marked']}/>
+                <input type="radio" value={item} name={item} onChange={e => markAns(props.hit.id,e.target.value, props.hit.answer)} checked={ mains[props.hit.id] !== undefined && item === mains[props.hit.id]['marked']}/>
                 <label for={item}>{item} {
                   // it should be defined and marked
                   mains[props.hit.id] !== undefined && mains[props.hit.id]['marked'] !== '' ?
@@ -121,6 +137,7 @@ export default function SearchPage() {
           {selectedIds.includes(props.hit.id) &&
             ReactHtmlParser(props.hit.explanation)}
         </div>
+        </>}
       </div>
     );
     // return <Highlight attribute="name" hit={props.hit} />;
@@ -128,13 +145,27 @@ export default function SearchPage() {
 
   function HitPyqs(props) {
     return (
-      <div>
-        <Highlight attribute="question" hit={props.hit} />({props.hit["year"]})
-        <p>
-          <strong>Topics:</strong> {props.hit?.topics?.join(",")}
-        </p>
-        <span> Exam Type: {props.hit["exam"]} </span>
-      </div>
+      <>
+        {props.hit.topics == undefined ? 
+        <Loader
+            type="Puff"
+            color="#00BFFF"
+            height={100}
+            width={100}
+            visible={true} 
+            style = {{
+              textAlign: 'center'
+            }}
+          />
+          :
+        <div>
+          <Highlight attribute="question" hit={props.hit} />({props.hit["year"]})
+          <p>
+            <strong>Topics:</strong> {props.hit?.topics?.join(",")}
+          </p>
+          <span> Exam Type: {props.hit["exam"]} </span>
+        </div>}
+      </>
     );
     // return <Highlight attribute="name" hit={props.hit} />;
   }
@@ -163,23 +194,28 @@ export default function SearchPage() {
 
   function HitDrishti(props) {
     return (
-      <div>
-        <h4>
-          <a href={props.hit.link}>{props.hit.title}</a> ({props.hit.exam})
-        </h4>
         <div>
-          {/* <Highlight attribute="content" hit={props.hit} /> */}
-          {props.hit.content &&
-            ReactHtmlParser(removePrevNext(props.hit.content))}
-          {/* {props.hit.content && (
-            <CustomHighlight attribute="content" hit={props.hit} />
-          )} */}
+        {props.hit.content === undefined ?  <Loader
+            type="Puff"
+            color="#00BFFF"
+            height={100}
+            width={100}
+            visible={true} 
+            style = {{
+              textAlign: 'center'
+            }}
+          /> : props.hit.content && 
+          <>
+          <h4>
+            <a href={props.hit.link}>{props.hit.title}</a> ({props.hit.exam})
+          </h4>
+          {ReactHtmlParser(removePrevNext(props.hit.content))}
+          <p>
+            <strong>Topics:</strong> {props.hit?.tags?.join(",")}
+          </p>
+           <br />
+          </> } 
         </div>
-        <p>
-          <strong>Topics:</strong> {props.hit?.tags?.join(",")}
-        </p>
-        <br />
-      </div>
     );
   }
 
@@ -307,6 +343,9 @@ export default function SearchPage() {
       <InstantSearch indexName={examType} searchClient={searchClient}>
         <SearchBox onChange={processChange} />
 
+
+       
+
         <div className="types">
           <div
             className={`type ${examType === "prelims" && "current"}`}
@@ -343,6 +382,7 @@ export default function SearchPage() {
         )}
 
         <Hits hitComponent={ReturnHitComponent(examType)} />
+           
       </InstantSearch>
     </div>
   );
