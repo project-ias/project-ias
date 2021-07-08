@@ -62,6 +62,38 @@ app.post('/search_pyq', async (req, res) => {
     
 })
 
+app.post('/search_prelims', async (req, res) => {
+  const query = req.body.query
+  
+  let search_response;
+  search_response = await client.index("prelims").search(query, {'limit': 50});
+
+  if(search_response.hits.length > 0)  
+    res.json(search_response);
+  else {
+    const search_words_for_right_trim = query.split(" ");
+    const search_words_for_left_trim = query.split(" ");
+
+    // Till there is atleast one result, keep trimming words from the query
+    while(search_response.hits.length === 0 && (search_words_for_left_trim.length + search_words_for_right_trim.length !== 0)) {
+      // initially words are trimmed from the right hand side
+      if(search_words_for_right_trim.length !== 0) {
+        search_words_for_right_trim.pop()
+        const new_query = search_words_for_right_trim.join(' ')
+        search_response = await client.index("prelims").search(new_query);
+      }
+      // if trimming from right has not fetched any results, words are trimmed from the left hand side
+      else {
+        search_words_for_left_trim.shift()
+        const new_query = search_words_for_left_trim.join(' ')
+        search_response = await client.index("prelims").search(new_query);
+      }
+    }
+    res.json(search_response)
+  }
+  
+})
+
 app.post('/search_content', async (req, res) => {
   const query = req.body.query
   
