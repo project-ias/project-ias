@@ -60,6 +60,9 @@ export default function SearchPage() {
       case "content":
         return HitDrishti;
         break;
+      case "dns":
+        return HitDNS;
+        break;
     }
   }
 
@@ -189,6 +192,42 @@ export default function SearchPage() {
             </p>
             <span> Exam Type: {props.hit["exam"]} </span>
           </div>
+        )}
+      </>
+    );
+    // return <Highlight attribute="name" hit={props.hit} />;
+  }
+
+
+  function HitDNS(props) {
+
+    console.log("yt", props.hit.title, props.hit.link)
+    return (
+      <>
+        {props.hit.link == undefined ? (
+          <Loader
+            type="Puff"
+            color="#00BFFF"
+            height={100}
+            width={100}
+            visible={true}
+            style={{
+              textAlign: "center",
+            }}
+          />
+        ) : (
+          <div className="dns-video">
+            <h3 className="dns-title">{dnsTitle}</h3>
+            <div className="dns-video-container">
+              <iframe
+                title={props.hit.title}
+                src={props.hit.link.replace("/watch?v=", "/embed/").replace("&t=", "?start=")}
+                frameborder="0"
+                allowfullscreen
+              ></iframe>
+            </div>
+          </div>
+         
         )}
       </>
     );
@@ -420,21 +459,15 @@ export default function SearchPage() {
           >
             Read
           </div>
+          <div
+            className={`type ${examType === "dns" && "current"}`}
+            onClick={() => setExamType("dns")}
+          >
+            DNS
+          </div>
         </div>
 
-        {dnsLink !== "" && (
-          <div className="dns-video">
-            <h3 className="dns-title">{dnsTitle}</h3>
-            <div className="dns-video-container">
-              <iframe
-                title={dnsTitle}
-                src={dnsLink}
-                frameborder="0"
-                allowfullscreen
-              ></iframe>
-            </div>
-          </div>
-        )}
+       
 
         <Hits hitComponent={ReturnHitComponent(examType)} />
       </InstantSearch>
