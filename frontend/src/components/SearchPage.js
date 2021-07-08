@@ -103,26 +103,26 @@ export default function SearchPage() {
 
     // for exam
     // for prelims and mains
-    if (examType === "prelims") {
-      axios
-        .post(PRELIMS_URL, data)
-        .then((res) => {
-          setPrelims(res.data.hits);
-        })
-        .catch((err) => {
-          console.log("err is ", err);
-        });
-    } else {
-      axios
-        .post(MAINS_URL, data)
-        .then((res) => {
-          setMainsContent(res.data.hits);
-        })
-        .catch((err) => {
-          console.log("err is ", err);
-        });
-    }
-  }, [materialType, examType]);
+    // if (examType === "prelims") {
+    //   axios
+    //     .post(PRELIMS_URL, data)
+    //     .then((res) => {
+    //       setPrelims(res.data.hits);
+    //     })
+    //     .catch((err) => {
+    //       console.log("err is ", err);
+    //     });
+    // } else {
+    //   axios
+    //     .post(MAINS_URL, data)
+    //     .then((res) => {
+    //       setMainsContent(res.data.hits);
+    //     })
+    //     .catch((err) => {
+    //       console.log("err is ", err);
+    //     });
+    // }
+  }, [materialType]);
 
   function HitPrelims(props) {
     let current_mains = mains;
@@ -165,8 +165,8 @@ export default function SearchPage() {
           />
         ) : (
           <>
-            {/* <Highlight attribute="question" hit={props.hit} /> */}
-            {props.hit.question}
+            <Highlight attribute="question" hit={props.hit} />
+            {/* {props.hit.question} */}
             <div className="options">
               Options:
               {props.hit?.options?.map((item) => {
@@ -243,8 +243,8 @@ export default function SearchPage() {
           />
         ) : (
           <div>
-            {/* <Highlight attribute="question" hit={props.hit} />( */}
-            {props.hit.question}
+            <Highlight attribute="question" hit={props.hit} />(
+            {/* {props.hit.question} */}
             {props.hit["year"]})
             <p>
               <strong>Topics:</strong> {props.hit?.topics?.join(",")}
@@ -347,25 +347,25 @@ export default function SearchPage() {
     }
 
     // for prelims and mains
-    if (examType === "prelims") {
-      axios
-        .post(PRELIMS_URL, data)
-        .then((res) => {
-          setPrelims(res.data.hits);
-        })
-        .catch((err) => {
-          console.log("err is ", err);
-        });
-    } else {
-      axios
-        .post(MAINS_URL, data)
-        .then((res) => {
-          setMainsContent(res.data.hits);
-        })
-        .catch((err) => {
-          console.log("err is ", err);
-        });
-    }
+    // if (examType === "prelims") {
+    //   axios
+    //     .post(PRELIMS_URL, data)
+    //     .then((res) => {
+    //       setPrelims(res.data.hits);
+    //     })
+    //     .catch((err) => {
+    //       console.log("err is ", err);
+    //     });
+    // } else {
+    //   axios
+    //     .post(MAINS_URL, data)
+    //     .then((res) => {
+    //       setMainsContent(res.data.hits);
+    //     })
+    //     .catch((err) => {
+    //       console.log("err is ", err);
+    //     });
+    // }
 
     // Logging
     const log = {
@@ -479,8 +479,8 @@ export default function SearchPage() {
               </div>
             </div>
 
-            {/* <Hits hitComponent={ReturnHitComponent(examType)} /> */}
-            {examType === "prelims"
+            <Hits hitComponent={ReturnHitComponent(examType)} />
+            {/* {examType === "prelims"
               ? prelims.map((hit) => (
                   <div className="card-result">
                     <HitPrelims hit={hit} />
@@ -490,7 +490,7 @@ export default function SearchPage() {
                   <div className="card-result">
                     <HitPyqs hit={hit} />
                   </div>
-                ))}
+                ))} */}
           </div>
 
           <div className="division">
