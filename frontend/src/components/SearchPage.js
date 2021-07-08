@@ -223,10 +223,9 @@ export default function SearchPage() {
   }
 
   function HitDNS(props) {
-    console.log("dns props", props);
     return (
       <>
-        {props.link === undefined ? (
+        {props.link === undefined && props?.hit?.link === undefined ? (
           <Loader
             type="Puff"
             color="#00BFFF"
@@ -239,13 +238,16 @@ export default function SearchPage() {
           />
         ) : (
           <div className="dns-video">
-            <h3 className="dns-title">{props.title}</h3>
+            <h3 className="dns-title">{props.title || props?.hit?.title}</h3>
             <div className="dns-video-container">
               <iframe
-                title={props.title}
-                src={props.link
-                  .replace("/watch?v=", "/embed/")
-                  .replace("&t=", "?start=")}
+                title={props.title || props?.hit?.title}
+                src={
+                  props.link ||
+                  props?.hit?.link
+                    .replace("/watch?v=", "/embed/")
+                    .replace("&t=", "?start=")
+                }
                 frameborder="0"
                 allowfullscreen
               ></iframe>
@@ -259,7 +261,7 @@ export default function SearchPage() {
   function HitDrishti(props) {
     return (
       <div>
-        {props.content === undefined ? (
+        {props.content === undefined && props?.hit?.content === undefined ? (
           <Loader
             type="Puff"
             color="#00BFFF"
@@ -271,18 +273,22 @@ export default function SearchPage() {
             }}
           />
         ) : (
-          props.content && (
-            <>
-              <h4>
-                <a href={props.link}>{props.title}</a> ({props.exam})
-              </h4>
-              {ReactHtmlParser(removePrevNext(props.content))}
-              <p>
-                <strong>Topics:</strong> {props?.tags?.join(",")}
-              </p>
-              <br />
-            </>
-          )
+          <>
+            <h4>
+              <a href={props.link || props?.hit?.link}>
+                {props.title || props?.hit?.title}
+              </a>{" "}
+              ({props.exam || props?.hit?.exam})
+            </h4>
+            {ReactHtmlParser(
+              removePrevNext(props.content || props?.hit?.content)
+            )}
+            <p>
+              <strong>Topics:</strong>{" "}
+              {props?.tags?.join(",") || props?.hit?.tags?.join(",")}
+            </p>
+            <br />
+          </>
         )}
       </div>
     );
