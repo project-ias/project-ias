@@ -13,9 +13,9 @@
     margin: 1rem 0.5rem;
     font-size: 5rem;
 
-  .subtitle {
-    text-align: center;
-  }
+    .subtitle {
+      text-align: center;
+    }
 
     @include sm {
       font-size: 3.5rem;
@@ -27,6 +27,40 @@
 
     .dns-title {
       text-align: center;
+    }
+  }
+
+  .results {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    max-width: 1500px;
+
+    .division {
+      width: 49%;
+      margin: 0.5rem;
+
+      .card-result {
+        background: #fff;
+        border: 1px solid #e0e0e0;
+        box-sizing: border-box;
+        box-shadow: 0px 6px 12px rgba(0, 0, 0, 0.05);
+        border-radius: 4px;
+        padding: 1rem;
+        margin: 1rem 0.5rem;
+      }
+    }
+
+    @include sm {
+      display: none;
+    }
+  }
+
+  .mobile-view {
+    display: none;
+
+    @include sm {
+      display: block;
     }
   }
 
