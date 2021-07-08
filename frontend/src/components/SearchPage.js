@@ -223,6 +223,7 @@ export default function SearchPage() {
   }
 
   function HitDNS(props) {
+    const link = props?.link || props?.hit.link;
     return (
       <>
         {props.link === undefined && props?.hit?.link === undefined ? (
@@ -242,12 +243,9 @@ export default function SearchPage() {
             <div className="dns-video-container">
               <iframe
                 title={props.title || props?.hit?.title}
-                src={
-                  props.link ||
-                  props?.hit?.link
-                    .replace("/watch?v=", "/embed/")
-                    .replace("&t=", "?start=")
-                }
+                src={link
+                  .replace("/watch?v=", "/embed/")
+                  .replace("&t=", "?start=")}
                 frameborder="0"
                 allowfullscreen
               ></iframe>
@@ -343,7 +341,7 @@ export default function SearchPage() {
       });
   }
 
-  function debounce(func, timeout = 250) {
+  function debounce(func, timeout = 400) {
     let timer;
     return (...args) => {
       clearTimeout(timer);
