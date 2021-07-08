@@ -22,6 +22,14 @@ const searchClient = instantMeiliSearch(
   "masterKey"
 );
 
+const MAINS_URL = `${BACKEND_URL}/search_pyq`;
+const PRELIMS_URL = `${BACKEND_URL}/search_prelims`;
+
+const DNS_URL = `${BACKEND_URL}/search_dns`;
+const CONTENT_URL = `${BACKEND_URL}/search_content`;
+
+const LOG_URL = `${BACKEND_URL}/log`;
+
 export default function SearchPage() {
   const [pyqs, setPyqs] = useState([]);
   const [content, setContent] = useState([]);
@@ -30,6 +38,10 @@ export default function SearchPage() {
   const [materialType, setMaterialType] = useState("content");
   const [selectedIds, setSelectedIds] = useState([]);
   const [query, setQuery] = useState("");
+
+  // for desktop
+  const [mainsContent, setMainsContent] = useState([]);
+  const [prelims, setPrelims] = useState([]);
 
   // marked ques
   const [mains, setMains] = useState({});
@@ -66,8 +78,6 @@ export default function SearchPage() {
   }
 
   useEffect(() => {
-    const DNS_URL = `${BACKEND_URL}/search_dns`;
-    const CONTENT_URL = `${BACKEND_URL}/search_content`;
     const data = { query: query };
 
     if (materialType === "dns") {
@@ -90,7 +100,29 @@ export default function SearchPage() {
           console.log("err is ", err);
         });
     }
-  }, [materialType]);
+
+    // for exam
+    // for prelims and mains
+    if (examType === "prelims") {
+      axios
+        .post(PRELIMS_URL, data)
+        .then((res) => {
+          setPrelims(res.data.hits);
+        })
+        .catch((err) => {
+          console.log("err is ", err);
+        });
+    } else {
+      axios
+        .post(MAINS_URL, data)
+        .then((res) => {
+          setMainsContent(res.data.hits);
+        })
+        .catch((err) => {
+          console.log("err is ", err);
+        });
+    }
+  }, [materialType, examType]);
 
   function HitPrelims(props) {
     let current_mains = mains;
@@ -120,7 +152,7 @@ export default function SearchPage() {
 
     return (
       <div>
-        {props.hit.options == undefined ? (
+        {props.hit.options === undefined ? (
           <Loader
             type="Puff"
             color="#00BFFF"
@@ -133,7 +165,8 @@ export default function SearchPage() {
           />
         ) : (
           <>
-            <Highlight attribute="question" hit={props.hit} />
+            {/* <Highlight attribute="question" hit={props.hit} /> */}
+            {props.hit.question}
             <div className="options">
               Options:
               {props.hit?.options?.map((item) => {
@@ -210,7 +243,8 @@ export default function SearchPage() {
           />
         ) : (
           <div>
-            <Highlight attribute="question" hit={props.hit} />(
+            {/* <Highlight attribute="question" hit={props.hit} />( */}
+            {props.hit.question}
             {props.hit["year"]})
             <p>
               <strong>Topics:</strong> {props.hit?.topics?.join(",")}
@@ -223,10 +257,9 @@ export default function SearchPage() {
   }
 
   function HitDNS(props) {
-    const link = props?.link || props?.hit.link;
     return (
       <>
-        {props.link === undefined && props?.hit?.link === undefined ? (
+        {props.hit.link === undefined ? (
           <Loader
             type="Puff"
             color="#00BFFF"
@@ -239,11 +272,11 @@ export default function SearchPage() {
           />
         ) : (
           <div className="dns-video">
-            <h3 className="dns-title">{props.title || props?.hit?.title}</h3>
+            <h3 className="dns-title">{props.hit.title}</h3>
             <div className="dns-video-container">
               <iframe
-                title={props.title || props?.hit?.title}
-                src={link
+                title={props.hit.title}
+                src={props.hit.link
                   .replace("/watch?v=", "/embed/")
                   .replace("&t=", "?start=")}
                 frameborder="0"
@@ -259,7 +292,7 @@ export default function SearchPage() {
   function HitDrishti(props) {
     return (
       <div>
-        {props.content === undefined && props?.hit?.content === undefined ? (
+        {props.hit.content === undefined ? (
           <Loader
             type="Puff"
             color="#00BFFF"
@@ -273,17 +306,11 @@ export default function SearchPage() {
         ) : (
           <>
             <h4>
-              <a href={props.link || props?.hit?.link}>
-                {props.title || props?.hit?.title}
-              </a>{" "}
-              ({props.exam || props?.hit?.exam})
+              <a href={props.hit.link}>{props.hit.title}</a> ({props.hit.exam})
             </h4>
-            {ReactHtmlParser(
-              removePrevNext(props.content || props?.hit?.content)
-            )}
+            {ReactHtmlParser(removePrevNext(props.hit.content))}
             <p>
-              <strong>Topics:</strong>{" "}
-              {props?.tags?.join(",") || props?.hit?.tags?.join(",")}
+              <strong>Topics:</strong> {props?.hit?.tags?.join(",")}
             </p>
             <br />
           </>
@@ -295,10 +322,6 @@ export default function SearchPage() {
   function handleChange(e) {
     setQuery(e.target.value);
     const data = { query: e.target.value };
-    const PYQ_URL = `${BACKEND_URL}/search_pyq`;
-    const DNS_URL = `${BACKEND_URL}/search_dns`;
-    const LOG_URL = `${BACKEND_URL}/log`;
-    const CONTENT_URL = `${BACKEND_URL}/search_content`;
 
     // if(query !== ""){
     // console.log("Non empty query", query);
@@ -323,6 +346,27 @@ export default function SearchPage() {
         });
     }
 
+    // for prelims and mains
+    if (examType === "prelims") {
+      axios
+        .post(PRELIMS_URL, data)
+        .then((res) => {
+          setPrelims(res.data.hits);
+        })
+        .catch((err) => {
+          console.log("err is ", err);
+        });
+    } else {
+      axios
+        .post(MAINS_URL, data)
+        .then((res) => {
+          setMainsContent(res.data.hits);
+        })
+        .catch((err) => {
+          console.log("err is ", err);
+        });
+    }
+
     // Logging
     const log = {
       query_data: {
@@ -341,7 +385,7 @@ export default function SearchPage() {
       });
   }
 
-  function debounce(func, timeout = 400) {
+  function debounce(func, timeout = 200) {
     let timer;
     return (...args) => {
       clearTimeout(timer);
@@ -435,7 +479,18 @@ export default function SearchPage() {
               </div>
             </div>
 
-            <Hits hitComponent={ReturnHitComponent(examType)} />
+            {/* <Hits hitComponent={ReturnHitComponent(examType)} /> */}
+            {examType === "prelims"
+              ? prelims.map((hit) => (
+                  <div className="card-result">
+                    <HitPrelims hit={hit} />
+                  </div>
+                ))
+              : mainsContent.map((hit) => (
+                  <div className="card-result">
+                    <HitPyqs hit={hit} />
+                  </div>
+                ))}
           </div>
 
           <div className="division">
@@ -457,17 +512,12 @@ export default function SearchPage() {
               {materialType === "dns"
                 ? dnsContent.map((hit) => (
                     <div className="card-result">
-                      <HitDNS link={hit.link} title={hit.title} />
+                      <HitDNS hit={hit} />
                     </div>
                   ))
                 : content.map((hit) => (
                     <div className="card-result">
-                      <HitDrishti
-                        content={hit.content}
-                        exam={hit.link}
-                        link={hit.link}
-                        tags={hit.tags}
-                      />
+                      <HitDrishti hit={hit} />
                     </div>
                   ))}
             </div>

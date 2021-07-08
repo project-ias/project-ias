@@ -132,32 +132,6 @@
         -webkit-box-decoration-break: clone;
         border-radius: 7.5px;
       }
-      .options {
-        margin: 0.5rem 0;
-
-        div {
-          margin: 0.5rem 0;
-        }
-      }
-
-      .solution {
-        padding: 0.5rem;
-        margin-top: 0.25rem;
-        background-color: rgb(255, 255, 255);
-        border: 1px solid rgb(209, 213, 219);
-        border-radius: 4px;
-
-        .show {
-          display: inline-block;
-          width: 100%;
-          cursor: pointer;
-        }
-
-        img {
-          width: 100%;
-          object-fit: contain;
-        }
-      }
 
       .wpProQuiz_respone_span {
         display: none;
