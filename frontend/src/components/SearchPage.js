@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import axios from "axios";
 import ReactHtmlParser from "react-html-parser";
 import { parse } from "node-html-parser";
@@ -25,15 +25,14 @@ const searchClient = instantMeiliSearch(
 export default function SearchPage() {
   const [pyqs, setPyqs] = useState([]);
   const [content, setContent] = useState([]);
+  const [dnsContent, setDnsContent] = useState([]);
   const [examType, setExamType] = useState("prelims");
+  const [materialType, setMaterialType] = useState("content");
   const [selectedIds, setSelectedIds] = useState([]);
+  const [query, setQuery] = useState("");
 
   // marked ques
   const [mains, setMains] = useState({});
-
-  // DNS
-  const [dnsTitle, setDNSTitle] = useState("");
-  const [dnsLink, setDNSLink] = useState("");
 
   function removePrevNext(htmlString) {
     let parsedHtml = parse(htmlString);
@@ -65,6 +64,33 @@ export default function SearchPage() {
         break;
     }
   }
+
+  useEffect(() => {
+    const DNS_URL = `${BACKEND_URL}/search_dns`;
+    const CONTENT_URL = `${BACKEND_URL}/search_content`;
+    const data = { query: query };
+
+    if (materialType === "dns") {
+      axios
+        .post(DNS_URL, data)
+        .then((res) => {
+          setDnsContent(res.data.hits);
+        })
+        .catch((err) => {
+          console.log("err is ", err);
+        });
+    } else {
+      axios
+        .post(CONTENT_URL, data)
+        .then((res) => {
+          console.log("content res", res.data);
+          setContent(res.data.hits);
+        })
+        .catch((err) => {
+          console.log("err is ", err);
+        });
+    }
+  }, [materialType]);
 
   function HitPrelims(props) {
     let current_mains = mains;
@@ -166,7 +192,6 @@ export default function SearchPage() {
         )}
       </div>
     );
-    // return <Highlight attribute="name" hit={props.hit} />;
   }
 
   function HitPyqs(props) {
@@ -195,16 +220,13 @@ export default function SearchPage() {
         )}
       </>
     );
-    // return <Highlight attribute="name" hit={props.hit} />;
   }
 
-
   function HitDNS(props) {
-
-    console.log("yt", props.hit.title, props.hit.link)
+    const link = props?.link || props?.hit.link;
     return (
       <>
-        {props.hit.link == undefined ? (
+        {props.link === undefined && props?.hit?.link === undefined ? (
           <Loader
             type="Puff"
             color="#00BFFF"
@@ -217,49 +239,27 @@ export default function SearchPage() {
           />
         ) : (
           <div className="dns-video">
-            <h3 className="dns-title">{dnsTitle}</h3>
+            <h3 className="dns-title">{props.title || props?.hit?.title}</h3>
             <div className="dns-video-container">
               <iframe
-                title={props.hit.title}
-                src={props.hit.link.replace("/watch?v=", "/embed/").replace("&t=", "?start=")}
+                title={props.title || props?.hit?.title}
+                src={link
+                  .replace("/watch?v=", "/embed/")
+                  .replace("&t=", "?start=")}
                 frameborder="0"
                 allowfullscreen
               ></iframe>
             </div>
           </div>
-         
         )}
       </>
     );
-    // return <Highlight attribute="name" hit={props.hit} />;
   }
-
-  // const CustomHighlight = connectHighlight(({ highlight, attribute, hit }) => {
-  //   const parsedHit = highlight({
-  //     highlightProperty: "_highlightResult",
-  //     attribute,
-  //     hit,
-  //   });
-
-  //   return (
-  //     <div>
-  //       {ReactHtmlParser(hit.content).map((part) =>
-  //         part.isHighlighted ? (
-  //           <em className="ais-Highlight-highlighted">
-  //             {ReactHtmlParser(part.value)}
-  //           </em>
-  //         ) : (
-  //           ReactHtmlParser(part.value)
-  //         )
-  //       )}
-  //     </div>
-  //   );
-  // });
 
   function HitDrishti(props) {
     return (
       <div>
-        {props.hit.content === undefined ? (
+        {props.content === undefined && props?.hit?.content === undefined ? (
           <Loader
             type="Puff"
             color="#00BFFF"
@@ -271,105 +271,77 @@ export default function SearchPage() {
             }}
           />
         ) : (
-          props.hit.content && (
-            <>
-              <h4>
-                <a href={props.hit.link}>{props.hit.title}</a> ({props.hit.exam}
-                )
-              </h4>
-              {ReactHtmlParser(removePrevNext(props.hit.content))}
-              <p>
-                <strong>Topics:</strong> {props.hit?.tags?.join(",")}
-              </p>
-              <br />
-            </>
-          )
+          <>
+            <h4>
+              <a href={props.link || props?.hit?.link}>
+                {props.title || props?.hit?.title}
+              </a>{" "}
+              ({props.exam || props?.hit?.exam})
+            </h4>
+            {ReactHtmlParser(
+              removePrevNext(props.content || props?.hit?.content)
+            )}
+            <p>
+              <strong>Topics:</strong>{" "}
+              {props?.tags?.join(",") || props?.hit?.tags?.join(",")}
+            </p>
+            <br />
+          </>
         )}
       </div>
     );
   }
 
   function handleChange(e) {
-    const query = e.target.value;
-    const data = { query: query };
+    setQuery(e.target.value);
+    const data = { query: e.target.value };
     const PYQ_URL = `${BACKEND_URL}/search_pyq`;
     const DNS_URL = `${BACKEND_URL}/search_dns`;
     const LOG_URL = `${BACKEND_URL}/log`;
-    const Content_URL = `${BACKEND_URL}/search_content`;
+    const CONTENT_URL = `${BACKEND_URL}/search_content`;
 
-    if (query !== "") {
-      console.log("Non empty query", query);
+    // if(query !== ""){
+    // console.log("Non empty query", query);
+    if (materialType === "dns") {
       axios
         .post(DNS_URL, data)
         .then((res) => {
-          try {
-            console.log("res", res.data.hits[0].title);
-            console.log(
-              "res",
-              res.data.hits[0].link
-                .replace("/watch?v=", "/embed/")
-                .replace("&t=", "?start=")
-            );
-
-            setDNSLink(
-              res.data.hits[0].link
-                .replace("/watch?v=", "/embed/")
-                .replace("&t=", "?start=")
-            );
-            setDNSTitle(res.data.hits[0].title);
-          } catch (e) {
-            setDNSLink("");
-            setDNSTitle("");
-          }
+          setDnsContent(res.data.hits);
         })
         .catch((err) => {
           console.log("err is ", err);
         });
-
-      // Logging
-      const log = {
-        query_data: {
-          query: query,
-          type: examType,
-          time: new Date().toString(),
-        },
-      };
+    } else {
       axios
-        .post(LOG_URL, log)
+        .post(CONTENT_URL, data)
         .then((res) => {
-          console.log("res", res.data);
+          console.log("content res", res.data);
+          setContent(res.data.hits);
         })
         .catch((err) => {
           console.log("err is ", err);
         });
-
-      // ENDPOINTS DEPRACATED
-      // axios
-      //   .post(PYQ_URL, data)
-      //   .then((res) => {
-      //     console.log("res", res.data);
-      //     setPyqs(res.data.hits);
-      //   })
-      //   .catch((err) => {
-      //     console.log("err is ", err);
-      //   });
-
-      // axios
-      //   .post(Content_URL, data)
-      //   .then((res) => {
-      //     console.log("content res", res.data);
-      //     setContent(res.data.hits);
-      //   })
-      // .catch((err) => {
-      //   console.log("err is ", err);
-      // });
-    } else if (query === "") {
-      setPyqs([]);
-      setContent([]);
     }
+
+    // Logging
+    const log = {
+      query_data: {
+        query: query,
+        type: examType,
+        time: new Date().toString(),
+      },
+    };
+    axios
+      .post(LOG_URL, log)
+      .then((res) => {
+        console.log("res", res.data);
+      })
+      .catch((err) => {
+        console.log("err is ", err);
+      });
   }
 
-  function debounce(func, timeout = 100) {
+  function debounce(func, timeout = 400) {
     let timer;
     return (...args) => {
       clearTimeout(timer);
@@ -388,31 +360,6 @@ export default function SearchPage() {
         Search through PYQs, DNS & Reading Content{" "}
       </h3>
 
-      {/* <input  onKeyUp={processChange}/>
-                <h1>PYQ Mains</h1>
-                        {pyqs &&
-                            pyqs.map(item => (
-                                <div key={item['id']}>
-                                    <h4>{item['question']} ({item['year']})</h4>
-                                    <div>{}</div>
-                                    <p><strong>Topics:</strong> {item['topics'].join(',')}</p>
-                                    <br/>
-                                </div>
-                            ))
-                        }
-                    
-                    <h1>Dhristi IAS Content</h1>
-                        {content &&
-                            content.map(item => (
-                                <div key={item['id']}>
-                                    <h4><a href={item['link']}>{item['title']}</a> ({item['exam']})</h4>
-                                    <div>{ReactHtmlParser(removePrevNext(item['content']))}</div>
-                                    <p><strong>Topics:</strong> {item['tags'].join(',')}</p>
-                                    <br/>
-                                </div>
-                            ))
-
-                        } */}
       <InstantSearch indexName={examType} searchClient={searchClient}>
         <SearchBox
           onChange={processChange}
@@ -440,36 +387,92 @@ export default function SearchPage() {
           }
         />
 
-        <div className="types">
-          <div
-            className={`type ${examType === "prelims" && "current"}`}
-            onClick={() => setExamType("prelims")}
-          >
-            Prelims
+        <div className="mobile-view">
+          <div className="types">
+            <div
+              className={`type ${examType === "prelims" && "current"}`}
+              onClick={() => setExamType("prelims")}
+            >
+              Prelims
+            </div>
+            <div
+              className={`type ${examType === "pyqs" && "current"}`}
+              onClick={() => setExamType("pyqs")}
+            >
+              Mains
+            </div>
+            <div
+              className={`type ${examType === "content" && "current"}`}
+              onClick={() => setExamType("content")}
+            >
+              Read
+            </div>
+            <div
+              className={`type ${examType === "dns" && "current"}`}
+              onClick={() => setExamType("dns")}
+            >
+              DNS
+            </div>
           </div>
-          <div
-            className={`type ${examType === "pyqs" && "current"}`}
-            onClick={() => setExamType("pyqs")}
-          >
-            Mains
-          </div>
-          <div
-            className={`type ${examType === "content" && "current"}`}
-            onClick={() => setExamType("content")}
-          >
-            Read
-          </div>
-          <div
-            className={`type ${examType === "dns" && "current"}`}
-            onClick={() => setExamType("dns")}
-          >
-            DNS
-          </div>
+
+          <Hits hitComponent={ReturnHitComponent(examType)} />
         </div>
 
-       
+        <div className="results">
+          <div className="division">
+            <div className="types">
+              <div
+                className={`type ${examType === "prelims" && "current"}`}
+                onClick={() => setExamType("prelims")}
+              >
+                Prelims
+              </div>
+              <div
+                className={`type ${examType === "pyqs" && "current"}`}
+                onClick={() => setExamType("pyqs")}
+              >
+                Mains
+              </div>
+            </div>
 
-        <Hits hitComponent={ReturnHitComponent(examType)} />
+            <Hits hitComponent={ReturnHitComponent(examType)} />
+          </div>
+
+          <div className="division">
+            <div className="types">
+              <div
+                className={`type ${materialType === "dns" && "current"}`}
+                onClick={() => setMaterialType("dns")}
+              >
+                DNS
+              </div>
+              <div
+                className={`type ${materialType === "content" && "current"}`}
+                onClick={() => setMaterialType("content")}
+              >
+                Read
+              </div>
+            </div>
+            <div>
+              {materialType === "dns"
+                ? dnsContent.map((hit) => (
+                    <div className="card-result">
+                      <HitDNS link={hit.link} title={hit.title} />
+                    </div>
+                  ))
+                : content.map((hit) => (
+                    <div className="card-result">
+                      <HitDrishti
+                        content={hit.content}
+                        exam={hit.link}
+                        link={hit.link}
+                        tags={hit.tags}
+                      />
+                    </div>
+                  ))}
+            </div>
+          </div>
+        </div>
       </InstantSearch>
     </div>
   );
