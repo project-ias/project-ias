@@ -22,6 +22,15 @@ const searchClient = instantMeiliSearch(
   "masterKey"
 );
 
+const MAINS_URL = `${BACKEND_URL}/search_pyq`;
+const PRELIMS_URL = `${BACKEND_URL}/search_prelims`;
+
+const DNS_URL = `${BACKEND_URL}/search_dns`;
+const CONTENT_URL = `${BACKEND_URL}/search_content`;
+
+const LOG_URL = `${BACKEND_URL}/log`;
+    
+
 export default function SearchPage() {
   const [pyqs, setPyqs] = useState([]);
   const [content, setContent] = useState([]);
@@ -30,6 +39,11 @@ export default function SearchPage() {
   const [materialType, setMaterialType] = useState("content");
   const [selectedIds, setSelectedIds] = useState([]);
   const [query, setQuery] = useState("");
+
+
+  // for desktop
+  const [mainsContent, setMainsContent] = useState([])
+  const [prelims, setPrelims] = useState([])
 
   // marked ques
   const [mains, setMains] = useState({});
@@ -66,8 +80,6 @@ export default function SearchPage() {
   }
 
   useEffect(() => {
-    const DNS_URL = `${BACKEND_URL}/search_dns`;
-    const CONTENT_URL = `${BACKEND_URL}/search_content`;
     const data = { query: query };
 
     if (materialType === "dns") {
@@ -90,7 +102,30 @@ export default function SearchPage() {
           console.log("err is ", err);
         });
     }
-  }, [materialType]);
+
+    // for exam
+    // for prelims and mains
+    if(examType === "prelims") {
+      axios
+        .post(PRELIMS_URL, data)
+        .then((res) => {
+          setPrelims(res.data.hits);
+        })
+        .catch((err) => {
+          console.log("err is ", err);
+        });
+    } else if(examType === "mains") {
+      axios
+        .post(MAINS_URL, data)
+        .then((res) => {
+          setMainsContent(res.data.hits);
+        })
+        .catch((err) => {
+          console.log("err is ", err);
+        });
+    }
+
+  }, [materialType, examType]);
 
   function HitPrelims(props) {
     let current_mains = mains;
@@ -295,10 +330,6 @@ export default function SearchPage() {
   function handleChange(e) {
     setQuery(e.target.value);
     const data = { query: e.target.value };
-    const PYQ_URL = `${BACKEND_URL}/search_pyq`;
-    const DNS_URL = `${BACKEND_URL}/search_dns`;
-    const LOG_URL = `${BACKEND_URL}/log`;
-    const CONTENT_URL = `${BACKEND_URL}/search_content`;
 
     // if(query !== ""){
     // console.log("Non empty query", query);
@@ -317,6 +348,27 @@ export default function SearchPage() {
         .then((res) => {
           console.log("content res", res.data);
           setContent(res.data.hits);
+        })
+        .catch((err) => {
+          console.log("err is ", err);
+        });
+    }
+
+    // for prelims and mains
+    if(examType === "prelims") {
+      axios
+        .post(PRELIMS_URL, data)
+        .then((res) => {
+          setPrelims(res.data.hits);
+        })
+        .catch((err) => {
+          console.log("err is ", err);
+        });
+    } else if(examType === "mains") {
+      axios
+        .post(MAINS_URL, data)
+        .then((res) => {
+          setMainsContent(res.data.hits);
         })
         .catch((err) => {
           console.log("err is ", err);
@@ -435,7 +487,18 @@ export default function SearchPage() {
               </div>
             </div>
 
-            <Hits hitComponent={ReturnHitComponent(examType)} />
+            {/* <Hits hitComponent={ReturnHitComponent(examType)} /> */}
+            {examType === "prelims"
+                ? prelims.map((hit) => (
+                    <div className="card-result">
+                      <HitPrelims  hit={hit}  />
+                    </div>
+                  ))
+                : mainsContent.map((hit) => (
+                    <div className="card-result">
+                       <HitPyqs  hit={hit}  />
+                    </div>
+                  ))}
           </div>
 
           <div className="division">
