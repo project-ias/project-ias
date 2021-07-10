@@ -1,34 +1,18 @@
 import React, { useEffect, useState } from "react";
 import axios from "axios";
-import ReactHtmlParser from "react-html-parser";
-import { parse } from "node-html-parser";
-import { BACKEND_URL } from "../constants/constants";
-import {
-  InstantSearch,
-  SearchBox,
-  Hits,
-  Index,
-  Highlight,
-  RefinementList,
-  connectHighlight,
-} from "react-instantsearch-dom";
+import { LOG_URL, CONTENT_URL, DNS_URL } from "../constants/constants";
+import { InstantSearch, SearchBox, Hits } from "react-instantsearch-dom";
 import { instantMeiliSearch } from "@meilisearch/instant-meilisearch";
 
-import "react-loader-spinner/dist/loader/css/react-spinner-loader.css";
-import Loader from "react-loader-spinner";
+import HitDrishti from "./HitDrishti";
+import HitDNS from "./HitDNS";
+import HitPyqs from "./HitPyqs";
+import HitPrelims from "./HitPrelims";
 
 const searchClient = instantMeiliSearch(
   "https://6e5aec93d8f8.ngrok.io",
   "masterKey"
 );
-
-const MAINS_URL = `${BACKEND_URL}/search_pyq`;
-const PRELIMS_URL = `${BACKEND_URL}/search_prelims`;
-
-const DNS_URL = `${BACKEND_URL}/search_dns`;
-const CONTENT_URL = `${BACKEND_URL}/search_content`;
-
-const LOG_URL = `${BACKEND_URL}/log`;
 
 export default function SearchPage() {
   const [pyqs, setPyqs] = useState([]);
@@ -36,7 +20,6 @@ export default function SearchPage() {
   const [dnsContent, setDnsContent] = useState([]);
   const [examType, setExamType] = useState("prelims");
   const [materialType, setMaterialType] = useState("content");
-  const [selectedIds, setSelectedIds] = useState([]);
   const [query, setQuery] = useState("");
 
   // for desktop
@@ -44,21 +27,6 @@ export default function SearchPage() {
   const [prelims, setPrelims] = useState([]);
 
   // marked ques
-  const [mains, setMains] = useState({});
-
-  function removePrevNext(htmlString) {
-    let parsedHtml = parse(htmlString);
-    parsedHtml.querySelector(".next-post").remove();
-    return parsedHtml.toString();
-  }
-
-  const handleSolutionClick = (selectedId) => {
-    if (selectedIds.indexOf(selectedId) === -1) {
-      setSelectedIds((Ids) => [...Ids, selectedId]);
-    } else {
-      setSelectedIds((Ids) => Ids.filter((Id) => Id !== selectedId));
-    }
-  };
 
   function ReturnHitComponent(selectedType) {
     switch (selectedType) {
@@ -123,201 +91,6 @@ export default function SearchPage() {
     //     });
     // }
   }, [materialType]);
-
-  function HitPrelims(props) {
-    let current_mains = mains;
-    const Q = {};
-    if (current_mains[props.hit.id] === undefined) {
-      Q[props.hit.id] = {
-        marked: "",
-        answer: props.hit.answer,
-      };
-
-      current_mains = { ...current_mains, ...Q };
-      setMains(current_mains);
-      console.log(current_mains);
-    }
-
-    function markAns(ques_id, marked, answer) {
-      const id = ques_id.toString();
-      console.log("id is ", id);
-      const changed = {};
-      changed[id] = {
-        marked: marked,
-        answer: answer,
-      };
-      console.log("changed ", { ...mains, ...changed });
-      setMains({ ...mains, ...changed });
-    }
-
-    return (
-      <div>
-        {props.hit.options === undefined ? (
-          <Loader
-            type="Puff"
-            color="#00BFFF"
-            height={100}
-            width={100}
-            visible={true}
-            style={{
-              textAlign: "center",
-            }}
-          />
-        ) : (
-          <>
-            <Highlight attribute="question" hit={props.hit} />
-            {/* {props.hit.question} */}
-            <div className="options">
-              Options:
-              {props.hit?.options?.map((item) => {
-                return (
-                  <div>
-                    <input
-                      type="radio"
-                      value={item}
-                      name={item}
-                      onChange={(e) =>
-                        markAns(props.hit.id, e.target.value, props.hit.answer)
-                      }
-                      checked={
-                        mains[props.hit.id] !== undefined &&
-                        item === mains[props.hit.id]["marked"]
-                      }
-                    />
-                    <label for={item}>
-                      {item}{" "}
-                      {
-                        // it should be defined and marked
-                        mains[props.hit.id] !== undefined &&
-                        mains[props.hit.id]["marked"] !== ""
-                          ? item === mains[props.hit.id]["answer"]
-                            ? "✔️"
-                            : "❌"
-                          : ""
-                      }
-                      {console.log(
-                        "??",
-                        mains[props.hit.id] &&
-                          mains[props.hit.id]["marked"] ===
-                            mains[props.hit.id]["answer"],
-                        "for ",
-                        props.hit.id
-                      )}
-                    </label>
-                  </div>
-                );
-              })}
-            </div>
-
-            <div
-              className="solution"
-              onClick={() => handleSolutionClick(props.hit.id)}
-            >
-              <span className="show">
-                {selectedIds.includes(props.hit.id)
-                  ? "Hide Answer"
-                  : "Show Answer"}
-              </span>
-              {selectedIds.includes(props.hit.id) &&
-                ReactHtmlParser(props.hit.explanation)}
-            </div>
-          </>
-        )}
-      </div>
-    );
-  }
-
-  function HitPyqs(props) {
-    return (
-      <>
-        {props.hit.topics == undefined ? (
-          <Loader
-            type="Puff"
-            color="#00BFFF"
-            height={100}
-            width={100}
-            visible={true}
-            style={{
-              textAlign: "center",
-            }}
-          />
-        ) : (
-          <div>
-            <Highlight attribute="question" hit={props.hit} />(
-            {/* {props.hit.question} */}
-            {props.hit["year"]})
-            <p>
-              <strong>Topics:</strong> {props.hit?.topics?.join(",")}
-            </p>
-            <span> Exam Type: {props.hit["exam"]} </span>
-          </div>
-        )}
-      </>
-    );
-  }
-
-  function HitDNS(props) {
-    return (
-      <>
-        {props.hit.link === undefined ? (
-          <Loader
-            type="Puff"
-            color="#00BFFF"
-            height={100}
-            width={100}
-            visible={true}
-            style={{
-              textAlign: "center",
-            }}
-          />
-        ) : (
-          <div className="dns-video">
-            <h3 className="dns-title">{props.hit.title}</h3>
-            <div className="dns-video-container">
-              <iframe
-                title={props.hit.title}
-                src={props.hit.link
-                  .replace("/watch?v=", "/embed/")
-                  .replace("&t=", "?start=")}
-                frameborder="0"
-                allowfullscreen
-              ></iframe>
-            </div>
-          </div>
-        )}
-      </>
-    );
-  }
-
-  function HitDrishti(props) {
-    return (
-      <div>
-        {props.hit.content === undefined ? (
-          <Loader
-            type="Puff"
-            color="#00BFFF"
-            height={100}
-            width={100}
-            visible={true}
-            style={{
-              textAlign: "center",
-            }}
-          />
-        ) : (
-          <>
-            <h4>
-              <a href={props.hit.link}>{props.hit.title}</a> ({props.hit.exam})
-            </h4>
-            {ReactHtmlParser(removePrevNext(props.hit.content))}
-            <p>
-              <strong>Topics:</strong> {props?.hit?.tags?.join(",")}
-            </p>
-            <br />
-          </>
-        )}
-      </div>
-    );
-  }
 
   function handleChange(e) {
     setQuery(e.target.value);
