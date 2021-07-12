@@ -26,7 +26,7 @@ export default function HitDNS(props) {
                 .replace("/watch?v=", "/embed/")
                 .replace("&t=", "?start=")}
               frameborder="0"
-              allowfullscreen
+              allowFullScreen
             ></iframe>
           </div>
         </div>
