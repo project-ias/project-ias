@@ -62,9 +62,8 @@ while len(array_of_lines[index]) != 0:
             continue
     except Exception as e:
         print('error in adding is ',e)
-        print('CAN U ',array_of_lines[index].split('.'))
-        print
-        break
-
+        index = index + 1
+        continue
+    
 with open('today_raudns.json', 'w') as f:
     json.dump(data, f)
