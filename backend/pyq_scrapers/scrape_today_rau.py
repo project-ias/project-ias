@@ -1,5 +1,5 @@
 import requests
-
+import json
 r = requests.get('https://www.googleapis.com/youtube/v3/playlistItems?part=snippet&maxResults=1&playlistId=PL7Nkpcu_k2VJC4Wwk4WDXAbtNTOEmGI_8&key=AIzaSyBJABsfWJY0oO52lcEHHlfYOTbLPLYDteg')
 description = r.json()['items'][0]['snippet']['description']
 video_id = r.json()['items'][0]['snippet']['resourceId']['videoId']
@@ -26,7 +26,7 @@ def remove_time_stamp(title_with_time_stamp):
     for _ in range(7):
         del characters[i]
 
-    title_without_time_stamp = ''.join(characters)
+    title_without_time_stamp = ''.join(characters).rstrip().rstrip('-').rstrip().replace(u"\u2018", "'").replace(u"\u2019", "'")
     return title_without_time_stamp, seconds_for_timestamp
 
 
@@ -40,12 +40,23 @@ for i in range(len_of_lines):
         index = i+1
         break
 
+data = {}
+data["dns"] = []
+
 # till one encounteres a empty string
 while len(array_of_lines[index]) != 0:
-    heading_with_title, seconds_for_time_stamp = remove_time_stamp(array_of_lines[index].split('.')[1].lstrip())
-    link = 'https://youtube.com/watch?v={}&t={}'.format(video_id,seconds_for_time_stamp)
-    print(heading_with_title)
-    print(link)
-    index = index + 1
+    try:
+        heading_with_title, seconds_for_time_stamp = remove_time_stamp(array_of_lines[index].split('.')[1].lstrip())
+        link = 'https://youtube.com/watch?v={}&t={}'.format(video_id,seconds_for_time_stamp)
+        print(heading_with_title)
+        print(link)
+        data['dns'].append({
+            'title': heading_with_title,
+            'link': link
+        })
+        index = index + 1
+    except Exception as e:
+        print('error is ',e)
 
-
+with open('today_raudns.json', 'w') as f:
+    json.dump(data, f)
