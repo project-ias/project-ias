@@ -13,7 +13,7 @@ app.use(morgan("tiny"));
 
 require("dotenv").config();
 const client = new MeiliSearch({
-  host: "https://6e5aec93d8f8.ngrok.io",
+  host: "https://c85d02128138.ngrok.io",
   apiKey: "masterKey",
 });
 

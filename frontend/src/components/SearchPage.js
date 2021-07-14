@@ -10,7 +10,7 @@ import HitPyqs from "./HitPyqs";
 import HitPrelims from "./HitPrelims";
 
 const searchClient = instantMeiliSearch(
-  "https://6e5aec93d8f8.ngrok.io",
+  "https://c85d02128138.ngrok.io",
   "masterKey"
 );
 
