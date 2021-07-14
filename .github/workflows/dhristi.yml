@@ -1,0 +1,12 @@
+name: Hitting the cronjob endpoint every day at 15:00 UTC(20:30 IST) to udpate Dhristi Content
+
+on:
+  schedule:
+    - cron: '0 15 * * *'
+jobs:
+  build:
+    name: Send a GET request via wget
+    runs-on: ubuntu-latest
+    steps:
+      - name: wget request
+        run: wget https://api.projectias.neera.ai/cron_dhristi
