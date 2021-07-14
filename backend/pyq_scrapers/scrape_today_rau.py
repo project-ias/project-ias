@@ -26,7 +26,7 @@ def remove_time_stamp(title_with_time_stamp):
     for _ in range(7):
         del characters[i]
 
-    title_without_time_stamp = ''.join(characters).rstrip().rstrip('-').rstrip().replace(u"\u2018", "'").replace(u"\u2019", "'")
+    title_without_time_stamp = ''.join(characters)
     return title_without_time_stamp, seconds_for_timestamp
 
 
@@ -42,21 +42,29 @@ for i in range(len_of_lines):
 
 data = {}
 data["dns"] = []
-
+item_index = 1
 # till one encounteres a empty string
 while len(array_of_lines[index]) != 0:
     try:
-        heading_with_title, seconds_for_time_stamp = remove_time_stamp(array_of_lines[index].split('.')[1].lstrip())
-        link = 'https://youtube.com/watch?v={}&t={}'.format(video_id,seconds_for_time_stamp)
-        print(heading_with_title)
-        print(link)
-        data['dns'].append({
-            'title': heading_with_title,
-            'link': link
-        })
-        index = index + 1
+        if "{}.".format(str(item_index)) in array_of_lines[index]:
+            heading_with_title, seconds_for_time_stamp = remove_time_stamp(array_of_lines[index].split('.')[1].lstrip().rstrip().rstrip('-').rstrip().replace(u"\u2018", "'").replace(u"\u2019", "'"))
+            link = 'https://youtube.com/watch?v={}&t={}'.format(video_id,seconds_for_time_stamp)
+            print(heading_with_title)
+            print(link)
+            data['dns'].append({
+                'title': heading_with_title,
+                'link': link
+            })
+            index = index + 1
+            item_index = item_index + 1
+        else:
+            index = index + 1
+            continue
     except Exception as e:
-        print('error is ',e)
+        print('error in adding is ',e)
+        print('CAN U ',array_of_lines[index].split('.'))
+        print
+        break
 
 with open('today_raudns.json', 'w') as f:
     json.dump(data, f)

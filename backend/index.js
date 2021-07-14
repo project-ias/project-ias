@@ -41,6 +41,16 @@ app.get('/cron_dhristi', (req, res) => {
    
 })
 
+app.get('/cron_dns', (req, res) => {
+  res.send('Will Start Cronjob to fetch Rau DNS')
+  try {
+    shell.exec('bash add_today_dns.sh')
+   } catch(err) {
+    console.log('Error in running bash',err)
+   }
+   
+})
+
 app.post("/search_pyq", async (req, res) => {
   const query = req.body.query;
 
