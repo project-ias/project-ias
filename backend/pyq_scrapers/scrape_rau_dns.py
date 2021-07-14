@@ -25,7 +25,7 @@ def remove_time_stamp(title_with_time_stamp):
 
 print(remove_time_stamp('Conclusive land titling and its challenges â€“ (Polity & Governance) â€“ (03:02) (Land Titling System in India)'))
 
-baseURL  = "file:///home/rka/0repos/neera/project-ias/backend/pyq_scrapers/old_rau_dns.html"
+baseURL  = "file:///home/rka/0repos/neera/project-ias/backend/pyq_scrapers/rau_july21.html"
 driver = webdriver.Chrome()
 driver.get(baseURL)
 time.sleep(3)
@@ -55,7 +55,7 @@ for ol in all_ols:
 
 
 
-with open('rau_dns_old.json', 'w') as f:
+with open('rau_july21.json', 'w') as f:
         json.dump(data, f)
 
 
