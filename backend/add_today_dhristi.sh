@@ -1,0 +1,3 @@
+python3 pyq_scrapers/scrape_today_dhristi.py
+node add_today_dhristi.js
+rm today_dhristi.json
