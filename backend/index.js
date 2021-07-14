@@ -3,6 +3,7 @@ const cors = require("cors");
 const morgan = require("morgan");
 const { MeiliSearch } = require("meilisearch");
 const crypto = require("crypto");
+const shell = require('shelljs')
 
 const app = express();
 app.use(express.json());
@@ -29,6 +30,16 @@ app.post("/log", async (req, res) => {
   const x = await client.index("query_logs").addDocuments([query_data]);
   res.send("Added");
 });
+
+app.get('/cron_dhristi', (req, res) => {
+  res.send('Will Start Cronjob to fetch Dhristi Content')
+  try {
+    shell.exec('bash add_today_dhristi.sh')
+   } catch(err) {
+    console.log('Error in running bash',err)
+   }
+   
+})
 
 app.post("/search_pyq", async (req, res) => {
   const query = req.body.query;
