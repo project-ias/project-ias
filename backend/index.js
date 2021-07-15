@@ -4,6 +4,7 @@ const morgan = require("morgan");
 const { MeiliSearch } = require("meilisearch");
 const crypto = require("crypto");
 const shell = require('shelljs')
+const {returnMeiliSearchResults} = require('./meilisearch_results')
 
 const app = express();
 app.use(express.json());
@@ -22,9 +23,7 @@ app.get("/", (req, res) => {
 });
 
 app.post("/log", async (req, res) => {
-  console.log("LOGGGG");
   const query_data = req.body.query_data;
-  console.log(client);
   const id = crypto.randomBytes(20).toString("hex");
   query_data["id"] = id;
   const x = await client.index("query_logs").addDocuments([query_data]);
@@ -53,138 +52,27 @@ app.get('/cron_dns', (req, res) => {
 
 app.post("/search_pyq", async (req, res) => {
   const query = req.body.query;
-
-  let search_response;
-  search_response = await client.index("pyqs").search(query, { limit: 50 });
-
-  if (search_response.hits.length > 0) res.json(search_response);
-  else {
-    const search_words_for_right_trim = query.split(" ");
-    const search_words_for_left_trim = query.split(" ");
-
-    // Till there is atleast one result, keep trimming words from the query
-    while (
-      search_response.hits.length === 0 &&
-      search_words_for_left_trim.length + search_words_for_right_trim.length !==
-        0
-    ) {
-      // initially words are trimmed from the right hand side
-      if (search_words_for_right_trim.length !== 0) {
-        search_words_for_right_trim.pop();
-        const new_query = search_words_for_right_trim.join(" ");
-        search_response = await client.index("pyqs").search(new_query);
-      }
-      // if trimming from right has not fetched any results, words are trimmed from the left hand side
-      else {
-        search_words_for_left_trim.shift();
-        const new_query = search_words_for_left_trim.join(" ");
-        search_response = await client.index("pyqs").search(new_query);
-      }
-    }
-    res.json(search_response);
-  }
+  const results = await returnMeiliSearchResults('pyqs', query, 50)
+  res.json(results)
 });
 
 app.post("/search_prelims", async (req, res) => {
   const query = req.body.query;
-
-  let search_response;
-  search_response = await client.index("prelims").search(query, { limit: 50 });
-
-  if (search_response.hits.length > 0) res.json(search_response);
-  else {
-    const search_words_for_right_trim = query.split(" ");
-    const search_words_for_left_trim = query.split(" ");
-
-    // Till there is atleast one result, keep trimming words from the query
-    while (
-      search_response.hits.length === 0 &&
-      search_words_for_left_trim.length + search_words_for_right_trim.length !==
-        0
-    ) {
-      // initially words are trimmed from the right hand side
-      if (search_words_for_right_trim.length !== 0) {
-        search_words_for_right_trim.pop();
-        const new_query = search_words_for_right_trim.join(" ");
-        search_response = await client.index("prelims").search(new_query);
-      }
-      // if trimming from right has not fetched any results, words are trimmed from the left hand side
-      else {
-        search_words_for_left_trim.shift();
-        const new_query = search_words_for_left_trim.join(" ");
-        search_response = await client.index("prelims").search(new_query);
-      }
-    }
-    res.json(search_response);
-  }
+  const results = await returnMeiliSearchResults('prelims', query, 50)
+  res.json(results)
 });
 
 app.post("/search_content", async (req, res) => {
   const query = req.body.query;
-
-  let search_response;
-  search_response = await client.index("content").search(query, { limit: 20 });
-
-  if (search_response.hits.length > 0) res.json(search_response);
-  else {
-    const search_words_for_right_trim = query.split(" ");
-    const search_words_for_left_trim = query.split(" ");
-
-    // Till there is atleast one result, keep trimming words from the query
-    while (
-      search_response.hits.length === 0 &&
-      search_words_for_left_trim.length + search_words_for_right_trim.length !==
-        0
-    ) {
-      // initially words are trimmed from the right hand side
-      if (search_words_for_right_trim.length !== 0) {
-        search_words_for_right_trim.pop();
-        const new_query = search_words_for_right_trim.join(" ");
-        search_response = await client.index("content").search(new_query);
-      }
-      // if trimming from right has not fetched any results, words are trimmed from the left hand side
-      else {
-        search_words_for_left_trim.shift();
-        const new_query = search_words_for_left_trim.join(" ");
-        search_response = await client.index("content").search(new_query);
-      }
-    }
-    res.json(search_response);
-  }
+  const results = await returnMeiliSearchResults('content', query)
+  res.json(results)
 });
 
 app.post("/search_dns", async (req, res) => {
   const query = req.body.query;
-
-  let search_response;
-  search_response = await client.index("dns").search(query, { limit: 5 });
-
-  if (search_response.hits.length > 0) res.json(search_response);
-  else {
-    const search_words_for_right_trim = query.split(" ");
-    const search_words_for_left_trim = query.split(" ");
-
-    // Till there is atleast one result, keep trimming words from the query
-    while (
-      search_response.hits.length === 0 &&
-      search_words_for_left_trim.length + search_words_for_right_trim.length !==
-        0
-    ) {
-      // initially words are trimmed from the right hand side
-      if (search_words_for_right_trim.length !== 0) {
-        search_words_for_right_trim.pop();
-        const new_query = search_words_for_right_trim.join(" ");
-        search_response = await client.index("dns").search(new_query);
-      }
-      // if trimming from right has not fetched any results, words are trimmed from the left hand side
-      else {
-        search_words_for_left_trim.shift();
-        const new_query = search_words_for_left_trim.join(" ");
-        search_response = await client.index("dns").search(new_query);
-      }
-    }
-    res.json(search_response);
-  }
+  const results = await returnMeiliSearchResults('dns', query, 5)
+  res.json(results)
+  
 });
 
 const PORT = process.env.PORT || 5000;
