@@ -34,3 +34,16 @@ The data has been stored in the form of JSON files in the `backend/pyq-scrapers`
 ## Deleting an index
 1. Change the `indexName` in [this](https://github.com/Neera-AI/project-ias/blob/master/backend/delete_index.js) file
 2. Run the file - `node delete_index.js`
+
+# Cronjob
+1. **Updating Rau DNS Daily**
+- [Cronjob Worflow YML file to hit at `/cron_dns`](https://github.com/Neera-AI/project-ias/blob/master/.github/workflows/raudns.yml)
+- [Script that runs when Endpoint `/cron_dns` is hit](https://github.com/Neera-AI/project-ias/blob/master/backend/add_today_dns.sh)
+- [Python Script that creates a `today_raudns.json`](https://github.com/Neera-AI/project-ias/blob/master/backend/pyq_scrapers/scrape_today_rau.py)
+- [JS Script to add `today_raudns.json` to MeiliSearch](https://github.com/Neera-AI/project-ias/blob/master/backend/add_today_dns.js)
+
+2. **Updating Dhristi Content Daily**
+- [Cronjob Worflow YML file to hit at `/cron_dhristi`](https://github.com/Neera-AI/project-ias/blob/master/.github/workflows/dhristi.yml)
+- [Script that runs when Endpoint `/cron_dhristi` is hit](https://github.com/Neera-AI/project-ias/blob/master/backend/add_today_dhristi.sh)
+- [Python Script that creates a `today_dhristi.json`](https://github.com/Neera-AI/project-ias/blob/master/backend/pyq_scrapers/scrape_today_dhristi.py)
+- [JS Script to add `today_dhristi.json` to MeiliSearch](https://github.com/Neera-AI/project-ias/blob/master/backend/add_today_dhristi.js)
