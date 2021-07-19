@@ -18,7 +18,7 @@ export default function SearchPage() {
   const [pyqs, setPyqs] = useState([]);
   const [content, setContent] = useState([]);
   const [dnsContent, setDnsContent] = useState([]);
-  const [examType, setExamType] = useState("prelims");
+  const [examType, setExamType] = useState("pyqs");
   const [materialType, setMaterialType] = useState("content");
   const [query, setQuery] = useState("");
 
@@ -207,16 +207,16 @@ export default function SearchPage() {
         <div className="mobile-view">
           <div className="types">
             <div
-              className={`type ${examType === "prelims" && "current"}`}
-              onClick={() => setExamType("prelims")}
-            >
-              Prelims
-            </div>
-            <div
               className={`type ${examType === "pyqs" && "current"}`}
               onClick={() => setExamType("pyqs")}
             >
               Mains
+            </div>
+            <div
+              className={`type ${examType === "prelims" && "current"}`}
+              onClick={() => setExamType("prelims")}
+            >
+              Prelims
             </div>
             <div
               className={`type ${examType === "content" && "current"}`}
@@ -239,17 +239,18 @@ export default function SearchPage() {
           <div className="division">
             <div className="types">
               <div
-                className={`type ${examType === "prelims" && "current"}`}
-                onClick={() => setExamType("prelims")}
-              >
-                Prelims
-              </div>
-              <div
                 className={`type ${examType === "pyqs" && "current"}`}
                 onClick={() => setExamType("pyqs")}
               >
                 Mains
               </div>
+              <div
+                className={`type ${examType === "prelims" && "current"}`}
+                onClick={() => setExamType("prelims")}
+              >
+                Prelims
+              </div>
+             
             </div>
 
             <Hits hitComponent={ReturnHitComponent(examType)} />
