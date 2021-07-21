@@ -45,6 +45,16 @@ The data has been stored in the form of JSON files in the `backend/pyq-scrapers`
 To deploy
 - If you want your changes(both frontend and backend) to be deployed. SSH to the server. Run the `deploy.sh` script present in the home directory.
 
+# Project Structure
+- In `frontend` directory
+  - `src/components` contains Components to be displayed
+  - All constants are in `src/cnstants/constants.js`
+- In `backend` directory
+   - `index.js` contains the server code
+   - Other `*.js` files add JSON data to MeiliSearch
+   - `pyq_scrapers` contains python files to scrape data, along with JSON files containing the data 
+
+
 # Cronjob
 
 ## Flow:
