@@ -5,6 +5,16 @@ const { MeiliSearch } = require("meilisearch");
 const crypto = require("crypto");
 const shell = require('shelljs')
 const {returnMeiliSearchResults} = require('./meilisearch_results')
+const bcrypt = require('bcryptjs');
+const mongoose = require('mongoose')
+
+const { UserModel } = require('./models/models') 
+
+const mongoDB = 'mongodb://127.0.0.1/project_ias'
+mongoose.connect(mongoDB, {useNewUrlParser: true, useUnifiedTopology: true});
+const db = mongoose.connection;
+db.on('open', () => console.log('mongo connected'));
+
 
 const app = express();
 app.use(express.json());
@@ -22,6 +32,38 @@ app.get("/", (req, res) => {
   res.send("helo");
 });
 
+app.post('/signup', (req, res) => {
+  const email = req.body.email
+  const password = req.body.password
+
+  //hash password
+  const salt = bcrypt.genSaltSync(10);
+  const hash = bcrypt.hashSync(password, salt);
+
+  UserModel.find({'email': email}, (err, data) => {
+    if(err) {
+      res.send('Try again')
+    }
+
+    if(data.length) { // if no matches, data is an empty array
+      res.send('Already have an account with this email')
+      return
+    }
+   })
+
+  let newUser = new UserModel({ 'email': email, 'password': hash, 'prelims': [],  'mains': []})
+  newUser
+    .save()
+    .then(item => {
+      res.send('User add')
+    })
+    .catch(err => {
+      console.log("error in adding User ",err)
+      res.status(500).send('Try again')
+    })
+
+
+})
 app.post("/log", async (req, res) => {
   const query_data = req.body.query_data;
   const id = crypto.randomBytes(20).toString("hex");
