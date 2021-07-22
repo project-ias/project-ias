@@ -7,3 +7,8 @@ export const DNS_URL = `${BACKEND_URL}/search_dns`;
 export const CONTENT_URL = `${BACKEND_URL}/search_content`;
 
 export const LOG_URL = `${BACKEND_URL}/log`;
+
+export const SIGNUP_URL = `${BACKEND_URL}/signup`;
+export const SIGNIN_URL = `${BACKEND_URL}/signin`;
+
+export const USER_URL = `${BACKEND_URL}/currentuser`;

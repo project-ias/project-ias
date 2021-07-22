@@ -49,9 +49,10 @@
 .login-input {
     width: 25rem;
     height: 2.5rem;
-    border: 2px solid black;
+    border: 2px solid #555;
     border-radius: 7px;
-    padding-left: 1.3rem;
+    padding: 0.5rem 1.3rem;
+    font-size: 1.2rem;
 
     @include sm {
         width: 15rem;
@@ -65,18 +66,26 @@
 
 .placeholder-label {
     position: absolute;
-    top: 50%;
+    top: 0;
     left: 0;
-    transform: translateY(-140%);
+    transform: translateY(-50%);
     border: 3px solid transparent;
     background-color: #fafaff;
     pointer-events: none;
     margin-left: 1.3rem;
     font-size: 1.1rem;
+    color: #555;
+    font-size: 1rem;
 }
 
 input:focus + .placeholder-label .placeholder-text {
     color: #3b70ed;
+}
+
+.error-div {
+    font-size: 1rem;
+    color: red;
+    margin: .5rem 0 0 1rem;
 }
 
 .login-submit {
