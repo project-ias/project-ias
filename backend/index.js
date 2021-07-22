@@ -6,21 +6,26 @@ const crypto = require("crypto");
 const shell = require('shelljs')
 const {returnMeiliSearchResults} = require('./meilisearch_results')
 const bcrypt = require('bcryptjs');
-const mongoose = require('mongoose')
+const mongoose = require("mongoose");
+const passport = require("passport");
+const jwt = require("jsonwebtoken");
 
-const { UserModel } = require('./models/models') 
+const { UserModel } = require("./models/models");
+const validateLoginInput = require("./validation/login");
+const keys = require("./config/keys");
+require("./config/passport")(passport);
 
-const mongoDB = 'mongodb://127.0.0.1/project_ias'
-mongoose.connect(mongoDB, {useNewUrlParser: true, useUnifiedTopology: true});
+const mongoDB = "mongodb://127.0.0.1/project_ias";
+mongoose.connect(mongoDB, { useNewUrlParser: true, useUnifiedTopology: true });
 const db = mongoose.connection;
-db.on('open', () => console.log('mongo connected'));
-
+db.on("open", () => console.log("mongo connected"));
 
 const app = express();
 app.use(express.json());
 app.use(cors());
 app.options("*", cors());
 app.use(morgan("tiny"));
+app.use(passport.initialize());
 
 require("dotenv").config();
 const client = new MeiliSearch({
@@ -32,38 +37,119 @@ app.get("/", (req, res) => {
   res.send("helo");
 });
 
-app.post('/signup', (req, res) => {
-  const email = req.body.email
-  const password = req.body.password
+app.post("/signup", (req, res) => {
+  const { errors, isValid } = validateLoginInput(req.body);
+
+  // Check Validation
+  if (!isValid) {
+    return res.status(400).json(errors);
+  }
+
+  const email = req.body.email;
+  const password = req.body.password;
 
   //hash password
   const salt = bcrypt.genSaltSync(10);
   const hash = bcrypt.hashSync(password, salt);
 
-  UserModel.find({'email': email}, (err, data) => {
-    if(err) {
-      res.send('Try again')
+  UserModel.find({ email: email }, (err, data) => {
+    if (err) {
+      return res.status(400).json(errors);
     }
 
-    if(data.length) { // if no matches, data is an empty array
-      res.send('Already have an account with this email')
-      return
+    if (data.length) {
+      // if no matches, data is an empty array
+      errors.email = "Already have an account with this email";
+      return res.status(400).json(errors);
+    } else {
+      let newUser = new UserModel({
+        email: email,
+        password: hash,
+        prelims: [],
+        mains: [],
+      });
+      newUser
+        .save()
+        .then((item) => {
+          const payload = { id: item.id, email: item.email }; // Create JWT Payload
+          // Sign Token
+          jwt.sign(
+            payload,
+            keys.secretOrKey,
+            { expiresIn: 86400 },
+            (err, token) => {
+              return res.json({
+                success: true,
+                token: "Bearer " + token,
+              });
+            }
+          );
+        })
+        .catch((err) => {
+          console.log("error in adding User ", err);
+          return res.status(500).send("Try again");
+        });
     }
-   })
+  });
+});
 
-  let newUser = new UserModel({ 'email': email, 'password': hash, 'prelims': [],  'mains': []})
-  newUser
-    .save()
-    .then(item => {
-      res.send('User add')
-    })
-    .catch(err => {
-      console.log("error in adding User ",err)
-      res.status(500).send('Try again')
-    })
+app.post("/signin", (req, res) => {
+  const { errors, isValid } = validateLoginInput(req.body);
 
+  // Check Validation
+  if (!isValid) {
+    return res.status(400).json(errors);
+  }
 
-})
+  const email = req.body.email;
+  const password = req.body.password;
+
+  UserModel.findOne({ email: email }, (err, data) => {
+    if (err) {
+      return res.status(400).json(errors);
+    }
+    if (data !== null) {
+      // if no matches, data is an empty array
+      bcrypt.compare(password, data.password, (err, result) => {
+        if (err) return res.status(500).send("Try again");
+
+        if (result) {
+          const payload = { id: data.id, email: data.email }; // Create JWT Payload
+          // Sign Token
+          jwt.sign(
+            payload,
+            keys.secretOrKey,
+            { expiresIn: 86400 },
+            (err, token) => {
+              return res.json({
+                success: true,
+                token: "Bearer " + token,
+              });
+            }
+          );
+        } else {
+          errors.password = "Wrong Password";
+          return res.status(400).json(errors);
+        }
+      });
+    } else {
+      errors.email = "No existing account";
+      return res.status(400).json(errors);
+    }
+  });
+});
+
+app.get(
+  "/currentuser",
+  passport.authenticate("jwt", { session: false }),
+  (req, res) => {
+    res.json({
+      id: req.user.id,
+      email: req.user.email,
+    });
+  }
+);
+
 app.post("/log", async (req, res) => {
   const query_data = req.body.query_data;
   const id = crypto.randomBytes(20).toString("hex");

@@ -1,8 +1,14 @@
 import React, { useEffect, useState } from "react";
 import axios from "axios";
-import { LOG_URL, CONTENT_URL, DNS_URL } from "../constants/constants";
+import {
+  LOG_URL,
+  CONTENT_URL,
+  DNS_URL,
+  USER_URL,
+} from "../constants/constants";
 import { InstantSearch, SearchBox, Hits } from "react-instantsearch-dom";
 import { instantMeiliSearch } from "@meilisearch/instant-meilisearch";
+import { useLocation, useHistory } from "react-router-dom";
 
 import HitDrishti from "./HitDrishti";
 import HitDNS from "./HitDNS";
@@ -21,6 +27,29 @@ export default function SearchPage() {
   const [examType, setExamType] = useState("pyqs");
   const [materialType, setMaterialType] = useState("content");
   const [query, setQuery] = useState("");
+  const [currentUser, setCurrentUser] = useState("");
+
+  const location = useLocation();
+  const history = useHistory();
+
+  console.log("getuseremail");
+  if (location.state === undefined) {
+    console.log("getuseremail null");
+  } else {
+    console.log("getuseremail result " + location.state.token);
+    axios
+      .get(USER_URL, {
+        headers: {
+          Authorization: location.state.token,
+        },
+      })
+      .then((response) => {
+        setCurrentUser(response.data.email);
+      })
+      .catch((error) => {
+        console.log("Error getting user data " + error);
+      });
+  }
 
   // for desktop
   const [mainsContent, setMainsContent] = useState([]);
@@ -170,8 +199,31 @@ export default function SearchPage() {
 
   const processChange = debounce((e) => handleChange(e));
 
+  const currentUserChangeHandler = () => {
+    if (currentUser.length == 0) {
+      history.push("/login");
+    } else {
+      history.push({
+        pathname: "/",
+        state: {
+          token: "",
+        },
+      });
+      setCurrentUser("");
+    }
+  };
+
   return (
     <div className="main">
+      <div className="current-user">
+        <div className="current-user-email">{currentUser}</div>
+        <button
+          className="current-user-auth-btn"
+          onClick={currentUserChangeHandler}
+        >
+          {currentUser.length == 0 ? "Log in" : "Log Out"}
+        </button>
+      </div>
       <h2 className="title">Project IAS</h2>
       <h3 className="subtitle" style={{ textAlign: "center" }}>
         Search through PYQs, DNS & Reading Content{" "}
@@ -250,7 +302,6 @@ export default function SearchPage() {
               >
                 Prelims
               </div>
-             
             </div>
 
             <Hits hitComponent={ReturnHitComponent(examType)} />

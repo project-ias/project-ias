@@ -1,3 +1,27 @@
+.current-user {
+  display: flex;
+  align-items: center;
+  position: absolute;
+  top: 0;
+  left: 0;
+  margin: 1rem 1.5rem;
+
+  &-email {
+    font-size: 1rem;
+    color: #3b70ed;
+  }
+
+  &-auth-btn {
+    margin: 0 1rem;
+    padding: .7rem 1.5rem;
+    font-size: 1rem;
+    background-color: #ebf3ff;
+    color: #3b70ed;
+    border: none;
+    border-radius: 10px;
+  }
+}
+
 .ais-SearchBox-form {
   display: flex;
   flex-direction: row;
