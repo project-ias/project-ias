@@ -1,7 +1,7 @@
 const { MeiliSearch } = require("meilisearch");
 
 const client = new MeiliSearch({
-    host: "https://c85d02128138.ngrok.io",
+    host: "https://418ee2749855.ngrok.io",
     apiKey: "masterKey",
   });
 
