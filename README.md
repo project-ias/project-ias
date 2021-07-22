@@ -35,6 +35,26 @@ The data has been stored in the form of JSON files in the `backend/pyq-scrapers`
 1. Change the `indexName` in [this](https://github.com/Neera-AI/project-ias/blob/master/backend/delete_index.js) file
 2. Run the file - `node delete_index.js`
 
+
+# Deployment
+- Frontend, backend and MeiliSearch all are deployed on t2 micro instance.
+- Frontend build is served by Nginx
+- Backend runs in background via pm2
+- Meilisearch is hosted via ngrok
+
+To deploy
+- If you want your changes(both frontend and backend) to be deployed. SSH to the server. Run the `deploy.sh` script present in the home directory.
+
+# Project Structure
+- In `frontend` directory
+  - `src/components` contains Components to be displayed
+  - All constants are in `src/cnstants/constants.js`
+- In `backend` directory
+   - `index.js` contains the server code
+   - Other `*.js` files add JSON data to MeiliSearch
+   - `pyq_scrapers` contains python files to scrape data, along with JSON files containing the data 
+
+
 # Cronjob
 
 ## Flow:
