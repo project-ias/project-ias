@@ -1,0 +1,70 @@
+server {
+    root /home/ubuntu/project-ias/frontend/build;
+    index index.html index.htm index.nginx-debian.html;
+    server_name project-ias.com  www.project-ias.com;
+    location ~* \.(?:manifest|appcache|html?|xml|json)$ {
+        expires -1;
+    }
+    location ~* \.(?:css|js)$ {
+        try_files $uri =404;
+        expires 20d;
+        access_log off;
+        add_header Cache-Control "public";
+    }
+    # any route containing a file extension
+    location ~ ^.+\..+$ {
+        try_files $uri =404;
+    }
+    # any route that doesn't have a file extension
+    location / {
+        try_files $uri $uri/ /index.html;    
+    }
+
+
+
+    listen 443 ssl; # managed by Certbot
+    ssl_certificate /etc/letsencrypt/live/project-ias.com/fullchain.pem; # managed by Certbot
+    ssl_certificate_key /etc/letsencrypt/live/project-ias.com/privkey.pem; # managed by Certbot
+    include /etc/letsencrypt/options-ssl-nginx.conf; # managed by Certbot
+    ssl_dhparam /etc/letsencrypt/ssl-dhparams.pem; # managed by Certbot
+
+}
+
+server {
+    server_name api.project-ias.com;
+    location / {
+        proxy_pass http://localhost:5000;
+    }
+
+    listen 443 ssl; # managed by Certbot
+    ssl_certificate /etc/letsencrypt/live/api.project-ias.com/fullchain.pem; # managed by Certbot
+    ssl_certificate_key /etc/letsencrypt/live/api.project-ias.com/privkey.pem; # managed by Certbot
+    include /etc/letsencrypt/options-ssl-nginx.conf; # managed by Certbot
+    ssl_dhparam /etc/letsencrypt/ssl-dhparams.pem; # managed by Certbot
+
+}
+server {
+    if ($host = project-ias.com) {
+        return 301 https://$host$request_uri;
+    } # managed by Certbot
+
+
+    server_name project-ias.com  www.project-ias.com;
+    listen 80;
+    return 404; # managed by Certbot
+
+
+}
+
+server {
+    if ($host = api.project-ias.com) {
+        return 301 https://$host$request_uri;
+    } # managed by Certbot
+
+
+    server_name api.project-ias.com;
+    listen 80;
+    return 404; # managed by Certbot
+
+
+}
