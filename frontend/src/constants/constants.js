@@ -1,4 +1,4 @@
-export const BACKEND_URL = "https://api.projectias.neera.ai";
+export const BACKEND_URL = "https://api.project-ias.com";
 export const GA_MEASUREMENT_ID = "G-QDM8PF4XX9";
 
 export const MAINS_URL = `${BACKEND_URL}/search_pyq`;
