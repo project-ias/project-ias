@@ -9,4 +9,4 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: wget request
-        run: wget https://api.projectias.neera.ai/cron_dhristi
+        run: wget https://api.project-ias.com/cron_dhristi
