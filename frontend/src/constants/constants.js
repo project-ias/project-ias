@@ -1,4 +1,5 @@
 export const BACKEND_URL = "https://api.project-ias.com";
+export const NGROK_URL = "https://418ee2749855.ngrok.io/";
 export const GA_MEASUREMENT_ID = "G-QDM8PF4XX9";
 
 export const MAINS_URL = `${BACKEND_URL}/search_pyq`;

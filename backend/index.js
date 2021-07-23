@@ -29,7 +29,7 @@ app.use(passport.initialize());
 
 require("dotenv").config();
 const client = new MeiliSearch({
-  host: "https://c85d02128138.ngrok.io",
+  host: keys.MEILISEARCH_URL,
   apiKey: "masterKey",
 });
 
