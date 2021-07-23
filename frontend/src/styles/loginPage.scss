@@ -11,7 +11,7 @@
     align-items: center;
 
     @include sm {
-        width: 80%;
+        width: 80vw;
     }
 }
 
@@ -20,6 +20,11 @@
     padding: 1.5rem 1rem .7rem 1rem;
     letter-spacing: 3px;
     font-size: 3.2rem;
+
+    @include sm {
+        padding: 1rem 3rem;
+        font-size: 2.5rem;
+    }
 }
 
 .login-toggle {
@@ -28,7 +33,7 @@
     padding-bottom: 1rem;
 
     &-text {
-        padding-right: 8px;
+        padding: 0 8px;
     }
 
     &-link {
@@ -38,6 +43,10 @@
             cursor: pointer;
             color: #3C8DAD;
         }
+    }
+
+    @include sm {
+        font-size: 1rem;
     }
 }
 
@@ -55,7 +64,10 @@
     font-size: 1.2rem;
 
     @include sm {
-        width: 15rem;
+        width: 40vw;
+        padding: 0.4rem 0.8rem;
+        font-size: 1rem;
+        height: 2rem;
     }
 
     &:focus {
@@ -76,6 +88,10 @@
     font-size: 1.1rem;
     color: #555;
     font-size: 1rem;
+
+    @include sm {
+        font-size: .7rem;
+    }
 }
 
 input:focus + .placeholder-label .placeholder-text {
@@ -86,6 +102,11 @@ input:focus + .placeholder-label .placeholder-text {
     font-size: 1rem;
     color: red;
     margin: .5rem 0 0 1rem;
+
+    @include sm {
+        font-size: 0.8rem;
+        margin: .3rem 0 0 .8rem;
+    }
 }
 
 .login-submit {

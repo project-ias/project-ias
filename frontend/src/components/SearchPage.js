@@ -5,6 +5,7 @@ import {
   CONTENT_URL,
   DNS_URL,
   USER_URL,
+  NGROK_URL,
 } from "../constants/constants";
 import { InstantSearch, SearchBox, Hits } from "react-instantsearch-dom";
 import { instantMeiliSearch } from "@meilisearch/instant-meilisearch";
@@ -15,10 +16,7 @@ import HitDNS from "./HitDNS";
 import HitPyqs from "./HitPyqs";
 import HitPrelims from "./HitPrelims";
 
-const searchClient = instantMeiliSearch(
-  "https://418ee2749855.ngrok.io/",
-  "masterKey"
-);
+const searchClient = instantMeiliSearch(NGROK_URL, "masterKey");
 
 export default function SearchPage() {
   const [pyqs, setPyqs] = useState([]);

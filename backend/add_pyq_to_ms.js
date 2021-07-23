@@ -1,9 +1,10 @@
 const { MeiliSearch } = require("meilisearch")
 const crypto = require("crypto")
+const keys = require("./config/keys");
 
 const client = new MeiliSearch({
-    host: "http://localhost:7700",
-    apiKey: "masterKey",
+  host: keys.MEILISEARCH_URL,
+  apiKey: "masterKey",
 });
 
 const fs = require('fs');
