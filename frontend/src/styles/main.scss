@@ -13,14 +13,19 @@
     text-align: center;
     margin: 1rem 0.5rem;
     font-size: 5rem;
-
-    .subtitle {
-      text-align: center;
-    }
+    color: #1E212D;
+    letter-spacing: 2px;
 
     @include sm {
       font-size: 3.5rem;
     }
+  }
+
+  .subtitle {
+    text-align: center;
+    color: #1E212D;
+    letter-spacing: 3px;
+    padding: 0 1rem 2rem 1rem;
   }
 
   .dns-video {
@@ -42,8 +47,8 @@
       margin: 0.5rem;
 
       .card-result {
-        background: #fff;
-        border: 1px solid #e0e0e0;
+        background: #fefaee;
+        border: 1px solid #FEF7DC;
         box-sizing: border-box;
         box-shadow: 0px 6px 12px rgba(0, 0, 0, 0.05);
         border-radius: 4px;
@@ -67,9 +72,9 @@
 
   .types {
     display: flex;
-    background-color: white;
-    color: #8a8a8a;
-    border: 2px solid #f1f1f1;
+    background-color: #fefaee;
+    color: #1E212D;
+    border: 3px solid #fefaee;
     border-radius: 4px;
     margin: 1rem 0.5rem;
 
@@ -82,8 +87,10 @@
     }
 
     .current {
-      background-color: #ebf3ff;
-      color: #065cd8;
+      background-color: #FFEBC9;
+      color: #1E212D;
+      font-weight: bolder;
+      border-radius: 0;
     }
   }
 
@@ -121,7 +128,7 @@
   .solution {
     padding: 0.5rem;
     margin-top: 0.25rem;
-    background-color: rgb(255, 255, 255);
+    background-color: #FAF3E0;
     border: 1px solid rgb(209, 213, 219);
     border-radius: 4px;
 

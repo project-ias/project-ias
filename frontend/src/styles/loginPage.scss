@@ -1,9 +1,28 @@
+.login-page {
+    width: 100vw;
+    height: auto;
+}
+
+.login-back-btn {
+    position: absolute;
+    top: 0;
+    left: 0;
+    margin: 3rem 3.5rem;
+    padding: .7rem 1.5rem;
+    font-size: 1rem;
+    background-color: #fefaee;
+    color: #1E212D;
+    border: none;
+    border-radius: 7px;
+    box-shadow: 0px 6px 12px rgba(0, 0, 0, 0.10);
+}
+
 .login-box {
     margin: 20vh auto;
     min-height: 60vh;
     height: auto;
     width: 40rem;
-    background-color: #fafaff;
+    background-color: #fefaee;
     border-radius: 5px;
     box-shadow: 0px 6px 12px rgba(0, 0, 0, 0.20);
     display: flex;
@@ -62,6 +81,7 @@
     border-radius: 7px;
     padding: 0.5rem 1.3rem;
     font-size: 1.2rem;
+    background-color: #fefaee;
 
     @include sm {
         width: 40vw;
@@ -82,7 +102,7 @@
     left: 0;
     transform: translateY(-50%);
     border: 3px solid transparent;
-    background-color: #fafaff;
+    background-color: #fefaee;
     pointer-events: none;
     margin-left: 1.3rem;
     font-size: 1.1rem;
@@ -110,21 +130,22 @@ input:focus + .placeholder-label .placeholder-text {
 }
 
 .login-submit {
-    background-color: #3b70ed;
-    color: #eee;
-    width: 25rem;
-    height: 2.8rem;
+    background-color: #FCA652;
+    color: #1E212D;
+    font-weight: bolder;
+    width: 20rem;
     border: 2px solid black;
+    box-shadow: 0px 6px 12px rgba(0, 0, 0, 0.05);
     border-radius: 7px;
-    padding-left: 1.3rem;
+    padding: 1rem 1.3rem;
     font-size: 1.3rem;
     border: none;
 
     @include sm {
-        width: 10rem;
+        width: 8rem;
     }
 
     &:hover {
-        background-color: #3C8DAD;
+        background-color: #C87941;
     }
 }
