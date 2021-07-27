@@ -4,6 +4,19 @@ import Loader from "react-loader-spinner";
 import { Highlight } from "react-instantsearch-dom";
 
 export default function HitPyqs(props) {
+  var topicArr = [];
+  const length = props.hit["topics"].length;
+  for (var i = 0; i < length; i++) {
+    if (props.hit["topics"][i].mainTopic) {
+      topicArr.push(
+        props.hit["topics"][i].mainTopic +
+          "(" +
+          props.hit["topics"][i].subTopics.join(",") +
+          ")"
+      );
+    }
+  }
+  console.log("Chirag2 : " + topicArr.join(";"));
   return (
     <>
       {props.hit.topics === undefined ? (
@@ -23,7 +36,7 @@ export default function HitPyqs(props) {
           {/* {props.hit.question} */}
           {props.hit["year"]})
           <p>
-            <strong>Topics:</strong> {props.hit?.topics?.join(",")}
+            <strong>Topics:</strong> {topicArr.join(";")}
           </p>
           <span> Exam Type: {props.hit["exam"]} </span>
         </div>
