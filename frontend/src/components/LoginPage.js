@@ -40,53 +40,62 @@ const LoginPage = () => {
       });
   };
 
+  const backToSearchPage = () => {
+    history.push("/");
+  };
+
   return (
-    <div className="login-box">
-      <h1 className="login-heading">Project IAS</h1>
-      <div className="login-toggle">
-        <div className="login-toggle-text">
-          {loginMode ? "Already have an account ?" : "Not registered yet?"}
+    <div className="login-page">
+      <button className="login-back-btn" onClick={backToSearchPage}>
+        &#8592; Back
+      </button>
+      <div className="login-box">
+        <h1 className="login-heading">Project IAS</h1>
+        <div className="login-toggle">
+          <div className="login-toggle-text">
+            {loginMode ? "Already have an account ?" : "Not registered yet?"}
+          </div>
+          <div className="login-toggle-link" onClick={toggleLoginMode}>
+            {loginMode ? "Sign In" : "Sign Up"}
+          </div>
         </div>
-        <div className="login-toggle-link" onClick={toggleLoginMode}>
-          {loginMode ? "Sign In" : "Sign Up"}
+        <div className="input-contain">
+          <input
+            className="login-input"
+            type="email"
+            id="femail"
+            name="femail"
+            onChange={(event) => setEmail(event.target.value)}
+            value={email}
+          />
+          <label class="placeholder-label" for="femail" id="placeholder-femail">
+            <div class="placeholder-text">Email address</div>
+          </label>
+          <div className="error-div">{errors.email}</div>
         </div>
-      </div>
-      <div className="input-contain">
-        <input
-          className="login-input"
-          type="email"
-          id="femail"
-          name="femail"
-          onChange={(event) => setEmail(event.target.value)}
-          value={email}
-        />
-        <label class="placeholder-label" for="femail" id="placeholder-femail">
-          <div class="placeholder-text">Email address</div>
-        </label>
-        <div className="error-div">{errors.email}</div>
-      </div>
-      <div className="input-contain">
-        <input
-          className="login-input"
-          type="password"
-          id="fpass"
-          name="fpass"
-          onChange={(event) => setPassword(event.target.value)}
-          value={password}
-        />
-        <label class="placeholder-label" for="fpass" id="placeholder-fpass">
-          <div class="placeholder-text">Password</div>
-        </label>
-        <div className="error-div">{errors.password}</div>
-      </div>
-      <div className="input-contain">
-        <button
-          className="login-submit"
-          type="submit"
-          onClick={(event) => submitForm(event)}
-        >
-          {loginMode ? "Sign Up" : "Sign In"}
-        </button>
+        <div className="input-contain">
+          <input
+            className="login-input"
+            type="password"
+            id="fpass"
+            name="fpass"
+            onChange={(event) => setPassword(event.target.value)}
+            value={password}
+          />
+          <label class="placeholder-label" for="fpass" id="placeholder-fpass">
+            <div class="placeholder-text">Password</div>
+          </label>
+          <div className="error-div">{errors.password}</div>
+        </div>
+        <div className="input-contain">
+          <button
+            className="login-submit"
+            type="submit"
+            onClick={(event) => submitForm(event)}
+          >
+            {loginMode ? "Sign Up" : "Sign In"}
+          </button>
+        </div>
       </div>
     </div>
   );
