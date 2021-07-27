@@ -158,49 +158,46 @@ app.post("/log", async (req, res) => {
   res.send("Added");
 });
 
-app.get('/cron_dhristi', (req, res) => {
-  res.send('Will Start Cronjob to fetch Dhristi Content')
+app.get("/cron_dhristi", (req, res) => {
+  res.send("Will Start Cronjob to fetch Dhristi Content");
   try {
-    shell.exec('bash add_today_dhristi.sh')
-   } catch(err) {
-    console.log('Error in running bash',err)
-   }
-   
-})
+    shell.exec("bash add_today_dhristi.sh");
+  } catch (err) {
+    console.log("Error in running bash", err);
+  }
+});
 
-app.get('/cron_dns', (req, res) => {
-  res.send('Will Start Cronjob to fetch Rau DNS')
+app.get("/cron_dns", (req, res) => {
+  res.send("Will Start Cronjob to fetch Rau DNS");
   try {
-    shell.exec('bash add_today_dns.sh')
-   } catch(err) {
-    console.log('Error in running bash',err)
-   }
-   
-})
+    shell.exec("bash add_today_dns.sh");
+  } catch (err) {
+    console.log("Error in running bash", err);
+  }
+});
 
 app.post("/search_pyq", async (req, res) => {
   const query = req.body.query;
-  const results = await returnMeiliSearchResults('pyqs', query, 50)
-  res.json(results)
+  const results = await returnMeiliSearchResults("pyqs", query, 50);
+  res.json(results);
 });
 
 app.post("/search_prelims", async (req, res) => {
   const query = req.body.query;
-  const results = await returnMeiliSearchResults('prelims', query, 50)
-  res.json(results)
+  const results = await returnMeiliSearchResults("prelims", query, 50);
+  res.json(results);
 });
 
 app.post("/search_content", async (req, res) => {
   const query = req.body.query;
-  const results = await returnMeiliSearchResults('content', query)
-  res.json(results)
+  const results = await returnMeiliSearchResults("content", query);
+  res.json(results);
 });
 
 app.post("/search_dns", async (req, res) => {
   const query = req.body.query;
-  const results = await returnMeiliSearchResults('dns', query, 5)
-  res.json(results)
-  
+  const results = await returnMeiliSearchResults("dns", query, 5);
+  res.json(results);
 });
 
 const PORT = process.env.PORT || 5000;
