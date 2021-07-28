@@ -176,6 +176,15 @@ app.get("/cron_dns", (req, res) => {
   }
 });
 
+app.get("/cron_gsheet", (req, res) => {
+  res.send("Will Start Cronjob to sync Google Sheet changes");
+  try {
+    shell.exec("bash update_gsheets.sh");
+  } catch (err) {
+    console.log("Error in running bash", err);
+  }
+});
+
 app.post("/search_pyq", async (req, res) => {
   const query = req.body.query;
   const results = await returnMeiliSearchResults("pyqs", query, 50);
