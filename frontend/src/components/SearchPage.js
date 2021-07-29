@@ -37,7 +37,7 @@ export default function SearchPage() {
 
   const location = useLocation();
   const history = useHistory();
-  if (location.state === undefined) {
+  if (location.state === undefined || location.state.token === undefined) {
     console.log("getuseremail null");
   } else {
     axios
@@ -214,13 +214,13 @@ export default function SearchPage() {
     if (currentUserEmail.length == 0) {
       history.push("/login");
     } else {
+      setCurrentUserEmail("");
       history.push({
         pathname: "/",
         state: {
           token: "",
         },
       });
-      setCurrentUserEmail("");
     }
   };
 

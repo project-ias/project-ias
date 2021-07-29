@@ -3,7 +3,7 @@ import "react-loader-spinner/dist/loader/css/react-spinner-loader.css";
 import Loader from "react-loader-spinner";
 import { Highlight } from "react-instantsearch-dom";
 import axios from "axios";
-import { USER_PRELIMS_URL } from "../constants/constants";
+import { USER_MAINS_URL } from "../constants/constants";
 
 export default function HitPyqs(props) {
   const userID = localStorage.getItem("userID");
@@ -29,10 +29,10 @@ export default function HitPyqs(props) {
   }
   const completeCheckHandler = (solvedState) => {
     axios
-      .post(USER_PRELIMS_URL, {
+      .post(USER_MAINS_URL, {
         userID: userID,
         questionID: props.hit["id"],
-        isSolved: solvedState,
+        isSolved: !solvedState,
       })
       .then((response) => {
         console.log(response.data);

@@ -221,7 +221,7 @@ app.post("/search_dns", async (req, res) => {
   res.json(results);
 });
 
-app.post("/user_prelims", async (req, res) => {
+app.post("/user_mains", async (req, res) => {
   const userID = req.body.userID;
   const questionID = req.body.questionID;
   const isSolved = req.body.isSolved;
@@ -229,7 +229,7 @@ app.post("/user_prelims", async (req, res) => {
   UserModel.findById(userID, (err, docs) => {
     if (err) console.log(err);
     else {
-      var userQuestions = [...docs.prelims];
+      var userQuestions = [...docs.mains];
       if (isSolved) userQuestions.push(questionID);
       else {
         userQuestions = userQuestions.filter(
@@ -238,10 +238,10 @@ app.post("/user_prelims", async (req, res) => {
       }
       UserModel.findByIdAndUpdate(
         userID,
-        { prelims: userQuestions },
+        { mains: userQuestions },
         { new: true },
         (err, result) => {
-          if (err) console.log(err);
+          if (err) res.status(400).send(err);
           else {
             res.send(result);
           }
