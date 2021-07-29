@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from "react";
+import createHistory from "history/createBrowserHistory";
 import axios from "axios";
 import {
   LOG_URL,
@@ -30,14 +31,20 @@ export default function SearchPage() {
   const [examType, setExamType] = useState("pyqs");
   const [materialType, setMaterialType] = useState("content");
   const [query, setQuery] = useState("");
-  const [currentUserID, setCurrentUserID] = useState("");
-  const [currentUserEmail, setCurrentUserEmail] = useState("");
-  const [currentUserPrelims, setCurrentUserPrelims] = useState([]);
-  const [currentUserMains, setCurrentUserMains] = useState([]);
+  const [currentUser, setCurrentUser] = useState({
+    id: "",
+    email: "",
+    prelims: [],
+    mains: [],
+  });
 
   const location = useLocation();
   const history = useHistory();
-  if (location.state === undefined || location.state.token === undefined) {
+  if (
+    location.state === undefined ||
+    location.state.token === undefined ||
+    location.state.token.length === 0
+  ) {
     console.log("getuseremail null");
   } else {
     axios
@@ -47,15 +54,22 @@ export default function SearchPage() {
         },
       })
       .then((response) => {
-        setCurrentUserID(response.data.id);
-        setCurrentUserEmail(response.data.email);
-        setCurrentUserPrelims(response.data.prelims);
-        setCurrentUserMains(response.data.Mains);
+        // setCurrentUserID(response.data.id);
+        // setCurrentUserEmail(response.data.email);
+        // setCurrentUserPrelims(response.data.prelims);
+        // setCurrentUserMains(response.data.mains);
+        const tempUser = {
+          id: response.data.id,
+          email: response.data.email,
+          prelims: response.data.prelims,
+          mains: response.data.mains,
+        };
+        setCurrentUser(tempUser);
         //
-        localStorage.setItem("userID", currentUserID);
-        localStorage.setItem("userEmail", currentUserEmail);
-        localStorage.setItem("userPrelims", currentUserPrelims);
-        localStorage.setItem("userMains", currentUserMains);
+        localStorage.setItem("userID", currentUser.id);
+        localStorage.setItem("userEmail", currentUser.email);
+        localStorage.setItem("userPrelims", currentUser.prelims.join(" - "));
+        localStorage.setItem("userMains", currentUser.mains.join(" - "));
       })
       .catch((error) => {
         console.log("Error getting user data " + error);
@@ -211,15 +225,16 @@ export default function SearchPage() {
   const processChange = debounce((e) => handleChange(e));
 
   const currentUserChangeHandler = () => {
-    if (currentUserEmail.length == 0) {
+    if (currentUser.email.length === 0) {
       history.push("/login");
     } else {
-      setCurrentUserEmail("");
-      history.push({
-        pathname: "/",
-        state: {
-          token: "",
-        },
+      localStorage.clear();
+      history.replaceState({ token: "" }, "");
+      setCurrentUser({
+        id: "",
+        email: "",
+        prelims: [],
+        mains: [],
       });
     }
   };
@@ -227,12 +242,12 @@ export default function SearchPage() {
   return (
     <div className="main">
       <div className="current-user">
-        <div className="current-user-email">{currentUserEmail}</div>
+        <div className="current-user-email">{currentUser.email}</div>
         <button
           className="current-user-auth-btn"
           onClick={currentUserChangeHandler}
         >
-          {currentUserEmail.length === 0 ? "Log in" : "Log Out"}
+          {currentUser.email.length === 0 ? "Log in" : "Log Out"}
         </button>
       </div>
       <h2 className="title">Project IAS</h2>

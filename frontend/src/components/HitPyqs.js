@@ -6,8 +6,13 @@ import axios from "axios";
 import { USER_MAINS_URL } from "../constants/constants";
 
 export default function HitPyqs(props) {
-  const userID = localStorage.getItem("userID");
-  const userMains = localStorage.getItem("userMains");
+
+  var userID = null,
+    userMains = null;
+  try {
+    userID = localStorage.getItem("userID");
+    userMains = localStorage.getItem("userMains").split(" - ");
+  } catch {}
   const [solved, setSolved] = useState(
     userMains !== undefined &&
       userMains !== null &&
@@ -68,6 +73,7 @@ export default function HitPyqs(props) {
               type="checkbox"
               className="pyqs-solved-toggle-check"
               onChange={() => completeCheckHandler(solved)}
+              defaultChecked={solved}
             ></input>
           </div>
         </div>
