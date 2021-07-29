@@ -7,7 +7,12 @@ import {
   USER_URL,
   NGROK_URL,
 } from "../constants/constants";
-import { InstantSearch, SearchBox, Hits } from "react-instantsearch-dom";
+import {
+  InstantSearch,
+  SearchBox,
+  Hits,
+  Configure,
+} from "react-instantsearch-dom";
 import { instantMeiliSearch } from "@meilisearch/instant-meilisearch";
 import { useLocation, useHistory } from "react-router-dom";
 
@@ -25,16 +30,16 @@ export default function SearchPage() {
   const [examType, setExamType] = useState("pyqs");
   const [materialType, setMaterialType] = useState("content");
   const [query, setQuery] = useState("");
-  const [currentUser, setCurrentUser] = useState("");
+  const [currentUserID, setCurrentUserID] = useState("");
+  const [currentUserEmail, setCurrentUserEmail] = useState("");
+  const [currentUserPrelims, setCurrentUserPrelims] = useState([]);
+  const [currentUserMains, setCurrentUserMains] = useState([]);
 
   const location = useLocation();
   const history = useHistory();
-
-  console.log("getuseremail");
   if (location.state === undefined) {
     console.log("getuseremail null");
   } else {
-    console.log("getuseremail result " + location.state.token);
     axios
       .get(USER_URL, {
         headers: {
@@ -42,7 +47,15 @@ export default function SearchPage() {
         },
       })
       .then((response) => {
-        setCurrentUser(response.data.email);
+        setCurrentUserID(response.data.id);
+        setCurrentUserEmail(response.data.email);
+        setCurrentUserPrelims(response.data.prelims);
+        setCurrentUserMains(response.data.Mains);
+        //
+        localStorage.setItem("userID", currentUserID);
+        localStorage.setItem("userEmail", currentUserEmail);
+        localStorage.setItem("userPrelims", currentUserPrelims);
+        localStorage.setItem("userMains", currentUserMains);
       })
       .catch((error) => {
         console.log("Error getting user data " + error);
@@ -198,7 +211,7 @@ export default function SearchPage() {
   const processChange = debounce((e) => handleChange(e));
 
   const currentUserChangeHandler = () => {
-    if (currentUser.length == 0) {
+    if (currentUserEmail.length == 0) {
       history.push("/login");
     } else {
       history.push({
@@ -207,19 +220,19 @@ export default function SearchPage() {
           token: "",
         },
       });
-      setCurrentUser("");
+      setCurrentUserEmail("");
     }
   };
 
   return (
     <div className="main">
       <div className="current-user">
-        <div className="current-user-email">{currentUser}</div>
+        <div className="current-user-email">{currentUserEmail}</div>
         <button
           className="current-user-auth-btn"
           onClick={currentUserChangeHandler}
         >
-          {currentUser.length == 0 ? "Log in" : "Log Out"}
+          {currentUserEmail.length === 0 ? "Log in" : "Log Out"}
         </button>
       </div>
       <h2 className="title">Project IAS</h2>
@@ -228,6 +241,7 @@ export default function SearchPage() {
       </h3>
 
       <InstantSearch indexName={examType} searchClient={searchClient}>
+        <Configure hitsPerPage={25} />;
         <SearchBox
           onChange={processChange}
           submit={
@@ -253,7 +267,6 @@ export default function SearchPage() {
             </svg>
           }
         />
-
         <div className="mobile-view">
           <div className="types">
             <div
@@ -284,7 +297,6 @@ export default function SearchPage() {
 
           <Hits hitComponent={ReturnHitComponent(examType)} />
         </div>
-
         <div className="results">
           <div className="division">
             <div className="types">

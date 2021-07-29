@@ -13,3 +13,5 @@ export const SIGNUP_URL = `${BACKEND_URL}/signup`;
 export const SIGNIN_URL = `${BACKEND_URL}/signin`;
 
 export const USER_URL = `${BACKEND_URL}/currentuser`;
+
+export const USER_PRELIMS_URL = `${BACKEND_URL}/user_prelims`;

@@ -144,3 +144,13 @@
     }
   }
 }
+
+.card-solved {
+  opacity: 0.4;
+}
+
+.pyqs-solved-toggle {
+  display: flex;
+  justify-content: flex-end;
+  align-items: baseline;
+}

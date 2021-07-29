@@ -71,7 +71,12 @@ app.post("/signup", (req, res) => {
       newUser
         .save()
         .then((item) => {
-          const payload = { id: item.id, email: item.email }; // Create JWT Payload
+          const payload = {
+            id: item.id,
+            email: item.email,
+            prelims: item.prelims,
+            mains: item.mains,
+          }; // Create JWT Payload
           // Sign Token
           jwt.sign(
             payload,
@@ -114,7 +119,12 @@ app.post("/signin", (req, res) => {
         if (err) return res.status(500).send("Try again");
 
         if (result) {
-          const payload = { id: data.id, email: data.email }; // Create JWT Payload
+          const payload = {
+            id: data.id,
+            email: data.email,
+            prelims: item.prelims,
+            mains: item.mains,
+          }; // Create JWT Payload
           // Sign Token
           jwt.sign(
             payload,
@@ -146,6 +156,8 @@ app.get(
     res.json({
       id: req.user.id,
       email: req.user.email,
+      prelims: [...req.user.prelims],
+      mains: [...req.user.mains],
     });
   }
 );
@@ -207,6 +219,36 @@ app.post("/search_dns", async (req, res) => {
   const query = req.body.query;
   const results = await returnMeiliSearchResults("dns", query, 5);
   res.json(results);
+});
+
+app.post("/user_prelims", async (req, res) => {
+  const userID = req.body.userID;
+  const questionID = req.body.questionID;
+  const isSolved = req.body.isSolved;
+
+  UserModel.findById(userID, (err, docs) => {
+    if (err) console.log(err);
+    else {
+      var userQuestions = [...docs.prelims];
+      if (isSolved) userQuestions.push(questionID);
+      else {
+        userQuestions = userQuestions.filter(
+          (value, index, arr) => value != questionID
+        );
+      }
+      UserModel.findByIdAndUpdate(
+        userID,
+        { prelims: userQuestions },
+        { new: true },
+        (err, result) => {
+          if (err) console.log(err);
+          else {
+            res.send(result);
+          }
+        }
+      );
+    }
+  });
 });
 
 const PORT = process.env.PORT || 5000;
