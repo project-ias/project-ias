@@ -122,8 +122,8 @@ app.post("/signin", (req, res) => {
           const payload = {
             id: data.id,
             email: data.email,
-            prelims: item.prelims,
-            mains: item.mains,
+            prelims: data.prelims,
+            mains: data.mains,
           }; // Create JWT Payload
           // Sign Token
           jwt.sign(

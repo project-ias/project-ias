@@ -9,7 +9,9 @@ export default function HitPyqs(props) {
   const userID = localStorage.getItem("userID");
   const userMains = localStorage.getItem("userMains");
   const [solved, setSolved] = useState(
-    userMains !== undefined && userMains.includes(props.hit["id"])
+    userMains !== undefined &&
+      userMains !== null &&
+      userMains.includes(props.hit["id"])
   );
   var pyqCardClass = "";
   if (solved) pyqCardClass = "card-solved";
