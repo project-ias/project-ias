@@ -40,7 +40,8 @@ export default function HitPyqs(props) {
         isSolved: !solvedState,
       })
       .then((response) => {
-        console.log(response.data);
+        localStorage.setItem("userMains", response.data.mains.join(" - "));
+        console.log(response.data.mains.join(" - "));
       })
       .catch((err) => console.log(err));
     setSolved(!solvedState);

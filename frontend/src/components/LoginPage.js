@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import axios from "axios";
 import { useHistory } from "react-router-dom";
 
-import { SIGNUP_URL, SIGNIN_URL } from "../constants/constants";
+import { SIGNUP_URL, SIGNIN_URL, USER_URL } from "../constants/constants";
 
 const LoginPage = () => {
   const [loginMode, setLoginMode] = useState(0); // 0 - Sign-In page   1 - Sign-Up page
@@ -28,12 +28,31 @@ const LoginPage = () => {
       })
       .then((response) => {
         setErrors({});
-        history.push({
-          pathname: "/",
-          state: {
-            token: response.data.token,
-          },
-        });
+        localStorage.setItem("userToken", response.data.token);
+        axios
+          .get(USER_URL, {
+            headers: {
+              Authorization: response.data.token,
+            },
+          })
+          .then((user) => {
+            try {
+              localStorage.setItem("userID", user.data.id);
+              localStorage.setItem("userEmail", user.data.email);
+              localStorage.setItem(
+                "userPrelims",
+                user.data.prelims.join(" - ")
+              );
+              localStorage.setItem("userMains", user.data.mains.join(" - "));
+            } catch {}
+            history.push({
+              pathname: "/",
+            });
+          })
+          .catch((error) => {
+            console.log("Error getting user data " + error);
+            localStorage.clear();
+          });
       })
       .catch((err) => {
         setErrors({ ...err.response.data });

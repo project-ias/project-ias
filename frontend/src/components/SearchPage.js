@@ -31,50 +31,18 @@ export default function SearchPage() {
   const [examType, setExamType] = useState("pyqs");
   const [materialType, setMaterialType] = useState("content");
   const [query, setQuery] = useState("");
-  const [currentUser, setCurrentUser] = useState({
-    id: "",
-    email: "",
-    prelims: [],
-    mains: [],
-  });
+  const [currentUserEmail, setCurrentUserEmail] = useState(
+    localStorage.getItem("userEmail") || ""
+  );
 
   const location = useLocation();
   const history = useHistory();
-  if (
-    location.state === undefined ||
-    location.state.token === undefined ||
-    location.state.token.length === 0
-  ) {
-    console.log("getuseremail null");
-  } else {
-    axios
-      .get(USER_URL, {
-        headers: {
-          Authorization: location.state.token,
-        },
-      })
-      .then((response) => {
-        // setCurrentUserID(response.data.id);
-        // setCurrentUserEmail(response.data.email);
-        // setCurrentUserPrelims(response.data.prelims);
-        // setCurrentUserMains(response.data.mains);
-        const tempUser = {
-          id: response.data.id,
-          email: response.data.email,
-          prelims: response.data.prelims,
-          mains: response.data.mains,
-        };
-        setCurrentUser(tempUser);
-        //
-        localStorage.setItem("userID", currentUser.id);
-        localStorage.setItem("userEmail", currentUser.email);
-        localStorage.setItem("userPrelims", currentUser.prelims.join(" - "));
-        localStorage.setItem("userMains", currentUser.mains.join(" - "));
-      })
-      .catch((error) => {
-        console.log("Error getting user data " + error);
-      });
-  }
+
+  // try {
+  //   var temp = localStorage.getItem("userEmail");
+  //   if (temp === null) temp = "";
+  //   setCurrentUserEmail(temp);
+  // } catch {}
 
   // for desktop
   const [mainsContent, setMainsContent] = useState([]);
@@ -225,29 +193,23 @@ export default function SearchPage() {
   const processChange = debounce((e) => handleChange(e));
 
   const currentUserChangeHandler = () => {
-    if (currentUser.email.length === 0) {
+    if (currentUserEmail.length === 0) {
       history.push("/login");
     } else {
       localStorage.clear();
-      history.replaceState({ token: "" }, "");
-      setCurrentUser({
-        id: "",
-        email: "",
-        prelims: [],
-        mains: [],
-      });
+      setCurrentUserEmail("");
     }
   };
 
   return (
     <div className="main">
       <div className="current-user">
-        <div className="current-user-email">{currentUser.email}</div>
+        <div className="current-user-email">{currentUserEmail}</div>
         <button
           className="current-user-auth-btn"
           onClick={currentUserChangeHandler}
         >
-          {currentUser.email.length === 0 ? "Log in" : "Log Out"}
+          {currentUserEmail.length === 0 ? "Log in" : "Log Out"}
         </button>
       </div>
       <h2 className="title">Project IAS</h2>
