@@ -1,12 +1,27 @@
+.top-bar {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin: 2rem 1.5rem;
+}
+
+.menu-icon {
+  font-size: 2rem;
+  color: #1E212D;
+}
+
 .current-user {
   display: flex;
   align-items: center;
   justify-content: flex-end;
-  margin: 1rem 1.5rem;
 
   &-email {
     font-size: 1rem;
     color: #3b70ed;
+
+    @include sm {
+      display: none;
+    }
   }
 
   &-auth-btn {

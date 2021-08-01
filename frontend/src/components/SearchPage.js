@@ -1,5 +1,4 @@
 import React, { useEffect, useState } from "react";
-import createHistory from "history/createBrowserHistory";
 import axios from "axios";
 import {
   LOG_URL,
@@ -15,12 +14,16 @@ import {
   Configure,
 } from "react-instantsearch-dom";
 import { instantMeiliSearch } from "@meilisearch/instant-meilisearch";
-import { useLocation, useHistory } from "react-router-dom";
+import { useHistory } from "react-router-dom";
 
 import HitDrishti from "./HitDrishti";
 import HitDNS from "./HitDNS";
 import HitPyqs from "./HitPyqs";
 import HitPrelims from "./HitPrelims";
+import Dashboard from "./Dashboard";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import "@fortawesome/free-solid-svg-icons";
+import { faBars } from "@fortawesome/free-solid-svg-icons";
 
 const searchClient = instantMeiliSearch(NGROK_URL, "masterKey");
 
@@ -34,8 +37,8 @@ export default function SearchPage() {
   const [currentUserEmail, setCurrentUserEmail] = useState(
     localStorage.getItem("userEmail") || ""
   );
+  const [showMenu, setShowMenu] = useState(false);
 
-  const location = useLocation();
   const history = useHistory();
 
   // try {
@@ -201,24 +204,44 @@ export default function SearchPage() {
     }
   };
 
+  var dashboard = null;
+
+  if (showMenu) {
+    dashboard = (
+      <Dashboard
+        hide={() => {
+          setShowMenu(!showMenu);
+        }}
+        email={currentUserEmail}
+      ></Dashboard>
+    );
+  }
+
   return (
     <div className="main">
-      <div className="current-user">
-        <div className="current-user-email">{currentUserEmail}</div>
-        <button
-          className="current-user-auth-btn"
-          onClick={currentUserChangeHandler}
-        >
-          {currentUserEmail.length === 0 ? "Log in" : "Log Out"}
-        </button>
+      {dashboard}
+      <div className="top-bar">
+        <FontAwesomeIcon
+          icon={faBars}
+          className="menu-icon"
+          onClick={() => setShowMenu(!showMenu)}
+        />
+        <div className="current-user">
+          <div className="current-user-email">{currentUserEmail}</div>
+          <button
+            className="current-user-auth-btn"
+            onClick={currentUserChangeHandler}
+          >
+            {currentUserEmail.length === 0 ? "Log in" : "Log Out"}
+          </button>
+        </div>
       </div>
       <h2 className="title">Project IAS</h2>
       <h3 className="subtitle" style={{ textAlign: "center" }}>
         Search through PYQs, DNS & Reading Content{" "}
       </h3>
-
       <InstantSearch indexName={examType} searchClient={searchClient}>
-        <Configure hitsPerPage={25} />;
+        <Configure hitsPerPage={25} />
         <SearchBox
           onChange={processChange}
           submit={
