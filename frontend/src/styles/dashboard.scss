@@ -28,6 +28,7 @@
 
     @include sm {
         width: 100%;
+        animation: fadeIn .2s 1;
        }
 }
 
