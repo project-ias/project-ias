@@ -17,5 +17,7 @@ export const USER_URL = `${BACKEND_URL}/currentuser`;
 export const USER_PRELIMS_URL = `${BACKEND_URL}/user_prelims`;
 export const USER_MAINS_URL = `${BACKEND_URL}/user_mains`;
 
+export const TOPICS_URL = `${BACKEND_URL}/topics`;
+
 export const TELEGRAM_URL = "https://t.me/joinchat/TlvHlSsdL2wwMDE9";
 export const INSTA_URL = "https://www.instagram.com/project.ias/";

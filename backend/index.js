@@ -9,6 +9,7 @@ const bcrypt = require('bcryptjs');
 const mongoose = require("mongoose");
 const passport = require("passport");
 const jwt = require("jsonwebtoken");
+const fs = require("fs");
 
 const { UserModel } = require("./models/models");
 const validateLoginInput = require("./validation/login");
@@ -249,6 +250,17 @@ app.post("/user_mains", async (req, res) => {
       );
     }
   });
+});
+
+app.get("/topics", (req, res) => {
+  try {
+    const topicsJsonString = fs.readFileSync("./topics.json");
+    const topicsJson = JSON.parse(topicsJsonString);
+    res.json(topicsJson);
+  } catch (err) {
+    console.log(err);
+    res.send("An error occured");
+  }
 });
 
 const PORT = process.env.PORT || 5000;

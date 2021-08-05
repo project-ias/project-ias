@@ -5,10 +5,20 @@ import {
   faTelegramPlane,
 } from "@fortawesome/free-brands-svg-icons";
 import { faTimes } from "@fortawesome/free-solid-svg-icons";
-import { INSTA_URL, TELEGRAM_URL } from "../constants/constants";
+import { INSTA_URL, TELEGRAM_URL, TOPICS_URL } from "../constants/constants";
+import { useState } from "react";
+import axios from "axios";
 
 const Dashboard = (props) => {
   var userEmail = props.email;
+  const [menu, setMenu] = useState({});
+
+  axios
+    .get(TOPICS_URL)
+    .then((Response) => {
+      console.log("menu : " + Response);
+    })
+    .catch((err) => console.log(err));
 
   if (userEmail === null || userEmail === undefined || userEmail === "")
     userEmail = "User";
