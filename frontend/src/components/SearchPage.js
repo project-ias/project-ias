@@ -14,7 +14,7 @@ import {
   Configure,
 } from "react-instantsearch-dom";
 import { instantMeiliSearch } from "@meilisearch/instant-meilisearch";
-import { useHistory } from "react-router-dom";
+import { useHistory, useLocation } from "react-router-dom";
 
 import HitDrishti from "./HitDrishti";
 import HitDNS from "./HitDNS";
@@ -40,6 +40,7 @@ export default function SearchPage() {
   const [showMenu, setShowMenu] = useState(false);
 
   const history = useHistory();
+  const location = useLocation();
 
   // try {
   //   var temp = localStorage.getItem("userEmail");
@@ -71,6 +72,13 @@ export default function SearchPage() {
   }
 
   useEffect(() => {
+    try {
+      const tempQuery = location.search.replace("?", "").replace(/%20/gi, " ");
+      setQuery(tempQuery);
+    } catch (err) {
+      console.log(err);
+    }
+
     const data = { query: query };
 
     if (materialType === "dns") {
@@ -181,6 +189,8 @@ export default function SearchPage() {
       .catch((err) => {
         console.log("err is ", err);
       });
+
+    history.push(`/?${e.target.value}`);
   }
 
   function debounce(func, timeout = 200) {
@@ -243,6 +253,7 @@ export default function SearchPage() {
       <InstantSearch indexName={examType} searchClient={searchClient}>
         <Configure hitsPerPage={25} />
         <SearchBox
+          defaultRefinement={query}
           onChange={processChange}
           submit={
             <svg

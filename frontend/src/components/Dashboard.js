@@ -6,19 +6,23 @@ import {
 } from "@fortawesome/free-brands-svg-icons";
 import { faTimes } from "@fortawesome/free-solid-svg-icons";
 import { INSTA_URL, TELEGRAM_URL, TOPICS_URL } from "../constants/constants";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import axios from "axios";
+import TreeMenu from "./TreeMenu";
 
 const Dashboard = (props) => {
   var userEmail = props.email;
-  const [menu, setMenu] = useState({});
+  const [menu, setMenu] = useState([]);
 
-  axios
-    .get(TOPICS_URL)
-    .then((Response) => {
-      console.log("menu : " + Response);
-    })
-    .catch((err) => console.log(err));
+  useEffect(() => {
+    axios
+      .get(TOPICS_URL)
+      .then((Response) => {
+        console.log("menu : " + Response.data.children);
+        setMenu([Response.data]);
+      })
+      .catch((err) => console.log(err));
+  }, []);
 
   if (userEmail === null || userEmail === undefined || userEmail === "")
     userEmail = "User";
@@ -32,6 +36,16 @@ const Dashboard = (props) => {
     </div>
   );
 
+  var menuDiv = null;
+
+  if (menu) {
+    menuDiv = (
+      <div className="tree-menu">
+        <TreeMenu data={menu} />
+      </div>
+    );
+  }
+
   return (
     <div className="dashboard-cover">
       <div className="dashboard-div">
@@ -44,6 +58,7 @@ const Dashboard = (props) => {
           />
         </div>
         {emailDiv}
+        {menuDiv}
         <div className="contact-us">
           <div className="contact-us-text">Contact Us!</div>
           <div className="icons-div">
