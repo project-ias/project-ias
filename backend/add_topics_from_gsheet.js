@@ -31,7 +31,7 @@ async function gsheetToTopics() {
   }
   fs.writeFile(
     "topics.json",
-    JSON.stringify({ label: "Topics", children: mainArr }),
+    JSON.stringify({ label: "Mains", children: mainArr }),
     (err) => {
       if (err) console.log(err);
     }
