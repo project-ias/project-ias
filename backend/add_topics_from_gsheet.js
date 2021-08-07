@@ -1,13 +1,7 @@
 const axios = require("axios");
 const fs = require("fs");
 const crypto = require("crypto");
-const { MeiliSearch } = require("meilisearch");
 const keys = require("./config/keys");
-
-const client = new MeiliSearch({
-  host: keys.MEILISEARCH_URL,
-  apiKey: "masterKey",
-});
 
 const sheetNames = ["GS1", "GS2", "GS3"];
 
@@ -17,6 +11,7 @@ async function gsheetToTopics() {
     const topicsArr = await sheetToJson(keys.sheetID, sheetNames[i]);
     const topicsObj = {
       label: sheetNames[i],
+      category: "examSubType",
       children: topicsArr,
     };
     mainArr.push(topicsObj);
@@ -31,7 +26,7 @@ async function gsheetToTopics() {
   }
   fs.writeFile(
     "topics.json",
-    JSON.stringify({ label: "Mains", children: mainArr }),
+    JSON.stringify({ label: "Mains", category: "examType", children: mainArr }),
     (err) => {
       if (err) console.log(err);
     }
@@ -81,6 +76,7 @@ async function sheetToJson(sheetId, sheetName) {
       } else {
         const tempTopicObject = {
           label: mainTopic,
+          category: "mainTopic",
           children: subTopics,
           questions: [questionID],
         };

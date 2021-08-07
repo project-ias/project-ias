@@ -1,11 +1,14 @@
 {
   "label": "Mains",
+  "category": "examType",
   "children": [
     {
       "label": "GS1",
+      "category": "examSubType",
       "children": [
         {
           "label": "Modern Indian History",
+          "category": "mainTopic",
           "children": [
             "Personalities",
             "Important Governor Generals and Viceroys",
@@ -42,6 +45,7 @@
         },
         {
           "label": "Post Independence India",
+          "category": "mainTopic",
           "children": [
             "Political History - Shastri and Indira Era",
             "Political History - Nehruvian Era and early challenges",
@@ -56,6 +60,7 @@
         },
         {
           "label": "World History",
+          "category": "mainTopic",
           "children": [
             "Contemporary World Politics - Cold War Era, Rise of Uni-Polar, Multi-Polar World",
             "Events from 18th century - Imperialism and Colonialism",
@@ -83,6 +88,7 @@
         },
         {
           "label": "Society",
+          "category": "mainTopic",
           "children": [
             "Urbanisation",
             "Role of Women and Women's Organisations",
@@ -141,6 +147,7 @@
         },
         {
           "label": "Physical Geography of India and World",
+          "category": "mainTopic",
           "children": [
             "Geomorphology - Earth (Origin, Theories, Shape, Movements, Interiors, Crust)",
             "Climatology - Atmosphere, Weather, Monsoon, Cyclones, Anti-Cyclones, Winds, \nPrecipitation",
@@ -186,6 +193,7 @@
         },
         {
           "label": "Geophysical phenomenon",
+          "category": "mainTopic",
           "children": [
             "Earthquakes, Volcanoes, Landslides, Floods, Droughts, Tsunamis"
           ],
@@ -199,6 +207,7 @@
         },
         {
           "label": "Economic Geography of India and World",
+          "category": "mainTopic",
           "children": [
             "Distribution of Natural Resources, Industries, Trade",
             "Sectors - Primary, Agriculture, Transport and Communication"
@@ -227,6 +236,7 @@
         },
         {
           "label": "Indian Heritage & Culture",
+          "category": "mainTopic",
           "children": [
             "Civilization of India in comparative perspective with others",
             "Architecture",
@@ -253,6 +263,7 @@
         },
         {
           "label": "Modern Indian Histor",
+          "category": "mainTopic",
           "children": ["Economic impact of Colonialism"],
           "questions": [
             "a56727573cca0a06f2085691ade2d8ec1fb2b14ff965bf0d9942df4faf9fb8f3"
@@ -260,6 +271,7 @@
         },
         {
           "label": "Human Geography",
+          "category": "mainTopic",
           "children": ["Human settlements, Migration"],
           "questions": [
             "689ceb90fd173866c2ea39818463ad5df2c99affbb2b136132f5c8cba4ab8236",
@@ -269,6 +281,7 @@
         },
         {
           "label": "Post Independece India",
+          "category": "mainTopic",
           "children": [
             "Political History - Nehruvian Era and early challenges"
           ],
@@ -278,6 +291,7 @@
         },
         {
           "label": "Economic Geography of India and World\nTopic",
+          "category": "mainTopic",
           "children": ["Distribution of Natural Resources, Industries, Trade"],
           "questions": [
             "fc056a936dea08763d8c2fcd21447a4748b68e44346d3408a564b161415863d7"
@@ -285,6 +299,7 @@
         },
         {
           "label": "Science and Technology",
+          "category": "mainTopic",
           "children": ["Space and Missile Technologies"],
           "questions": [
             "7e2998f1c2b42ef3fabf24fb3f8c4453a75549454a9976f803ce957ce6874158"
@@ -294,9 +309,11 @@
     },
     {
       "label": "GS2",
+      "category": "examSubType",
       "children": [
         {
           "label": "Indian Polity and Constitution",
+          "category": "mainTopic",
           "children": [
             "Parliament and State Legislatures - functions and powers",
             "Indian Constitution - Salient Features, Preamble, Fundamental Rights, DPSP, Duties, \r\nspecial provisions related to some states",
@@ -389,6 +406,7 @@
         },
         {
           "label": "Governance",
+          "category": "mainTopic",
           "children": [
             "Government policies and interventions for development in various sectors and issues arising out of their design and implementation - schemes",
             "Government policies and interventions",
@@ -422,6 +440,7 @@
         },
         {
           "label": "Social Justice and Development",
+          "category": "mainTopic",
           "children": [
             "welfare schemes for vulnerable sections by centre and states and performance of schemes",
             "Development Processes and Development Industry (SHGs, MFIs)",
@@ -469,6 +488,7 @@
         },
         {
           "label": "Indian Constitution and Polity",
+          "category": "mainTopic",
           "children": ["Significant provisions, FD, FR, DPSP"],
           "questions": [
             "0b3bec2b8ad393da312f19778c749f26572c5805ac6484b25d8919290b353756"
@@ -476,6 +496,7 @@
         },
         {
           "label": "International Relations",
+          "category": "mainTopic",
           "children": [
             "India and Neighborhood + Bilateral agreements involving India affecting India's interest",
             "India and Its Neighbourhood",
@@ -526,9 +547,11 @@
     },
     {
       "label": "GS3",
+      "category": "examSubType",
       "children": [
         {
           "label": "Indian Economy –Industries",
+          "category": "mainTopic",
           "children": [
             "Industrial Policy, Labour Laws and Related Issues",
             "Manufacturing Sector"
@@ -542,6 +565,7 @@
         },
         {
           "label": "Indian Economy - Economic Development",
+          "category": "mainTopic",
           "children": [
             "Mobilization of resources, Financial Intermediation (Banking, Insurance, Capital\r\nMarkets, External Resources)",
             "Macro-Economy-Public finance, Government Budgeting, Taxation",
@@ -588,6 +612,7 @@
         },
         {
           "label": "Indian Economy – Agriculture",
+          "category": "mainTopic",
           "children": [
             "PDS, MSP, Food subsidies, Farm Subsidies, Food Security",
             "Technology Missions",
@@ -625,6 +650,7 @@
         },
         {
           "label": "Science and Technology",
+          "category": "mainTopic",
           "children": [
             "Medical, Bio-Technology and Related Issues",
             "IT & Computers",
@@ -659,6 +685,7 @@
         },
         {
           "label": "Disaster Management",
+          "category": "mainTopic",
           "children": [
             "Disaster Management - Plan, Framework, Cycle",
             "Disaster Management - Earthquakes, Cyclones, Volcanoes, NDMA guidelines,\r\nInternational cooperation"
@@ -675,6 +702,7 @@
         },
         {
           "label": "Environment",
+          "category": "mainTopic",
           "children": [
             "EIA and Related Issues",
             "Environmental Pollution",
@@ -700,6 +728,7 @@
         },
         {
           "label": "Internal Security",
+          "category": "mainTopic",
           "children": [
             "Money Laundering and Its Prevention",
             "Cyber Security",
@@ -741,6 +770,7 @@
         },
         {
           "label": "Economy - Economic Development",
+          "category": "mainTopic",
           "children": ["Investment Models, Disinvestment"],
           "questions": [
             "c88c059e2549a616a2988debdbf77524694575bfe0432ba370c26da91f6847f0"
@@ -748,6 +778,7 @@
         },
         {
           "label": "Indian Economy and issues relating to Planning, Mobilization of Resources, Growth, Development and Employment.",
+          "category": "mainTopic",
           "children": [],
           "questions": [
             "e48b7f48b59a598fb88116ddc1b201486c8003dba1076cdbc2b81848881c742a",
@@ -756,6 +787,7 @@
         },
         {
           "label": "Transport and Marketing of Agricultural Produce and Issues and Related Constraints",
+          "category": "mainTopic",
           "children": [],
           "questions": [
             "9aa20781b4a5e79174e5d0c720f193744cad3ea03a72c5904d867022350972f2"
@@ -763,6 +795,7 @@
         },
         {
           "label": "Food Processing and Related Industries in India- Scope’ and Significance, Location, Upstream and Downstream Requirements, Supply Chain Management.",
+          "category": "mainTopic",
           "children": [],
           "questions": [
             "ed55865ab35dabb644a5f3275a1c74f24edb3c55c2903d3b736e810f35c48cd7"
@@ -770,6 +803,7 @@
         },
         {
           "label": "Nano-technology,",
+          "category": "mainTopic",
           "children": [],
           "questions": [
             "b4f22b65eb84bf949986e289b8eb01b02b055dc36da13eb9bf04be3aeb92efc2"
@@ -777,6 +811,7 @@
         },
         {
           "label": "Science and Technology- Developments and their Applications and Effects in Everyday Life.",
+          "category": "mainTopic",
           "children": [],
           "questions": [
             "7fc09f4ec9f4228107df94f04f142918a843c5f5056c11b9adc01d46303f28e9"
@@ -784,6 +819,7 @@
         },
         {
           "label": "Environmental Impact Assessment.",
+          "category": "mainTopic",
           "children": [],
           "questions": [
             "e36ddb725d21bce3ca9a9fb4d80c8975be3c0379f5d0b8df0966a8ef1cf7e674"
@@ -791,6 +827,7 @@
         },
         {
           "label": "Conservation,",
+          "category": "mainTopic",
           "children": [],
           "questions": [
             "f52ec394efe748a0adfc8d24410d5e3337dc9c19788d0d7bd5c75df41318e516"
@@ -798,6 +835,7 @@
         },
         {
           "label": "Basics of Cyber Security",
+          "category": "mainTopic",
           "children": [],
           "questions": [
             "41bd3939aaddf0c3615545d0b4ffb7bcaa54361fdc351e8a501692a1494bd967"
@@ -805,6 +843,7 @@
         },
         {
           "label": "",
+          "category": "mainTopic",
           "children": [],
           "questions": [
             "41bd3939aaddf0c3615545d0b4ffb7bcaa54361fdc351e8a501692a1494bd967"
@@ -812,6 +851,7 @@
         },
         {
           "label": "Security Challenges and their Management in Border Areas - Linkages of Organized Crime with Terrorism.",
+          "category": "mainTopic",
           "children": [],
           "questions": [
             "55da11ee0c071bd616793ded334553e27c99ab843e62db3f3e4a57b77a50a444"
@@ -819,6 +859,7 @@
         },
         {
           "label": "Investment Models.",
+          "category": "mainTopic",
           "children": [],
           "questions": [
             "221a9ed121ccb27858a77f30e49ad253c7beea26c9cabea2bc81c8a96a8f6317"
@@ -826,6 +867,7 @@
         },
         {
           "label": "Government Budgeting,",
+          "category": "mainTopic",
           "children": [],
           "questions": [
             "8d7972a77081fade4e0d33691bbf4f08a676eae0fb1f50626fc218dd863a4b8d"
@@ -833,6 +875,7 @@
         },
         {
           "label": "Cropping Patterns in various parts of the country, Issues related to Direct and Indirect Farm Subsidies and Minimum Support Prices",
+          "category": "mainTopic",
           "children": [],
           "questions": [
             "2a7f2e1ef7087435722551d9bf6067a3933140559e94b7bc391183fc2c459be1"
@@ -840,6 +883,7 @@
         },
         {
           "label": "Different Types of Irrigation and Irrigation Systems",
+          "category": "mainTopic",
           "children": [],
           "questions": [
             "fcef4d9f3cb4e7bff3b44245886fb18c00db6053361110a29ca71d8850eefc15"
@@ -847,6 +891,7 @@
         },
         {
           "label": "Indigenization of Technology and Developing New Technology, Science and Technology- Developments and their Applications and Effects in Everyday Life.",
+          "category": "mainTopic",
           "children": [],
           "questions": [
             "25b5d00fb099a11b2042148a49c2afa77b033c29a61badba3eaaa12496c29b36"
@@ -854,6 +899,7 @@
         },
         {
           "label": "Infrastructure",
+          "category": "mainTopic",
           "children": ["Energy, Ports, Roads, Airports, Railways etc."],
           "questions": [
             "6a46a564d1a5c4724f57384bd51dde0a54ba3445740bfe62f7e883db3d55c847"
@@ -861,6 +907,7 @@
         },
         {
           "label": "Environmental Pollution and Degradation",
+          "category": "mainTopic",
           "children": [],
           "questions": [
             "a8e2ce10cd031a95b09e6ff0e74a42335f63de54096dccd5addc0fae4b518446"
@@ -868,6 +915,7 @@
         },
         {
           "label": "Disaster and Disaster Management.",
+          "category": "mainTopic",
           "children": [],
           "questions": [
             "aeab1f3ace754c3a05302be2ceddc7218d568fbf1ad05bea960ef4da3998d2d0"
@@ -875,6 +923,7 @@
         },
         {
           "label": "Linkages between Development and Spread of Extremism.",
+          "category": "mainTopic",
           "children": [],
           "questions": [
             "02c3f12e8da4629ebde0144f67d47f76c09ecbe17d194d6ddaebaa4356de8885"
@@ -882,6 +931,7 @@
         },
         {
           "label": "Security Challenges and their Management in Border Areas - Linkages of Organized Crime with Terrorism.\nVarious Security Forces and Agencies and their Mandate.",
+          "category": "mainTopic",
           "children": [],
           "questions": [
             "40d834e3debfc2a4d10f117ccc8e3ff509838812ec39fea8c09d8e9909e1e00b"
