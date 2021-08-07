@@ -1,4 +1,6 @@
-import { faCaretRight } from "@fortawesome/free-solid-svg-icons";
+import { faCaretRight, faCircle } from "@fortawesome/free-solid-svg-icons";
+import { CircularProgressbar, buildStyles } from "react-circular-progressbar";
+import "react-circular-progressbar/dist/styles.css";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import React, { useState } from "react";
 import { useHistory } from "react-router-dom";
@@ -18,7 +20,22 @@ const TreeMenu = ({ data = [] }) => {
 const TreeNode = ({ node }) => {
   const history = useHistory();
   const [childVisible, setChildVisible] = useState(false);
+  var label = node.label;
   const hasChild = node.children ? true : false;
+  const hasQuestions = node.questions ? true : false;
+  var percentSolved = 0;
+
+  if (label === null || label === undefined) label = node;
+
+  if (hasQuestions) {
+    var userMains = localStorage.getItem("userMains") || "";
+    userMains = userMains.split(" - ");
+    var temp = 0;
+    for (var i = 0; i < userMains.length; i++) {
+      if (node.questions.includes(userMains[i])) temp++;
+    }
+    percentSolved = Math.floor((temp * 100) / node.questions.length);
+  }
 
   const topicSelectHandler = (query) => {
     history.push(`/?${query}`);
@@ -39,12 +56,35 @@ const TreeNode = ({ node }) => {
           </div>
         )}
 
+        {!hasChild && (
+          <div>
+            <FontAwesomeIcon icon={faCircle} />
+          </div>
+        )}
+
         <div
           className="tree-menu-label"
-          onClick={() => topicSelectHandler(node.label || node)}
+          onClick={() => topicSelectHandler(label)}
         >
-          {node.label || node}
+          {label}
         </div>
+        {hasQuestions && localStorage.getItem("userEmail") && (
+          <div className="tree-menu-solved">
+            <CircularProgressbar
+              className="tree-menu-solveed-svg"
+              value={percentSolved}
+              text={`${percentSolved}%`}
+              background
+              backgroundPadding={6}
+              styles={buildStyles({
+                backgroundColor: "#333",
+                textColor: "#fefaee",
+                pathColor: "#fefaee",
+                trailColor: "transparent",
+              })}
+            />
+          </div>
+        )}
       </div>
 
       {hasChild && childVisible && (

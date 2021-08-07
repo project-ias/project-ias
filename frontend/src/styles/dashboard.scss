@@ -20,7 +20,7 @@
     left: 0;
     min-height: 100%;
     height: 80vh;
-    width: 25%;
+    min-width: 25%;
     background-color: #feebc9;
     //box-shadow: 0px 6px 12px rgba(0, 0, 0, 0.05);
     z-index: 2;
@@ -29,9 +29,10 @@
     display: flex;
     flex-direction: column;
     overflow-y: scroll;
+    overflow-x: hidden;
 
     @include sm {
-        width: 70%;
+        min-width: 70%;
        }
 }
 
@@ -80,6 +81,9 @@
     &-item {
         padding: 1rem .5rem;
         vertical-align: middle;
+        display: flex;
+        align-items: center;
+        width: 100%;
     }
     &-caret {
         display: inline-block;
@@ -88,10 +92,18 @@
     &-label {
         display: inline-block;
         padding-left: .5rem;
+        padding-right: 1rem;
+        max-width: 40rem;
 
         &:hover {
             color: blue;
         }
+    }
+    &-solved {
+        margin-left: auto;
+        padding-right: 1rem;
+        min-width: 4rem;
+        width: 4rem;
     }
     &-active {
         transform: rotateZ(45deg);

@@ -6,7 +6,17 @@
       "children": [
         {
           "label": "Modern Indian History",
-          "children": [null],
+          "children": [
+            "Personalities",
+            "Important Governor Generals and Viceroys",
+            "Events from early 1700s to 1857 - British Conquest",
+            "From 1919 till independence - Preparation for independence, Making of Constitution \r\nand Partition of India",
+            "From 1857 to 1919 - Revolt of 1857",
+            "From 1857 to 1919 - Modern Nationalism, Moderates and Political Associations",
+            "Economoc impact of Colonialism",
+            "Cultural Awakening - Religious and Social Reforms",
+            "From 1919 till independence – GandhianPhase and Mass Nationalism"
+          ],
           "questions": [
             "1f717853d34c1ce007d92cae54c2978330a0484e12edf84d0ad06bd91275da75",
             "5a6b7e45bf8d9d4e08820782db24a3433e23e083cc69440261e3eb9bd7afa5e0",
@@ -32,7 +42,11 @@
         },
         {
           "label": "Post Independence India",
-          "children": [null],
+          "children": [
+            "Political History - Shastri and Indira Era",
+            "Political History - Nehruvian Era and early challenges",
+            "Rise of Regional Aspiration - J&K, Punjab, NE and Dravidian Movement"
+          ],
           "questions": [
             "74cb44d348c7589b46b6b607ae96450ca21af0e798bd167346719815acc939d6",
             "b401009b579b47f9fed1f6e8c366720736b3bd9af51948d29d0c68c2ba6a64e9",
@@ -42,7 +56,16 @@
         },
         {
           "label": "World History",
-          "children": [null],
+          "children": [
+            "Contemporary World Politics - Cold War Era, Rise of Uni-Polar, Multi-Polar World",
+            "Events from 18th century - Imperialism and Colonialism",
+            "Events from 18th century - American Revolution",
+            "World between two world wars",
+            "Events from 18th century - Industrial Revolution",
+            "Europe from 1914 to 1936",
+            "World War II",
+            "Decolonialization"
+          ],
           "questions": [
             "7b7a23b652d7a58e3a38ddef260e3ef07bfaeb7f878587a660768d7b413d0c07",
             "71524a996cc648a5c0b4dccc12d88495637183059969a00502d5beb74d6462a9",
@@ -60,7 +83,19 @@
         },
         {
           "label": "Society",
-          "children": [null],
+          "children": [
+            "Urbanisation",
+            "Role of Women and Women's Organisations",
+            "Indian Society - Globalization and its Impact",
+            "Regionalism",
+            "Indian Society - Population Issues",
+            "Indian Society - Salient Features",
+            "Social Empowerment",
+            "Secularism",
+            "Indian Society – Migration",
+            "Indian Society - Issues Related to Poverty",
+            "Communalism"
+          ],
           "questions": [
             "bc36ccb1462348d1539fedb44e7fcabc825da1fc1db0d8828156d1c14b1d2fcc",
             "4d7591af08de28b3c5cbe5c003067aa738b2d7d523f6d5efd79c3b5d8d7e35d1",
@@ -106,7 +141,19 @@
         },
         {
           "label": "Physical Geography of India and World",
-          "children": [null],
+          "children": [
+            "Geomorphology - Earth (Origin, Theories, Shape, Movements, Interiors, Crust)",
+            "Climatology - Atmosphere, Weather, Monsoon, Cyclones, Anti-Cyclones, Winds, \nPrecipitation",
+            "Climatology - Insolation, Temperature, Pressure",
+            "Geomorphology - Landforms (Evolution, Running water, Glaciation, Desert and Arid, Limestone and Chalk, Coastal)",
+            "Geomorphology - Indian Drainage Systems",
+            "Climatology - Atmosphere, Weather, Monsoon, Cyclones, Anti-Cyclones, Winds, \r\nPrecipitation",
+            "Geomorphology - Oceans, Islands, Coral Reefs",
+            "Climatology - Atmosphere, Weather, Monsoon, Cyclones, Anti-Cyclones, Winds, \rPrecipitation",
+            "Geomorphology - Oceans, Islands, Coral Reef",
+            "Vegetation",
+            "Geomorphology - Landforms (Evolution, Running water, Glaciation, Desert and Arid, \r\nLimestone and Chalk, Coastal)"
+          ],
           "questions": [
             "86b8a997e830e410168ee712c0b39a3be29f323223a6a8d2338d758c2a66e894",
             "86b8a997e830e410168ee712c0b39a3be29f323223a6a8d2338d758c2a66e894",
@@ -139,7 +186,9 @@
         },
         {
           "label": "Geophysical phenomenon",
-          "children": [null],
+          "children": [
+            "Earthquakes, Volcanoes, Landslides, Floods, Droughts, Tsunamis"
+          ],
           "questions": [
             "7f1f676744efce5a34cae74b868261c884323826a32f4b958280127da72efd94",
             "bf0866dcd4af05ab0e9e66222ff8f5cbdf3a37a8f0ad64b3fa5a074f8d3c0943",
@@ -150,7 +199,10 @@
         },
         {
           "label": "Economic Geography of India and World",
-          "children": [null],
+          "children": [
+            "Distribution of Natural Resources, Industries, Trade",
+            "Sectors - Primary, Agriculture, Transport and Communication"
+          ],
           "questions": [
             "00ce61b87c17f375eab8da72d40b1fdc574cdc8d886147012b2c226bdeddc555",
             "19d0dcd18339e7f213ff8cfc6f05a98f93c93e25b2b09012aeac0a31790621b9",
@@ -175,7 +227,15 @@
         },
         {
           "label": "Indian Heritage & Culture",
-          "children": [null],
+          "children": [
+            "Civilization of India in comparative perspective with others",
+            "Architecture",
+            "History of Scientific Development – Ancient",
+            "Religion & Philosophy",
+            "Literature",
+            "Art Forms - Salient features",
+            "History of Scientific Development – Medieval"
+          ],
           "questions": [
             "5cee4abf3c83d0ec1d9e29cc12e287c76eb2f623fc1cb24da0f3fd548649f0d0",
             "697a91c24cc0bef6e9377802d881623e26746d11d67cc1da26b5e336c70f2f45",
@@ -193,14 +253,14 @@
         },
         {
           "label": "Modern Indian Histor",
-          "children": [null],
+          "children": ["Economic impact of Colonialism"],
           "questions": [
             "a56727573cca0a06f2085691ade2d8ec1fb2b14ff965bf0d9942df4faf9fb8f3"
           ]
         },
         {
           "label": "Human Geography",
-          "children": [null],
+          "children": ["Human settlements, Migration"],
           "questions": [
             "689ceb90fd173866c2ea39818463ad5df2c99affbb2b136132f5c8cba4ab8236",
             "1c199f1e68ba358cdc09d0b79eab02ad05e546f36d322694d12aeb97babfd1d6",
@@ -209,21 +269,23 @@
         },
         {
           "label": "Post Independece India",
-          "children": [null],
+          "children": [
+            "Political History - Nehruvian Era and early challenges"
+          ],
           "questions": [
             "ceb3a754764cd66099b83b85bb2c5153fff6d9a74dc5b8c70ce54dce807301fa"
           ]
         },
         {
           "label": "Economic Geography of India and World\nTopic",
-          "children": [null],
+          "children": ["Distribution of Natural Resources, Industries, Trade"],
           "questions": [
             "fc056a936dea08763d8c2fcd21447a4748b68e44346d3408a564b161415863d7"
           ]
         },
         {
           "label": "Science and Technology",
-          "children": [null],
+          "children": ["Space and Missile Technologies"],
           "questions": [
             "7e2998f1c2b42ef3fabf24fb3f8c4453a75549454a9976f803ce957ce6874158"
           ]
@@ -235,7 +297,27 @@
       "children": [
         {
           "label": "Indian Polity and Constitution",
-          "children": [null],
+          "children": [
+            "Parliament and State Legislatures - functions and powers",
+            "Indian Constitution - Salient Features, Preamble, Fundamental Rights, DPSP, Duties, \r\nspecial provisions related to some states",
+            "Indian Constitution - Salient Features, Preamble, Fundamental Rights, DPSP, Duties, \nspecial provisions related to some states",
+            "Federal structure",
+            "Separation of Powers and Issues",
+            "Issues and challenges pertaining to federal structure, devolution of powers and finances upto local level and challenges therein",
+            "Federalism, Issues of States and UT, Emergency Provisions",
+            "Constitutional, Statutory, Executive, Regulatory, Quasi-Judicial Bodies",
+            "Ministries and Departments of Government - structure , organisation, function and role in polity",
+            "Pressure Groups",
+            "Federalism, Separation of Powers",
+            "Judiciary and Supreme court judgements",
+            "Parliament and State Legislatures",
+            "Indian Constitution - Salient Features, Preamble, Fundamental Rights, DPSP, Duties,\r\nspecial provisions related to some states",
+            "Executive , Ministries and Departments of Government",
+            "Panchayats, Municipalities, PESA Act",
+            "Indian Constitution - Important and Latest Amendments, Basic Structure",
+            "Elections, Representation of Peoples Act, Political party",
+            "Indian Constitution - History, Evolution and Making of Constitution"
+          ],
           "questions": [
             "18cd77c46d135b359be718a7933e9de324e0c4fbfa29c048c20145d853764ced",
             "2c508aec50b2ef3bd5257e09aea727a3622e07d63f5d6935cd2359571aa879ad",
@@ -307,7 +389,16 @@
         },
         {
           "label": "Governance",
-          "children": [null],
+          "children": [
+            "Government policies and interventions for development in various sectors and issues arising out of their design and implementation - schemes",
+            "Government policies and interventions",
+            "Important Aspects of Governance - e-Governance",
+            "Government policies and interventions for development in various sectors and issues arising out of their design and implementation - schemes (B2V)",
+            "Important Aspects of Governance - Citizens Charters",
+            "Important Aspects of Governance-Transparency, Accountability, Corruption, NGO etc",
+            "Role of Civil Services in a Democracy",
+            "Government Policies - Issues in Governance Related to Design and Implementation of\r\nGovernment Policies"
+          ],
           "questions": [
             "46c8589f8b97657138fed94bb594f4dc36f61bf23fe8db02c38d01e760687774",
             "96f00ba19ca2e164a838314dee7731b99cedc3388282f331bc7052ae76dbadde",
@@ -331,7 +422,18 @@
         },
         {
           "label": "Social Justice and Development",
-          "children": [null],
+          "children": [
+            "welfare schemes for vulnerable sections by centre and states and performance of schemes",
+            "Development Processes and Development Industry (SHGs, MFIs)",
+            "Vulnerable Sections of Population",
+            "Issues relating to development and management of Social Sector / Services relating to Health",
+            "welfare schemes for vulnerable sections by centre and states",
+            "Development Processes and Development Industry (Mechanisms)",
+            "Social Sector – Education",
+            "Development Processes and Development Industry (NGOs, Donor Charities, Other\r\nStakeholders)",
+            "Social Sector – Health",
+            "Social Sector - Issues Related to Poverty and Hunger"
+          ],
           "questions": [
             "46c8589f8b97657138fed94bb594f4dc36f61bf23fe8db02c38d01e760687774",
             "fda0feae60f2ccd99f387f75450b943237de40dacae140b049f67c58b2af1ef9",
@@ -367,14 +469,25 @@
         },
         {
           "label": "Indian Constitution and Polity",
-          "children": [null],
+          "children": ["Significant provisions, FD, FR, DPSP"],
           "questions": [
             "0b3bec2b8ad393da312f19778c749f26572c5805ac6484b25d8919290b353756"
           ]
         },
         {
           "label": "International Relations",
-          "children": [null],
+          "children": [
+            "India and Neighborhood + Bilateral agreements involving India affecting India's interest",
+            "India and Its Neighbourhood",
+            "India and Extended Neighbourhood +  Bilateral agreements involving India affecting India's interest",
+            "India and  Neighbourhood",
+            "International Institutions - structure and mandate",
+            "India and Extended Neighbourhood",
+            "International Institutions and Global Groupings",
+            "India's Strategic Choices - Energy diplomacy",
+            "Indian Diaspora",
+            "India and Major Powers"
+          ],
           "questions": [
             "ed56396c64aa6c747dbd943f78ba43bb66970f4b215b6f797320c2923ebcba09",
             "f1be3ead15c9265aba2e603c1ff1b4e5777f754692d80705806443bfac106eb8",
@@ -416,7 +529,10 @@
       "children": [
         {
           "label": "Indian Economy –Industries",
-          "children": [null],
+          "children": [
+            "Industrial Policy, Labour Laws and Related Issues",
+            "Manufacturing Sector"
+          ],
           "questions": [
             "e7dd338abfab9ea22eae12f6eb6fe644c7a4a4bb50b6c5d2f54447d15757d0a7",
             "0d426201e34c812ff008f3cb4d4b04d6a44006119bd58a10bea0342626c6bb67",
@@ -426,7 +542,18 @@
         },
         {
           "label": "Indian Economy - Economic Development",
-          "children": [null],
+          "children": [
+            "Mobilization of resources, Financial Intermediation (Banking, Insurance, Capital\r\nMarkets, External Resources)",
+            "Macro-Economy-Public finance, Government Budgeting, Taxation",
+            "WTO, International Trade, LPG",
+            "Investment Models, Disinvestment",
+            "Energy Policy and Sources - Conventional, Renewable and Alternative Energy Sources",
+            "Infrastructure",
+            "Growth, Development, Poverty, Employment and Unemployment",
+            "Macro Economy - Current Account, Capital Account, Balance of Payments, Trade\r\nBalance",
+            "Planning",
+            "Macro Economy-Monetary Policy, Inflation"
+          ],
           "questions": [
             "96c4d5110a735c832e37553aa8f76cb3a812b3c0865a59cf23dcf6cac001b76d",
             "41e0ee51fcc6e7e4055ee26bb427ef9a89241946ac0d009fd30bb6dfc8539496",
@@ -461,7 +588,16 @@
         },
         {
           "label": "Indian Economy – Agriculture",
-          "children": [null],
+          "children": [
+            "PDS, MSP, Food subsidies, Farm Subsidies, Food Security",
+            "Technology Missions",
+            "Land Holdings, Land Ceiling, Land Reforms, Contract Farming",
+            "Production, Storage, Transport, Marketing, Agricultural Credit",
+            "Economics of Animal Rearing",
+            "Food Processing Industries",
+            "Farming, Major Crops and Cropping Patterns",
+            "Irrigation and Farm Mechanization"
+          ],
           "questions": [
             "b6e3d4888e5bb62e7883d1dbea9d834d5a13fa802a9691236ffea2dd8016bcc8",
             "1c6076d0036bd9bb32837fcdcc5fc1eccdd0a82fcf615dd6ce7004eb0eb9ea3e",
@@ -489,7 +625,16 @@
         },
         {
           "label": "Science and Technology",
-          "children": [null],
+          "children": [
+            "Medical, Bio-Technology and Related Issues",
+            "IT & Computers",
+            "S&T in Rural Development and Agriculture",
+            "Scientific Research, Achievements of Indians in S&T",
+            "IPR and Its Related Issues",
+            "Space and Missile Technologies",
+            "Robotics",
+            "Nuclear Technologies and Related Issues"
+          ],
           "questions": [
             "9963ebc4180d59f8d3988300572df8171da946badf2f37f2c460260fdbf99149",
             "2164a13289c2a48a48e10ad44f00d87dd2aa94e74e43dce6b8cc63016247f535",
@@ -514,7 +659,10 @@
         },
         {
           "label": "Disaster Management",
-          "children": [null],
+          "children": [
+            "Disaster Management - Plan, Framework, Cycle",
+            "Disaster Management - Earthquakes, Cyclones, Volcanoes, NDMA guidelines,\r\nInternational cooperation"
+          ],
           "questions": [
             "dc7b07f349dce825735a8540e0b91d0c5b375c00d131820dfed7e1eebbeeec00",
             "fdc58412eaca15377de30ba36dac3151997fe5576c19bdfb56cd7f8d5759717c",
@@ -527,7 +675,13 @@
         },
         {
           "label": "Environment",
-          "children": [null],
+          "children": [
+            "EIA and Related Issues",
+            "Environmental Pollution",
+            "Climate Change",
+            "Wetlands and their Conservation",
+            "Biodiversity and Conservation"
+          ],
           "questions": [
             "ea90509d7e1030a1e2084acf6c509b35f392c0dd3d6da414c2f0dc8da5107dcf",
             "df1fbeb6dbd2c094396a640f289ec1d64fbe6cd829a46a1ae123fe42ec6610e3",
@@ -546,7 +700,16 @@
         },
         {
           "label": "Internal Security",
-          "children": [null],
+          "children": [
+            "Money Laundering and Its Prevention",
+            "Cyber Security",
+            "Extremism and Development",
+            "Challenges to Internal Security",
+            "Border Security - Challenges, Management",
+            "Coastal and Island Security",
+            "Terrorism, External State, Non-State Actors",
+            "Extremism"
+          ],
           "questions": [
             "a26d5fa7ea9dca5b1cd7259afa08e728c42fa6eb3aa228f8f473e980281d3ec0",
             "4972a9160542d1d6b8a6a1b4e4565c280881ec5d80882c32c6e6cf98016238c3",
@@ -578,7 +741,7 @@
         },
         {
           "label": "Economy - Economic Development",
-          "children": [null],
+          "children": ["Investment Models, Disinvestment"],
           "questions": [
             "c88c059e2549a616a2988debdbf77524694575bfe0432ba370c26da91f6847f0"
           ]
@@ -691,7 +854,7 @@
         },
         {
           "label": "Infrastructure",
-          "children": [null],
+          "children": ["Energy, Ports, Roads, Airports, Railways etc."],
           "questions": [
             "6a46a564d1a5c4724f57384bd51dde0a54ba3445740bfe62f7e883db3d55c847"
           ]
