@@ -65,14 +65,17 @@ export default function HitPyqs(props) {
           />
         ) : (
           <div>
-            {qNumber}
-            <Highlight attribute="question" hit={props.hit} />(
-            {/* {props.hit.question} */}
-            {props.hit["year"]})
+            <strong>{qNumber}</strong>
+            <Highlight attribute="question" hit={props.hit} />
             <p>
               <strong>Topics:</strong> {topicArr.join(";")}
             </p>
-            <span> Exam Type: {props.hit["exam"]} </span>
+            <span>
+              {" "}
+              <strong>Exam Type:</strong> {props.hit["exam"]} {" ("}
+              {props.hit["year"]}
+              {")"}
+            </span>
             <div className="pyqs-solved-toggle">
               <label className="pyqs-solved-toggle-text">Solved ?</label>
               <input

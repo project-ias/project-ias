@@ -1,4 +1,7 @@
-import { faCaretRight, faCircle } from "@fortawesome/free-solid-svg-icons";
+import {
+  faCaretSquareRight,
+  faCircle,
+} from "@fortawesome/free-solid-svg-icons";
 import { CircularProgressbar, buildStyles } from "react-circular-progressbar";
 import "react-circular-progressbar/dist/styles.css";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
@@ -22,22 +25,36 @@ const TreeNode = ({ node }) => {
   const [childVisible, setChildVisible] = useState(false);
   var label = node.label;
   const hasChild = node.children ? true : false;
-  const hasQuestions = node.questions ? true : false;
-  var percentSolved = 0;
+  const showPercentage =
+    node.category === "examSubType" || node.category === "mainTopic";
+  var percentSolved = 0,
+    totalQuestions = 0;
 
   if (label === null || label === undefined) label = node;
 
-  if (hasQuestions) {
+  if (showPercentage) {
     var userMains = localStorage.getItem("userMains") || "";
     userMains = userMains.split(" - ");
     var temp = 0;
     for (var i = 0; i < userMains.length; i++) {
-      if (node.questions.includes(userMains[i])) temp++;
+      if (node.category === "mainTopic") {
+        if (node.questions.includes(userMains[i])) temp++;
+        totalQuestions = node.questions.length;
+      } else {
+        for (var j = 0; j < node.children.length; j++) {
+          console.log(node.children[j].questions.includes(userMains[i]));
+          if (node.children[j].questions.includes(userMains[i])) temp++;
+          console.log("temp : " + temp);
+          totalQuestions += node.children[j].questions.length;
+        }
+      }
     }
-    percentSolved = Math.floor((temp * 100) / node.questions.length);
+    if (node.category === "examSubType") totalQuestions /= userMains.length; //in case of examSubType, the questions get added multiple times as it is put inside the userMains for loop.
+    percentSolved = Math.floor((temp * 100) / totalQuestions);
   }
 
   const topicSelectHandler = (query) => {
+    if (node.category === "examType") return;
     history.push(`/?${query}`);
     history.go(`/?${query}`);
   };
@@ -52,7 +69,7 @@ const TreeNode = ({ node }) => {
             }`}
             onClick={() => setChildVisible((value) => !value)}
           >
-            <FontAwesomeIcon icon={faCaretRight} />
+            <FontAwesomeIcon icon={faCaretSquareRight} />
           </div>
         )}
 
@@ -67,8 +84,11 @@ const TreeNode = ({ node }) => {
           onClick={() => topicSelectHandler(label)}
         >
           {label}
+          <span className="tree-menu-solved-fraction">
+            {showPercentage ? ` ( ${temp} / ${totalQuestions} ) ` : ""}
+          </span>
         </div>
-        {hasQuestions && localStorage.getItem("userEmail") && (
+        {showPercentage && localStorage.getItem("userEmail") && (
           <div className="tree-menu-solved">
             <CircularProgressbar
               className="tree-menu-solveed-svg"

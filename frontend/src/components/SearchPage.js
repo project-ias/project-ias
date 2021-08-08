@@ -12,6 +12,7 @@ import {
   SearchBox,
   Hits,
   Configure,
+  Stats,
 } from "react-instantsearch-dom";
 import { instantMeiliSearch } from "@meilisearch/instant-meilisearch";
 import { useHistory, useLocation } from "react-router-dom";
@@ -126,8 +127,14 @@ export default function SearchPage() {
   }, [materialType]);
 
   function handleChange(e) {
-    setQuery(e.target.value);
-    const data = { query: e.target.value };
+    var data = { query: "" };
+    if (e.target.value === undefined || e.target.value === null) {
+      setQuery("");
+      data = { query: "" };
+    } else {
+      setQuery(e.target.value);
+      data = { query: e.target.value };
+    }
 
     // if(query !== ""){
     // console.log("Non empty query", query);
@@ -190,7 +197,7 @@ export default function SearchPage() {
         console.log("err is ", err);
       });
 
-    history.push(`/?${e.target.value}`);
+    history.push(`/?${e.target.value || ""}`);
   }
 
   function debounce(func, timeout = 200) {
@@ -213,6 +220,18 @@ export default function SearchPage() {
       setCurrentUserEmail("");
     }
   };
+
+  const stats = (
+    <Stats
+      translations={{
+        stats(nbHits) {
+          if (nbHits !== 0 && query.length !== 0)
+            return `(${nbHits.toLocaleString()})`;
+          else return null;
+        },
+      }}
+    />
+  );
 
   var dashboard = null;
 
@@ -255,6 +274,7 @@ export default function SearchPage() {
         <SearchBox
           defaultRefinement={query}
           onChange={processChange}
+          onReset={processChange}
           submit={
             <svg
               width="175"
@@ -284,13 +304,13 @@ export default function SearchPage() {
               className={`type ${examType === "pyqs" && "current"}`}
               onClick={() => setExamType("pyqs")}
             >
-              Mains
+              Mains {examType === "pyqs" ? stats : null}
             </div>
             <div
               className={`type ${examType === "prelims" && "current"}`}
               onClick={() => setExamType("prelims")}
             >
-              Prelims
+              Prelims {examType === "prelims" ? stats : null}
             </div>
             <div
               className={`type ${examType === "content" && "current"}`}
@@ -315,13 +335,13 @@ export default function SearchPage() {
                 className={`type ${examType === "pyqs" && "current"}`}
                 onClick={() => setExamType("pyqs")}
               >
-                Mains
+                Mains {examType === "pyqs" ? stats : null}
               </div>
               <div
                 className={`type ${examType === "prelims" && "current"}`}
                 onClick={() => setExamType("prelims")}
               >
-                Prelims
+                Prelims {examType === "prelims" ? stats : null}
               </div>
             </div>
 
