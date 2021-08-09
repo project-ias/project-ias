@@ -210,9 +210,21 @@ app.post("/search_prelims", async (req, res) => {
   res.json(results);
 });
 
+app.post("/search_secure", async (req, res) => {
+  const query = req.body.query;
+  const results = await returnMeiliSearchResults("secure", query, 50);
+  res.json(results);
+});
+
 app.post("/search_content", async (req, res) => {
   const query = req.body.query;
   const results = await returnMeiliSearchResults("content", query);
+  res.json(results);
+});
+
+app.post("/search_wfv", async (req, res) => {
+  const query = req.body.query;
+  const results = await returnMeiliSearchResults("wfv", query, 50);
   res.json(results);
 });
 
