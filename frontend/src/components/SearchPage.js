@@ -4,7 +4,6 @@ import {
   LOG_URL,
   CONTENT_URL,
   DNS_URL,
-  USER_URL,
   NGROK_URL,
 } from "../constants/constants";
 import {
@@ -21,6 +20,7 @@ import HitDrishti from "./HitDrishti";
 import HitDNS from "./HitDNS";
 import HitPyqs from "./HitPyqs";
 import HitPrelims from "./HitPrelims";
+import HitSecure from "./HitSecure";
 import Dashboard from "./Dashboard";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import "@fortawesome/free-solid-svg-icons";
@@ -59,16 +59,16 @@ export default function SearchPage() {
     switch (selectedType) {
       case "prelims":
         return HitPrelims;
-        break;
       case "pyqs":
         return HitPyqs;
-        break;
       case "content":
         return HitDrishti;
-        break;
       case "dns":
         return HitDNS;
-        break;
+      case "secure":
+        return HitSecure;
+      default:
+        return null;
     }
   }
 
@@ -313,6 +313,12 @@ export default function SearchPage() {
               Prelims {examType === "prelims" ? stats : null}
             </div>
             <div
+              className={`type ${examType === "secure" && "current"}`}
+              onClick={() => setExamType("secure")}
+            >
+              Secure {examType === "secure" ? stats : null}
+            </div>
+            <div
               className={`type ${examType === "content" && "current"}`}
               onClick={() => setExamType("content")}
             >
@@ -342,6 +348,12 @@ export default function SearchPage() {
                 onClick={() => setExamType("prelims")}
               >
                 Prelims {examType === "prelims" ? stats : null}
+              </div>
+              <div
+                className={`type ${examType === "secure" && "current"}`}
+                onClick={() => setExamType("secure")}
+              >
+                Secure {examType === "secure" ? stats : null}
               </div>
             </div>
 

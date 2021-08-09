@@ -6,13 +6,22 @@ import {
 } from "@fortawesome/free-brands-svg-icons";
 import { faTimes } from "@fortawesome/free-solid-svg-icons";
 import { INSTA_URL, TELEGRAM_URL, TOPICS_URL } from "../constants/constants";
-import { useEffect, useState } from "react";
+import { useEffect, useState, useRef } from "react";
 import axios from "axios";
 import TreeMenu from "./TreeMenu";
 
 const Dashboard = (props) => {
+  const node = useRef();
   var userEmail = props.email;
   const [menu, setMenu] = useState([]);
+
+  const handleClick = (e) => {
+    if (node.current.contains(e.target)) {
+      return;
+    } else {
+      props.hide();
+    }
+  };
 
   useEffect(() => {
     axios
@@ -22,6 +31,12 @@ const Dashboard = (props) => {
         setMenu([Response.data]);
       })
       .catch((err) => console.log(err));
+
+    document.addEventListener("mousedown", handleClick);
+
+    return () => {
+      document.removeEventListener("mousedown", handleClick);
+    };
   }, []);
 
   if (userEmail === null || userEmail === undefined || userEmail === "")
@@ -48,7 +63,7 @@ const Dashboard = (props) => {
 
   return (
     <div className="dashboard-cover">
-      <div className="dashboard-div">
+      <div className="dashboard-div" ref={node}>
         <div className="menu-exit">
           <FontAwesomeIcon
             icon={faTimes}

@@ -77,12 +77,12 @@
     color: #1E212D;
     border: 3px solid #fefaee;
     border-radius: 4px;
-    margin: 1rem 0.5rem;
+    margin: .7rem 0.2rem;
 
     .type {
       flex-grow: 1;
       text-align: center;
-      padding: 0.5rem 1rem;
+      padding: 0.3rem 0.5rem;
       border-radius: 4px;
       cursor: pointer;
     }
@@ -154,4 +154,21 @@
   display: flex;
   justify-content: flex-end;
   align-items: baseline;
+}
+
+.secure-links-div {
+  display: flex;
+  justify-content: space-evenly;
+}
+
+.secure-links {
+  text-decoration: none;
+  background-color: #FFEBC9;
+  padding: .5rem 1rem;
+  border-radius: 5px;
+  font-weight: 500;
+
+  &:hover {
+    text-decoration: underline;
+  }
 }
