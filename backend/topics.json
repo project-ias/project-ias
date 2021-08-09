@@ -938,6 +938,520 @@
           ]
         }
       ]
+    },
+    {
+      "label": "GS4",
+      "category": "examSubType",
+      "children": [
+        {
+          "label": "Ethics and Human Interface (Essence, Determinants, Consequences of Ethics in\r\nHuman Actions)",
+          "category": "mainTopic",
+          "children": [],
+          "questions": [
+            "ea352761d5af027cb5daeb0ff4c74405721eb3661c0cade1890a2526f645fa51",
+            "70a334e2df47d4b6daf344f45478c2678139567273b866ff844c6c74e512841d",
+            "be292004230bc95a57ff2db63f090d308936feee303404fbc04019c898f28217",
+            "1d336b4d526f22efa804a9b5f1556447c2e4f0e5ec19309034a61fd111219619",
+            "d1849757ab2100842da439a3a31e6826f5fcbe91d3313f14ac3c5f4677abd9b5",
+            "d23d731d13c29b97f3f2e7a3fb6ff30d9225d83e084479566af8d9a833726eae",
+            "24c0d6cfaf6aad9c599076b69a4d303c333851575b1690acaa567253bce62dc2"
+          ]
+        },
+        {
+          "label": "Dimensions of Ethics",
+          "category": "mainTopic",
+          "children": [],
+          "questions": [
+            "ea352761d5af027cb5daeb0ff4c74405721eb3661c0cade1890a2526f645fa51",
+            "70a334e2df47d4b6daf344f45478c2678139567273b866ff844c6c74e512841d",
+            "be292004230bc95a57ff2db63f090d308936feee303404fbc04019c898f28217",
+            "1d336b4d526f22efa804a9b5f1556447c2e4f0e5ec19309034a61fd111219619",
+            "7978b87e4be490facac1a4297b7f1165a5295c7df583710916434230d1804749",
+            "d1849757ab2100842da439a3a31e6826f5fcbe91d3313f14ac3c5f4677abd9b5",
+            "7af118db7c2a765dd46085372cd8c1c251abd5ad5fee74c3826b9c10ebccc03b",
+            "18a765fd86ce9b252c447e7c8194e1364f9f261eda207dbb69a5229c93a93dc4",
+            "d23d731d13c29b97f3f2e7a3fb6ff30d9225d83e084479566af8d9a833726eae",
+            "24c0d6cfaf6aad9c599076b69a4d303c333851575b1690acaa567253bce62dc2",
+            "0aaa5a493ca850ca71c9834ef1d84917419d15e78240caa18e44b9dfe475a6af",
+            "3d93799cac48d3784eb06cbbbde864dd68b69a556b65fb61099206294cd8f952",
+            "bf582fe61cf97e7e145d92153d9120d1ebd4274266104e8a512dde517405a9c1"
+          ]
+        },
+        {
+          "label": "Ethics in Public &Private Relationships.",
+          "category": "mainTopic",
+          "children": [],
+          "questions": [
+            "ea352761d5af027cb5daeb0ff4c74405721eb3661c0cade1890a2526f645fa51",
+            "70a334e2df47d4b6daf344f45478c2678139567273b866ff844c6c74e512841d",
+            "be292004230bc95a57ff2db63f090d308936feee303404fbc04019c898f28217",
+            "1d336b4d526f22efa804a9b5f1556447c2e4f0e5ec19309034a61fd111219619",
+            "d1849757ab2100842da439a3a31e6826f5fcbe91d3313f14ac3c5f4677abd9b5",
+            "18a765fd86ce9b252c447e7c8194e1364f9f261eda207dbb69a5229c93a93dc4",
+            "0aaa5a493ca850ca71c9834ef1d84917419d15e78240caa18e44b9dfe475a6af",
+            "3d93799cac48d3784eb06cbbbde864dd68b69a556b65fb61099206294cd8f952"
+          ]
+        },
+        {
+          "label": "Civil Service Aptitude &Foundational Values (Integrity, Impartiality,\r\nNon-Partisanship, Objectivity, Dedication to Public Service",
+          "category": "mainTopic",
+          "children": [],
+          "questions": [
+            "c4def276595f50307856a2d339c2ba2618acaa725c365b8a65c06204ca716085",
+            "acf45277af61d6e9a384b438339d5d6fea05a8688533f0d8eeded82554e82912",
+            "35b2c614d8b5d8a22ec0f2579dea5e3db11929ecc0066c5d1ea6fe6c63ee561f",
+            "63e8c7c4f0a8ccb8cb70367f4f407261a1b092f3b14b426a358985cadccfee4a",
+            "4c12fe1ac329000711305d623360129d431a5a93760378ac0b65aa930ef293c6",
+            "7978b87e4be490facac1a4297b7f1165a5295c7df583710916434230d1804749",
+            "4f2041fa07bb513f4f2660d35e1625077a4619d70f08438c3a6efadaec4ac0b7",
+            "af06dad5750ac5ef14a7147d01348a9829dcf90b9ff2da55a2584e55585b2e50"
+          ]
+        },
+        {
+          "label": "Emotional Intelligence (Concepts, Utility &Application in Administration\r\n&Governance)",
+          "category": "mainTopic",
+          "children": [],
+          "questions": [
+            "89965d099cc538dbfc5ae9d4369b121057002e510237e2ebcd9eb887c7cef181",
+            "49a07a93358dbabde5da4d18b13bb0b14542e60e20e22a03fb039f97325644de",
+            "807c1a9ddad61cc7f12d8c4d8de118add61bf6a0f7fdd6c6490b3b52bd7e892c",
+            "8c1a91d190cf42040c8f83ae3956dd72f230eb62cf304c8f2277065d7cdef692",
+            "e4c77af7b93baead01d1d92901ffdddd174fb55d97f34f0bc47cdbfde100e171",
+            "0aaa5a493ca850ca71c9834ef1d84917419d15e78240caa18e44b9dfe475a6af"
+          ]
+        },
+        {
+          "label": "Contributions of Moral Thinkers & Philosophers from India and World",
+          "category": "mainTopic",
+          "children": [],
+          "questions": [
+            "0e55b75ad6edb0b986a6e305869b455bcfd636e2cb8ec21767802d93502de028",
+            "acf45277af61d6e9a384b438339d5d6fea05a8688533f0d8eeded82554e82912",
+            "2f41a1499228807e724e2c33caed30b65c4af8f9f1c3adba8763c6d8d47b4c9a",
+            "2be5af5071fff2a27cc80007415443cd5110419e9372e9f73a2f077e40b8473e",
+            "8077561a8dc75802b37cf532d74dc5dfc37f6fa6c7d96458e44986cd7c6ce246",
+            "84ba2229e60e2ebe83919e34baa00de81786377fe19b5dba7200cffec074f394",
+            "8c95a2759ace2d4f0ff243bd901e382b61d56297167ede220098cdbd545c9f7f",
+            "e082f262e80fcceff6586e60792447e1b80780a6fc7d312268f33404ca088381",
+            "62fa7620118e2afa026888d53831fd983759edae7f3e83ca416dbef956612c04"
+          ]
+        },
+        {
+          "label": "Human Value\r\nLessons from Great Leaders, Reformers &Administrators",
+          "category": "mainTopic",
+          "children": [],
+          "questions": [
+            "0e55b75ad6edb0b986a6e305869b455bcfd636e2cb8ec21767802d93502de028",
+            "2f41a1499228807e724e2c33caed30b65c4af8f9f1c3adba8763c6d8d47b4c9a",
+            "8c95a2759ace2d4f0ff243bd901e382b61d56297167ede220098cdbd545c9f7f",
+            "62fa7620118e2afa026888d53831fd983759edae7f3e83ca416dbef956612c04"
+          ]
+        },
+        {
+          "label": "Public Service Values & Ethics in Public Administration",
+          "category": "mainTopic",
+          "children": [],
+          "questions": [
+            "8ea2b635aa976f1bbfffe7de32a350581860ab881df2fc1880f2eac269e099bf",
+            "8ff16145f403f492b5b8abdc99d76ffa9c69f813941dff3d7e21bb2b3170a515",
+            "d9952ae85a6c4195cb50ff21c466803d2be9e14f3e7d969823c2bfa0d8be573a",
+            "b46de40622dd32509e91c4b7d1f6218261eb260b599446979a96c717cf036e51",
+            "f8f1ddb4ae447540c46bf5b40dfdf6c887be227d775fa3f89cf388dac698f159",
+            "2be5af5071fff2a27cc80007415443cd5110419e9372e9f73a2f077e40b8473e",
+            "bf582fe61cf97e7e145d92153d9120d1ebd4274266104e8a512dde517405a9c1",
+            "1ccd341964a3cb1b1fcdcddefacc67964305e50e8df5d2c8d5394b0cebed365a",
+            "8d80a87833ca81d863ee52386757c238922227f30b3cca67cb4d644852c61733",
+            "a7fe9a02f2845700933823f099ae8ddb7f5a602dbd7290cd2e065989a9dc01c2"
+          ]
+        },
+        {
+          "label": "Strengthening of Ethical\r\n&Moral Values in Governance",
+          "category": "mainTopic",
+          "children": [],
+          "questions": [
+            "8ea2b635aa976f1bbfffe7de32a350581860ab881df2fc1880f2eac269e099bf",
+            "8ff16145f403f492b5b8abdc99d76ffa9c69f813941dff3d7e21bb2b3170a515",
+            "d9952ae85a6c4195cb50ff21c466803d2be9e14f3e7d969823c2bfa0d8be573a",
+            "b46de40622dd32509e91c4b7d1f6218261eb260b599446979a96c717cf036e51",
+            "f8f1ddb4ae447540c46bf5b40dfdf6c887be227d775fa3f89cf388dac698f159",
+            "2be5af5071fff2a27cc80007415443cd5110419e9372e9f73a2f077e40b8473e",
+            "bf582fe61cf97e7e145d92153d9120d1ebd4274266104e8a512dde517405a9c1",
+            "1ccd341964a3cb1b1fcdcddefacc67964305e50e8df5d2c8d5394b0cebed365a",
+            "8d80a87833ca81d863ee52386757c238922227f30b3cca67cb4d644852c61733",
+            "a7fe9a02f2845700933823f099ae8ddb7f5a602dbd7290cd2e065989a9dc01c2"
+          ]
+        },
+        {
+          "label": "Accountability &Ethical Governance",
+          "category": "mainTopic",
+          "children": [],
+          "questions": [
+            "8ea2b635aa976f1bbfffe7de32a350581860ab881df2fc1880f2eac269e099bf",
+            "8ff16145f403f492b5b8abdc99d76ffa9c69f813941dff3d7e21bb2b3170a515",
+            "d9952ae85a6c4195cb50ff21c466803d2be9e14f3e7d969823c2bfa0d8be573a",
+            "b46de40622dd32509e91c4b7d1f6218261eb260b599446979a96c717cf036e51",
+            "f8f1ddb4ae447540c46bf5b40dfdf6c887be227d775fa3f89cf388dac698f159",
+            "2be5af5071fff2a27cc80007415443cd5110419e9372e9f73a2f077e40b8473e",
+            "bf582fe61cf97e7e145d92153d9120d1ebd4274266104e8a512dde517405a9c1",
+            "1ccd341964a3cb1b1fcdcddefacc67964305e50e8df5d2c8d5394b0cebed365a",
+            "8d80a87833ca81d863ee52386757c238922227f30b3cca67cb4d644852c61733",
+            "a7fe9a02f2845700933823f099ae8ddb7f5a602dbd7290cd2e065989a9dc01c2"
+          ]
+        },
+        {
+          "label": "Philosophical Basis of\r\nGovernance and Probity",
+          "category": "mainTopic",
+          "children": [],
+          "questions": [
+            "8ea2b635aa976f1bbfffe7de32a350581860ab881df2fc1880f2eac269e099bf",
+            "8ff16145f403f492b5b8abdc99d76ffa9c69f813941dff3d7e21bb2b3170a515",
+            "d9952ae85a6c4195cb50ff21c466803d2be9e14f3e7d969823c2bfa0d8be573a",
+            "b46de40622dd32509e91c4b7d1f6218261eb260b599446979a96c717cf036e51",
+            "f8f1ddb4ae447540c46bf5b40dfdf6c887be227d775fa3f89cf388dac698f159",
+            "2be5af5071fff2a27cc80007415443cd5110419e9372e9f73a2f077e40b8473e",
+            "bf582fe61cf97e7e145d92153d9120d1ebd4274266104e8a512dde517405a9c1",
+            "1ccd341964a3cb1b1fcdcddefacc67964305e50e8df5d2c8d5394b0cebed365a",
+            "8d80a87833ca81d863ee52386757c238922227f30b3cca67cb4d644852c61733",
+            "a7fe9a02f2845700933823f099ae8ddb7f5a602dbd7290cd2e065989a9dc01c2"
+          ]
+        },
+        {
+          "label": "Attitude(Content, Structure, Function, Influence &Relation with Thought\r\n&Behaviour)",
+          "category": "mainTopic",
+          "children": [],
+          "questions": [
+            "4287000f880d75f6e6e35a321e3e0bb9d38dd39d007e4fcaf740269659a808d3",
+            "84d6df12f5aaf29e57a43b54b6b69e2e7018a07c9101945b1aab447ae468fdee"
+          ]
+        },
+        {
+          "label": "Moral and Political Attitudes",
+          "category": "mainTopic",
+          "children": [],
+          "questions": [
+            "4287000f880d75f6e6e35a321e3e0bb9d38dd39d007e4fcaf740269659a808d3",
+            "f8f1ddb4ae447540c46bf5b40dfdf6c887be227d775fa3f89cf388dac698f159",
+            "8d2f7cdaab3c0fb79a8873504ca6e6db4860e649c7c967a9500ba5ff268ec694",
+            "cc5352dcd786a17ba2aa400fb35253e872d3a479491642bbcef57e436fa1a06e",
+            "0ee5d21b86aa36b4f12c8d7a8514815967a920eaf5c1c796ab90490a7fc677d9",
+            "84d6df12f5aaf29e57a43b54b6b69e2e7018a07c9101945b1aab447ae468fdee",
+            "bfcc544654509704b37e6036bbfd0d30b89364e2edfae5c286373efe470a3997",
+            "28ba53f47068c1be60c2938c8eb980a8ea1dc59d2d7d06bb6444b521770d9dd4"
+          ]
+        },
+        {
+          "label": "Problems, Dilemmas in Public Administration and Public Service.",
+          "category": "mainTopic",
+          "children": [],
+          "questions": [
+            "1e4bb5b81413a1c823e09830a45491c2afa8c9c02d2188c8e7a3d9ff8b01281d",
+            "a7a532e5de41aa774c0fff4fba94c5b323b3bb42b8a4f13cfd6cc79d365ab345",
+            "491cf152072867ae4ff86c62004d3533c4e6ce5919141e392faf6b88405e3202",
+            "3fc8a6963ceb116ee840c8f42d4c30468e679887fe894d3cc80663d000d36a26",
+            "3fc8a6963ceb116ee840c8f42d4c30468e679887fe894d3cc80663d000d36a26"
+          ]
+        },
+        {
+          "label": "Challenges of Corruption",
+          "category": "mainTopic",
+          "children": [],
+          "questions": [
+            "fdd7413599894b64c12bb68dde1e14f3788a1c566f9e8745b5595d6b53d92bef",
+            "9469fc49f1e1c5dfc5bc3d3a28c420608f60750e1a9e026ccabe1dfb0f6c49b6",
+            "07c446cfb5ae0254b70d29578d955fdc74b7cc6e4a5096dc228d09d9ebffe7e5",
+            "e082f262e80fcceff6586e60792447e1b80780a6fc7d312268f33404ca088381",
+            "8fc72e6a57078e676ac53d316631f27630c9ba352c74d2546d890fb4188dc29d",
+            "26ec7f129ae761e42cc0a89766408474cb85f54b22e1c468252a311e589c2a12",
+            "04c4a5dca08e39f0a7cfcffe9917ddf89285e4d922fe60d0d12cd913455f9a59"
+          ]
+        },
+        {
+          "label": "Utilization of Public Funds",
+          "category": "mainTopic",
+          "children": [],
+          "questions": [
+            "fdd7413599894b64c12bb68dde1e14f3788a1c566f9e8745b5595d6b53d92bef",
+            "9469fc49f1e1c5dfc5bc3d3a28c420608f60750e1a9e026ccabe1dfb0f6c49b6",
+            "07c446cfb5ae0254b70d29578d955fdc74b7cc6e4a5096dc228d09d9ebffe7e5",
+            "e082f262e80fcceff6586e60792447e1b80780a6fc7d312268f33404ca088381",
+            "8fc72e6a57078e676ac53d316631f27630c9ba352c74d2546d890fb4188dc29d",
+            "04c4a5dca08e39f0a7cfcffe9917ddf89285e4d922fe60d0d12cd913455f9a59"
+          ]
+        },
+        {
+          "label": "Information (Sharing &Transparency in Government)",
+          "category": "mainTopic",
+          "children": [],
+          "questions": [
+            "8358d95546f3e1435e9ff42bb876bd5a06c4b2523581237c04e728d1f23d7cbc",
+            "ea89a8dc58ead8a78384ce322e175e57fea91c6f2111f2aa97d7e79cffc53aaa",
+            "f73eaedd51a30e21fca06204ceb150d642df9aff6f31eb9ff501e1226a08781f",
+            "60a8ef35d5fd82c4bb582e20a82b4d02bd40bf55ac2ef072a6c3f5661a52f3a0",
+            "2dddd19b9a4f8da2e61d8a5b3f3f6f4aa2c5c68224b763fbbbae556f64df01a6",
+            "2331e5d5e0e3afd5ed03e82d5713f48b6377c246405e05edeced58ac5ec74f5d",
+            "23fcd37beb954a3192b7779a3c6b4df747776d742cb27f473aafe2e02c36b5fb"
+          ]
+        },
+        {
+          "label": "RTI",
+          "category": "mainTopic",
+          "children": [],
+          "questions": [
+            "8358d95546f3e1435e9ff42bb876bd5a06c4b2523581237c04e728d1f23d7cbc",
+            "ea89a8dc58ead8a78384ce322e175e57fea91c6f2111f2aa97d7e79cffc53aaa",
+            "f73eaedd51a30e21fca06204ceb150d642df9aff6f31eb9ff501e1226a08781f",
+            "60a8ef35d5fd82c4bb582e20a82b4d02bd40bf55ac2ef072a6c3f5661a52f3a0",
+            "2dddd19b9a4f8da2e61d8a5b3f3f6f4aa2c5c68224b763fbbbae556f64df01a6",
+            "2331e5d5e0e3afd5ed03e82d5713f48b6377c246405e05edeced58ac5ec74f5d",
+            "23fcd37beb954a3192b7779a3c6b4df747776d742cb27f473aafe2e02c36b5fb"
+          ]
+        },
+        {
+          "label": "",
+          "category": "mainTopic",
+          "children": [],
+          "questions": [
+            "8358d95546f3e1435e9ff42bb876bd5a06c4b2523581237c04e728d1f23d7cbc",
+            "9e0646dba34e35f9c6255a7fdb0f6737bc54f4ad1a71cfd9f604c7dc6a2b5017",
+            "4a857ee4c72d1ee754f4f0969b1a7cd7802f963b31e36867249777725dfdea47",
+            "ea89a8dc58ead8a78384ce322e175e57fea91c6f2111f2aa97d7e79cffc53aaa",
+            "f73eaedd51a30e21fca06204ceb150d642df9aff6f31eb9ff501e1226a08781f",
+            "da0c04b7b42b38ef7959246fa56193555cb2ac844363c1db57caf46d528caa0f",
+            "60a8ef35d5fd82c4bb582e20a82b4d02bd40bf55ac2ef072a6c3f5661a52f3a0",
+            "2dddd19b9a4f8da2e61d8a5b3f3f6f4aa2c5c68224b763fbbbae556f64df01a6",
+            "2331e5d5e0e3afd5ed03e82d5713f48b6377c246405e05edeced58ac5ec74f5d",
+            "23fcd37beb954a3192b7779a3c6b4df747776d742cb27f473aafe2e02c36b5fb"
+          ]
+        },
+        {
+          "label": "Work Culture",
+          "category": "mainTopic",
+          "children": [],
+          "questions": [
+            "7bf6db4d4ee8906185878463bcd4a7a23e3caf4546e86aa7b1df9d47d7ac1f33",
+            "18a765fd86ce9b252c447e7c8194e1364f9f261eda207dbb69a5229c93a93dc4",
+            "a401df6bd9f7487bed0f790f18ed800f1131e5f9c6abe0c111310366872c0d9d"
+          ]
+        },
+        {
+          "label": "Emotional Intelligence (Concepts, Utility &Application in Administration\n&Governance)",
+          "category": "mainTopic",
+          "children": [],
+          "questions": [
+            "b46de40622dd32509e91c4b7d1f6218261eb260b599446979a96c717cf036e51",
+            "ea51ccc570c7e48ff639ec03fc5ed7be7180ef2531a5418ac39654a448aba46d",
+            "3d93799cac48d3784eb06cbbbde864dd68b69a556b65fb61099206294cd8f952",
+            "1ccd341964a3cb1b1fcdcddefacc67964305e50e8df5d2c8d5394b0cebed365a",
+            "8d80a87833ca81d863ee52386757c238922227f30b3cca67cb4d644852c61733"
+          ]
+        },
+        {
+          "label": "Attitude(Content, Structure, Function, Influence &Relation with Thought\n&Behaviour)",
+          "category": "mainTopic",
+          "children": [],
+          "questions": [
+            "f8f1ddb4ae447540c46bf5b40dfdf6c887be227d775fa3f89cf388dac698f159"
+          ]
+        },
+        {
+          "label": "Civil Service Aptitude &Foundational Values (Integrity, Impartiality,\nNon-Partisanship, Objectivity, Dedication to Public Service",
+          "category": "mainTopic",
+          "children": [],
+          "questions": [
+            "be292004230bc95a57ff2db63f090d308936feee303404fbc04019c898f28217",
+            "e9fe4a4cda5c80208f972e245aa66b43b411e98e1dec31e0b5bef0d91c9dd67a",
+            "6f9f615d44e4ac7e2e902f4d57fcb86abd247bbd207b608249520a5d7925c7d9",
+            "fbb4a936e5a7a0f64bdc2f3d128bb2b5f74b655a014f7567e2cb48b5efe67ef4",
+            "2dddd19b9a4f8da2e61d8a5b3f3f6f4aa2c5c68224b763fbbbae556f64df01a6",
+            "8fc72e6a57078e676ac53d316631f27630c9ba352c74d2546d890fb4188dc29d"
+          ]
+        },
+        {
+          "label": "Human Value\nLessons from Great Leaders, Reformers &Administrators",
+          "category": "mainTopic",
+          "children": [],
+          "questions": [
+            "acf45277af61d6e9a384b438339d5d6fea05a8688533f0d8eeded82554e82912",
+            "2be5af5071fff2a27cc80007415443cd5110419e9372e9f73a2f077e40b8473e",
+            "8077561a8dc75802b37cf532d74dc5dfc37f6fa6c7d96458e44986cd7c6ce246",
+            "84ba2229e60e2ebe83919e34baa00de81786377fe19b5dba7200cffec074f394",
+            "e082f262e80fcceff6586e60792447e1b80780a6fc7d312268f33404ca088381"
+          ]
+        },
+        {
+          "label": "Role of Family, Society, Educational Institutions in Inculcating Values",
+          "category": "mainTopic",
+          "children": [],
+          "questions": [
+            "9469fc49f1e1c5dfc5bc3d3a28c420608f60750e1a9e026ccabe1dfb0f6c49b6",
+            "9e0646dba34e35f9c6255a7fdb0f6737bc54f4ad1a71cfd9f604c7dc6a2b5017",
+            "4a857ee4c72d1ee754f4f0969b1a7cd7802f963b31e36867249777725dfdea47",
+            "ea89a8dc58ead8a78384ce322e175e57fea91c6f2111f2aa97d7e79cffc53aaa",
+            "da0c04b7b42b38ef7959246fa56193555cb2ac844363c1db57caf46d528caa0f"
+          ]
+        },
+        {
+          "label": "Ethical Issues in International Relations and Funding",
+          "category": "mainTopic",
+          "children": [],
+          "questions": [
+            "51dcd1744216c3184141c9d086f401d44a6396f9cc51f6d89a2bd7c2ed67786b",
+            "357c0df5576b4232ccd0c1a50a2cefa5aa7136e852f3f7fec6727e4addda2e1b",
+            "7f06785807492ccabc1c1de2bfc547726a7d7ea3d47e2416d7dc187e13a762f0",
+            "9ced3d06c04cee9d31660acf702b3029667eefe276fed3c7e8dd7264ddccfb4f",
+            "ea51ccc570c7e48ff639ec03fc5ed7be7180ef2531a5418ac39654a448aba46d"
+          ]
+        },
+        {
+          "label": "Civil Service Aptitude &Foundational Values (Integrity, Impartiality, Non-\r\nPartisanship, Objectivity, Dedication to Public Service",
+          "category": "mainTopic",
+          "children": [],
+          "questions": [
+            "23517bc189b0761983a142e5b51a6ccf0c8190c7dfa78ee2866d9e14c01bfb63",
+            "0378eda3c5034c712970d057905cde9f08fb0ac1fec4b24df83f71fc5caccabd",
+            "f946243bcd4cffbc487124ba0ef2e5fb7b4244e302672b4d19363d3bb8a3d97c",
+            "00b6e93332c3f538f0f00245bc02514fa5d82eb001c4a553610204ce43687fbd",
+            "15abf61159b079e639de76715f72d22f7e7444ac1b238e81dc6351cfa00b6f84",
+            "b4eaa11467e058c79c6deef57846ef4d0596c4a43e60aeff5003bf28087626e9",
+            "c7f683390ff2bc21985e4c80efc350d8b8de2ea661b80fc494174780b83d3eda",
+            "36dec7798f2a4f4a3233fc7469f6dfcf49a2151b58bcc2ac8e2ede5c19c111aa",
+            "64dfa889aad95f648190c1fcdaeacd8267bd68c14d8244d38da9ff8cf6fb81ba"
+          ]
+        },
+        {
+          "label": "Corporate Governance",
+          "category": "mainTopic",
+          "children": [],
+          "questions": [
+            "e562d3926e2b9da416e7439a103da76362565779cd7b25e67074ebffabc09579",
+            "9c19ed15f5488267133d68976e6b94b2920e2a335b9deeec2fe7233eaee75409",
+            "6f9f615d44e4ac7e2e902f4d57fcb86abd247bbd207b608249520a5d7925c7d9",
+            "7af118db7c2a765dd46085372cd8c1c251abd5ad5fee74c3826b9c10ebccc03b",
+            "72222ecd79f040bb7f252036b487d67de48679b46d46ab050371790ac8ceac31",
+            "1059770592d084c9b15610a5d4305d80d923f426ac1f473bed028e36e68ca403"
+          ]
+        },
+        {
+          "label": "Ethical Concerns and Dilemmas in Government &Private\r\nInstitutions",
+          "category": "mainTopic",
+          "children": [],
+          "questions": [
+            "e562d3926e2b9da416e7439a103da76362565779cd7b25e67074ebffabc09579",
+            "9c19ed15f5488267133d68976e6b94b2920e2a335b9deeec2fe7233eaee75409",
+            "6f9f615d44e4ac7e2e902f4d57fcb86abd247bbd207b608249520a5d7925c7d9",
+            "7af118db7c2a765dd46085372cd8c1c251abd5ad5fee74c3826b9c10ebccc03b",
+            "72222ecd79f040bb7f252036b487d67de48679b46d46ab050371790ac8ceac31",
+            "1059770592d084c9b15610a5d4305d80d923f426ac1f473bed028e36e68ca403"
+          ]
+        },
+        {
+          "label": "Social Influence and Persuasion",
+          "category": "mainTopic",
+          "children": [],
+          "questions": [
+            "83b17769a7993c9b25729c8a69cbf645ebe6abb470bdf735aaa7d7bb3308470f",
+            "edbdd555f0de3e3f7dd05b2ac7c050ac2cb59ebeb7b6282726e64025bcdc8380",
+            "84ba2229e60e2ebe83919e34baa00de81786377fe19b5dba7200cffec074f394"
+          ]
+        },
+        {
+          "label": "Attitude (Content, Structure, Function, Influence &Relation with Thought\r\n&Behaviour)",
+          "category": "mainTopic",
+          "children": [],
+          "questions": [
+            "8d2f7cdaab3c0fb79a8873504ca6e6db4860e649c7c967a9500ba5ff268ec694",
+            "cc5352dcd786a17ba2aa400fb35253e872d3a479491642bbcef57e436fa1a06e",
+            "0ee5d21b86aa36b4f12c8d7a8514815967a920eaf5c1c796ab90490a7fc677d9",
+            "bfcc544654509704b37e6036bbfd0d30b89364e2edfae5c286373efe470a3997",
+            "28ba53f47068c1be60c2938c8eb980a8ea1dc59d2d7d06bb6444b521770d9dd4"
+          ]
+        },
+        {
+          "label": "Ethics and Human Interface (Essence, Determinants, Consequences of Ethics in\nHuman Actions)",
+          "category": "mainTopic",
+          "children": [],
+          "questions": [
+            "7978b87e4be490facac1a4297b7f1165a5295c7df583710916434230d1804749",
+            "7af118db7c2a765dd46085372cd8c1c251abd5ad5fee74c3826b9c10ebccc03b",
+            "18a765fd86ce9b252c447e7c8194e1364f9f261eda207dbb69a5229c93a93dc4",
+            "0aaa5a493ca850ca71c9834ef1d84917419d15e78240caa18e44b9dfe475a6af",
+            "3d93799cac48d3784eb06cbbbde864dd68b69a556b65fb61099206294cd8f952",
+            "bf582fe61cf97e7e145d92153d9120d1ebd4274266104e8a512dde517405a9c1"
+          ]
+        },
+        {
+          "label": "Ethics in Public &Private Relationships",
+          "category": "mainTopic",
+          "children": [],
+          "questions": [
+            "7978b87e4be490facac1a4297b7f1165a5295c7df583710916434230d1804749",
+            "7af118db7c2a765dd46085372cd8c1c251abd5ad5fee74c3826b9c10ebccc03b",
+            "bf582fe61cf97e7e145d92153d9120d1ebd4274266104e8a512dde517405a9c1"
+          ]
+        },
+        {
+          "label": "Codes of Ethics",
+          "category": "mainTopic",
+          "children": [],
+          "questions": [
+            "8077561a8dc75802b37cf532d74dc5dfc37f6fa6c7d96458e44986cd7c6ce246",
+            "fbb4a936e5a7a0f64bdc2f3d128bb2b5f74b655a014f7567e2cb48b5efe67ef4",
+            "23fcd37beb954a3192b7779a3c6b4df747776d742cb27f473aafe2e02c36b5fb"
+          ]
+        },
+        {
+          "label": "Codes of Conduct",
+          "category": "mainTopic",
+          "children": [],
+          "questions": [
+            "8077561a8dc75802b37cf532d74dc5dfc37f6fa6c7d96458e44986cd7c6ce246",
+            "fbb4a936e5a7a0f64bdc2f3d128bb2b5f74b655a014f7567e2cb48b5efe67ef4",
+            "23fcd37beb954a3192b7779a3c6b4df747776d742cb27f473aafe2e02c36b5fb"
+          ]
+        },
+        {
+          "label": "Laws, Rules, Regulations, Conscience as Sources\r\nof Ethical Guidance.",
+          "category": "mainTopic",
+          "children": [],
+          "questions": [
+            "8077561a8dc75802b37cf532d74dc5dfc37f6fa6c7d96458e44986cd7c6ce246",
+            "fbb4a936e5a7a0f64bdc2f3d128bb2b5f74b655a014f7567e2cb48b5efe67ef4"
+          ]
+        },
+        {
+          "label": "Ethics in Public &Private Relationships.\r\nHuman life vs opportunity",
+          "category": "mainTopic",
+          "children": [],
+          "questions": [
+            "d23d731d13c29b97f3f2e7a3fb6ff30d9225d83e084479566af8d9a833726eae",
+            "24c0d6cfaf6aad9c599076b69a4d303c333851575b1690acaa567253bce62dc2"
+          ]
+        },
+        {
+          "label": "Problems, Dilemmas in Public Administration and Public Service",
+          "category": "mainTopic",
+          "children": [],
+          "questions": [
+            "3d93799cac48d3784eb06cbbbde864dd68b69a556b65fb61099206294cd8f952"
+          ]
+        },
+        {
+          "label": "Utilization of Public Fund",
+          "category": "mainTopic",
+          "children": [],
+          "questions": [
+            "26ec7f129ae761e42cc0a89766408474cb85f54b22e1c468252a311e589c2a12"
+          ]
+        },
+        {
+          "label": "Laws, Rules, Regulations, Conscience as Sources\nof Ethical Guidance",
+          "category": "mainTopic",
+          "children": [],
+          "questions": [
+            "23fcd37beb954a3192b7779a3c6b4df747776d742cb27f473aafe2e02c36b5fb"
+          ]
+        }
+      ]
     }
   ]
 }

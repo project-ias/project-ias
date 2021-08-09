@@ -3,7 +3,7 @@ const fs = require("fs");
 const crypto = require("crypto");
 const keys = require("./config/keys");
 
-const sheetNames = ["GS1", "GS2", "GS3"];
+const sheetNames = ["GS1", "GS2", "GS3", "GS4"];
 
 async function gsheetToTopics() {
   const mainArr = [];
