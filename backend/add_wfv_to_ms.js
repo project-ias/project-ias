@@ -1,3 +1,5 @@
+// wfv - Weekly Focus Vision
+
 const axios = require("axios");
 const { sheetApi, sheetID } = require("./config/keys");
 const crypto = require("crypto");
@@ -9,17 +11,14 @@ const client = new MeiliSearch({
   apiKey: "masterKey",
 });
 
-const sheetNames = ["GS1", "GS2", "GS3", "GS4"];
+const sheetNames = ["WeeklyFocusVisionIAS"];
 
 async function gsheetToMS() {
   for (var i = 0; i < sheetNames.length; i++) {
     const dataArr = await sheetToJson(sheetID, sheetNames[i]);
     var array_length = dataArr.length;
     for (let i = 0; i < array_length; i++) {
-      const id = crypto
-        .createHash("sha256")
-        .update(dataArr[i].exam + dataArr[i].qnumber)
-        .digest("hex");
+      const id = crypto.randomBytes(20).toString("hex");
       dataArr[i]["id"] = id;
       // console.log(dataArr[i]);
       const x = await client.index("pyqs").addDocuments([dataArr[i]]);
@@ -36,28 +35,15 @@ async function sheetToJson(sheetId, sheetName) {
   const { data } = await axios.get(
     sheetToSheetAPIUrl(sheetId, sheetName, sheetApi)
   );
-  const mainArr = data.values;
+  const mainArr = data["values"];
   var convertedArr = [];
   for (var i = 1; i < mainArr.length; i++) {
-    if (mainArr[i][3] == undefined) continue;
-    if (mainArr[i][4] == undefined) var tempTopic = "";
-    else var tempTopic = mainArr[i][4];
-    tempTopic = tempTopic.split(";");
-    for (var j = 0; j < tempTopic.length; j++) {
-      const tempTopicObject = {
-        mainTopic: tempTopic[j].split(":")[0],
-        subTopics: tempTopic[j].split(":").slice(1),
-      };
-      tempTopic[j] = tempTopicObject;
-    }
+    if (mainArr[i][1] == undefined) continue;
+    if (mainArr[i][0] == undefined) var tempTopic = "";
+    else var tempTopic = mainArr[i][0];
     const tempObject = {
-      exam: mainArr[i][0],
-      year: mainArr[i][1],
-      qnumber: mainArr[i][2].split("_").join(""),
-      question: mainArr[i][3],
-      words: mainArr[i][5],
-      marks: mainArr[i][6],
       topics: tempTopic,
+      link: mainArr[i][1],
     };
     convertedArr.push(tempObject);
   }
