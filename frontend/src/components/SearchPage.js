@@ -357,7 +357,7 @@ export default function SearchPage() {
                 className={`type ${examType === "content" && "current"}`}
                 onClick={() => setExamType("content")}
               >
-                Dhristi
+                Drishti
               </div>
             </div>
           ) : null}
@@ -431,7 +431,7 @@ export default function SearchPage() {
                   className={`type ${materialType === "content" && "current"}`}
                   onClick={() => setMaterialType("content")}
                 >
-                  Dhristi
+                  Drishti
                 </div>
               </div>
             ) : null}

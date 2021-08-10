@@ -97,15 +97,28 @@
 
   .sub-types {
     display: flex;
-    justify-content: space-evenly;
-    margin: 2.5rem 0 1.5rem 0;
+    justify-content: flex-start;
+    margin-top: 1.8rem;
 
     .type {
       background-color: #fefaee;
       color: #1E212D;
-      border: 3px solid #fefaee;
-      border-radius: 4px;
+      border-radius: 1rem;
       padding: .5rem .8rem;
+      font-size: 1rem;
+      letter-spacing: 1px;
+      margin: 0 .6rem;
+      transition: all .2s;
+
+      &:hover {
+        transform: scale(105%);
+        box-shadow: 0 0px 8px rgba(119, 119, 119, 0.3);
+      }
+
+      &:active {
+        transform: scale(100%);
+        box-shadow: none;
+      }
     }
 
     .current {
