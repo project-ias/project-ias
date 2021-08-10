@@ -68,11 +68,10 @@
     word-wrap: break-word;
     padding: 0 .8rem;
     font-weight: bolder;
+    margin-bottom: 4rem;
 }
 
 .tree-menu {
-
-    margin: 4rem 0 2rem 0;
     border-top: 2px solid black;
     border-bottom: 2px solid black;
     &-column {
@@ -114,6 +113,16 @@
             font-size: 80%;
             margin-left: 1rem;
         }
+
+        &-svg {
+            .CircularProgressbar-trail {
+                stroke-width: 3px;
+            }
+            .CircularProgressbar-path {
+                stroke-width: 8px;
+                stroke-linecap: butt;
+            }
+        }
     }
     &-active {
         transform: rotateZ(90deg);
@@ -126,6 +135,7 @@
     width: 100%;
     border-top: 2px solid black;
     border-bottom: 2px solid black;
+    margin-top: 2rem;
 
     &-text {
         text-align: center;

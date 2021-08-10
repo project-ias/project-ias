@@ -5,6 +5,7 @@ import {
   CONTENT_URL,
   DNS_URL,
   NGROK_URL,
+  WFV_URL,
 } from "../constants/constants";
 import {
   InstantSearch,
@@ -25,6 +26,7 @@ import Dashboard from "./Dashboard";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import "@fortawesome/free-solid-svg-icons";
 import { faBars } from "@fortawesome/free-solid-svg-icons";
+import HitWFV from "./HitWFV";
 
 const searchClient = instantMeiliSearch(NGROK_URL, "masterKey");
 
@@ -67,6 +69,8 @@ export default function SearchPage() {
         return HitDNS;
       case "secure":
         return HitSecure;
+      case "wfv":
+        return HitWFV;
       default:
         return null;
     }
@@ -87,6 +91,15 @@ export default function SearchPage() {
         .post(DNS_URL, data)
         .then((res) => {
           setDnsContent(res.data.hits);
+        })
+        .catch((err) => {
+          console.log("err is ", err);
+        });
+    } else if (materialType === "wfv") {
+      axios
+        .post(WFV_URL, data)
+        .then((res) => {
+          setContent(res.data.hits);
         })
         .catch((err) => {
           console.log("err is ", err);
@@ -332,6 +345,23 @@ export default function SearchPage() {
             </div>
           </div>
 
+          {examType === "content" || examType === "wfv" ? (
+            <div className="sub-types">
+              <div
+                className={`type ${examType === "wfv" && "current"}`}
+                onClick={() => setExamType("wfv")}
+              >
+                Weekly Focus Vision
+              </div>
+              <div
+                className={`type ${examType === "content" && "current"}`}
+                onClick={() => setExamType("content")}
+              >
+                Dhristi
+              </div>
+            </div>
+          ) : null}
+
           <Hits hitComponent={ReturnHitComponent(examType)} />
         </div>
         <div className="results">
@@ -380,12 +410,31 @@ export default function SearchPage() {
                 DNS
               </div>
               <div
-                className={`type ${materialType === "content" && "current"}`}
+                className={`type ${
+                  (materialType === "content" || materialType === "wfv") &&
+                  "current"
+                }`}
                 onClick={() => setMaterialType("content")}
               >
                 Read
               </div>
             </div>
+            {materialType === "content" || materialType === "wfv" ? (
+              <div className="sub-types">
+                <div
+                  className={`type ${materialType === "wfv" && "current"}`}
+                  onClick={() => setMaterialType("wfv")}
+                >
+                  Weekly Focus Vision
+                </div>
+                <div
+                  className={`type ${materialType === "content" && "current"}`}
+                  onClick={() => setMaterialType("content")}
+                >
+                  Dhristi
+                </div>
+              </div>
+            ) : null}
             <div>
               {materialType === "dns"
                 ? dnsContent.map((hit) => (
@@ -393,9 +442,15 @@ export default function SearchPage() {
                       <HitDNS hit={hit} />
                     </div>
                   ))
-                : content.map((hit) => (
+                : materialType === "content"
+                ? content.map((hit) => (
                     <div className="card-result">
                       <HitDrishti hit={hit} />
+                    </div>
+                  ))
+                : content.map((hit) => (
+                    <div className="card-result">
+                      <HitWFV hit={hit} />
                     </div>
                   ))}
             </div>

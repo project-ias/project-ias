@@ -53,7 +53,6 @@ const TreeNode = ({ node }) => {
       if (node.category === "examSubType") totalQuestions /= userMains.length; //in case of examSubType, the questions get added multiple times as it is put inside the userMains for loop.
       percentSolved = Math.floor((temp * 100) / totalQuestions);
       if (percentSolved < 30) pathColor = "red";
-      else if (percentSolved < 80) pathColor = "blue";
       else pathColor = "green";
     }
 
@@ -95,16 +94,19 @@ const TreeNode = ({ node }) => {
           {showPercentage && localStorage.getItem("userEmail") && (
             <div className="tree-menu-solved">
               <CircularProgressbar
-                className="tree-menu-solveed-svg"
+                className="tree-menu-solved-svg"
                 value={percentSolved}
                 text={`${percentSolved}%`}
                 background
-                backgroundPadding={6}
+                backgroundPadding={0}
                 styles={buildStyles({
-                  backgroundColor: "#333",
-                  textColor: "#fefaee",
+                  // backgroundColor: "#333",
+                  // textColor: "#fefaee",
+                  backgroundColor: "transparent",
+                  textColor: "#333",
+                  textSize: "1.4rem",
                   pathColor: pathColor,
-                  trailColor: "transparent",
+                  trailColor: "#000",
                 })}
               />
             </div>

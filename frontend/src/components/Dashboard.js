@@ -9,6 +9,7 @@ import { INSTA_URL, TELEGRAM_URL, TOPICS_URL } from "../constants/constants";
 import { useEffect, useState, useRef } from "react";
 import axios from "axios";
 import TreeMenu from "./TreeMenu";
+import Loader from "react-loader-spinner";
 
 const Dashboard = (props) => {
   const node = useRef();
@@ -51,9 +52,20 @@ const Dashboard = (props) => {
     </div>
   );
 
-  var menuDiv = null;
+  var menuDiv = (
+    <Loader
+      type="Puff"
+      color="#00BFFF"
+      height={100}
+      width={100}
+      visible={true}
+      style={{
+        textAlign: "center",
+      }}
+    />
+  );
 
-  if (menu) {
+  if (menu && menu.length !== 0) {
     menuDiv = (
       <div className="tree-menu">
         <TreeMenu data={menu} />

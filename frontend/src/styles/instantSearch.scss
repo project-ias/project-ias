@@ -17,7 +17,9 @@
 
   &-email {
     font-size: 1rem;
-    color: #3b70ed;
+    color: #1E212D;
+    font-weight: 500;
+    letter-spacing: 2px;
 
     @include sm {
       display: none;
