@@ -1,5 +1,5 @@
-//export const BACKEND_URL = "https://api.project-ias.com";
-export const BACKEND_URL = "http://localhost:5000";
+export const BACKEND_URL = "https://api.project-ias.com";
+//export const BACKEND_URL = "http://localhost:5000";
 export const NGROK_URL = "https://search.project-ias.com";
 export const GA_MEASUREMENT_ID = "G-QDM8PF4XX9";
 
