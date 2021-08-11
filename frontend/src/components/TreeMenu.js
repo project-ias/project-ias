@@ -35,7 +35,9 @@ const TreeNode = ({ node }) => {
 
     if (showPercentage) {
       var userMains = localStorage.getItem("userMains") || "";
-      userMains = userMains.split(" - ");
+      userMains = userMains.split(" - ").map((temp) => {
+        return temp.split(" | ")[0];
+      });
       var temp = 0;
       for (var i = 0; i < userMains.length; i++) {
         if (node.category === "mainTopic") {

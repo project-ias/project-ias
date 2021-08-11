@@ -238,16 +238,25 @@ app.post("/user_mains", async (req, res) => {
   const userID = req.body.userID;
   const questionID = req.body.questionID;
   const isSolved = req.body.isSolved;
+  const hasRevised = req.body.hasRevised;
+  const today = new Date();
+  const date =
+    today.getFullYear() + "-" + (today.getMonth() + 1) + "-" + today.getDate();
+  const userQuestionObject = {
+    questionID: questionID,
+    date: date,
+    hasRevised: hasRevised,
+  };
 
   UserModel.findById(userID, (err, docs) => {
     if (err) console.log(err);
     else {
       var userQuestions = [...docs.mains];
-      if (isSolved) userQuestions.push(questionID);
-      else {
-        userQuestions = userQuestions.filter(
-          (value, index, arr) => value != questionID
-        );
+      userQuestions = userQuestions.filter(
+        (value, index, arr) => value.questionID !== questionID
+      );
+      if (isSolved) {
+        userQuestions.push(userQuestionObject);
       }
       UserModel.findByIdAndUpdate(
         userID,

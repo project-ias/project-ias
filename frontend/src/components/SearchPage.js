@@ -55,7 +55,17 @@ export default function SearchPage() {
   const [mainsContent, setMainsContent] = useState([]);
   const [prelims, setPrelims] = useState([]);
 
-  // marked ques
+  // updating marked questions saving scheme
+  try {
+    const userMains = localStorage.getItem("userMains").split(" - ");
+    if (
+      userMains[0] !== undefined &&
+      userMains[0] !== null &&
+      !userMains[0].includes(" | ")
+    ) {
+      localStorage.clear();
+    }
+  } catch {}
 
   function ReturnHitComponent(selectedType) {
     switch (selectedType) {

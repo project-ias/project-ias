@@ -7,6 +7,15 @@ import Loader from "react-loader-spinner";
 function removePrevNext(htmlString) {
   let parsedHtml = parse(htmlString);
   parsedHtml.querySelector(".next-post").remove();
+  [].forEach.call(parsedHtml.querySelectorAll("a"), (a) => {
+    const rawAttrsArr = a.rawAttrs.split(" ");
+    if (rawAttrsArr[0].includes("href") && !rawAttrsArr[0].includes("http"))
+      rawAttrsArr[0] = rawAttrsArr[0].replace(
+        'href="',
+        'href="https://www.drishtiias.com'
+      );
+    a.rawAttrs = rawAttrsArr.join(" ");
+  });
   return parsedHtml.toString();
 }
 

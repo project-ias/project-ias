@@ -37,13 +37,21 @@ const LoginPage = () => {
           })
           .then((user) => {
             try {
+
+              const userPrelims = user.data.prelims.map((temp) => {
+                return (
+                  temp.questionID + " | " + temp.date + " | " + temp.hasRevised
+                );
+              });
+              const userMains = user.data.mains.map((temp) => {
+                return (
+                  temp.questionID + " | " + temp.date + " | " + temp.hasRevised
+                );
+              });
               localStorage.setItem("userID", user.data.id);
               localStorage.setItem("userEmail", user.data.email);
-              localStorage.setItem(
-                "userPrelims",
-                user.data.prelims.join(" - ")
-              );
-              localStorage.setItem("userMains", user.data.mains.join(" - "));
+              localStorage.setItem("userPrelims", userPrelims.join(" - "));
+              localStorage.setItem("userMains", userMains.join(" - "));
             } catch {}
             history.push({
               pathname: "/",
