@@ -50,8 +50,14 @@ const LoginPage = () => {
               });
               localStorage.setItem("userID", user.data.id);
               localStorage.setItem("userEmail", user.data.email);
-              localStorage.setItem("userPrelims", userPrelims.join(" - "));
-              localStorage.setItem("userMains", userMains.join(" - "));
+              localStorage.setItem(
+                "userPrelims",
+                JSON.stringify(user.data.prelims)
+              );
+              localStorage.setItem(
+                "userMains",
+                JSON.stringify(user.data.mains)
+              );
             } catch {}
             history.push({
               pathname: "/",

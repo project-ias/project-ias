@@ -182,10 +182,26 @@
   opacity: 0.4;
 }
 
+.card-revise {
+  opacity: 0.6;
+}
+
 .pyqs-solved-toggle {
   display: flex;
   justify-content: flex-end;
   align-items: baseline;
+  font-size: 1rem;
+}
+
+.pyqs-revised-div {
+  display: flex;
+  justify-content: space-between;
+  font-size: 1rem;
+  margin-top: 1rem;
+
+  .pyqs-revised-text {
+    color: red;
+  }
 }
 
 .secure-links-div, .wfv-links-div {

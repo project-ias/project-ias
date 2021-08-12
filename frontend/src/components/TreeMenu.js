@@ -35,9 +35,8 @@ const TreeNode = ({ node }) => {
 
     if (showPercentage) {
       var userMains = localStorage.getItem("userMains") || "";
-      userMains = userMains.split(" - ").map((temp) => {
-        return temp.split(" | ")[0];
-      });
+      userMains = JSON.parse(userMains).map((item) => item.questionID);
+      
       var temp = 0;
       for (var i = 0; i < userMains.length; i++) {
         if (node.category === "mainTopic") {
@@ -45,9 +44,7 @@ const TreeNode = ({ node }) => {
           totalQuestions = node.questions.length;
         } else {
           for (var j = 0; j < node.children.length; j++) {
-            console.log(node.children[j].questions.includes(userMains[i]));
             if (node.children[j].questions.includes(userMains[i])) temp++;
-            console.log("temp : " + temp);
             totalQuestions += node.children[j].questions.length;
           }
         }
