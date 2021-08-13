@@ -22,7 +22,9 @@ const TreeMenu = ({ data = [] }) => {
 
 const TreeNode = ({ node }) => {
   const history = useHistory();
-  const [childVisible, setChildVisible] = useState(false);
+  const [childVisible, setChildVisible] = useState(
+    node.category === "examType" ? true : false
+  );
   var label = node.label;
   const hasChild = node.children ? true : false;
   const showPercentage =
