@@ -298,6 +298,9 @@ export default function SearchPage() {
           defaultRefinement={query}
           onChange={processChange}
           onReset={processChange}
+          translations={{
+            placeholder: "search citizen charter",
+          }}
           submit={
             <svg
               width="175"
