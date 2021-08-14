@@ -45,9 +45,7 @@ const TreeNode = ({ node }) => {
           totalQuestions = node.questions.length;
         } else {
           for (var j = 0; j < node.children.length; j++) {
-            console.log(node.children[j].questions.includes(userMains[i]));
             if (node.children[j].questions.includes(userMains[i])) temp++;
-            console.log("temp : " + temp);
             totalQuestions += node.children[j].questions.length;
           }
         }
