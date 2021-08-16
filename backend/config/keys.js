@@ -1,3 +1,5 @@
+require("dotenv").config();
+
 module.exports = {
   MEILISEARCH_URL: "http://localhost:7700",
   // MEILISEARCH_URL: "https://search.project-ias.com",
