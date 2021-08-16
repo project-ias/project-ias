@@ -6,4 +6,5 @@ module.exports = {
   sheetID: "1tdc3glFC8z9eJTIbkKvTk5cvvm-pvELGVnyfiqtClzQ",
   sheetApi: "AIzaSyBiCZ0OfgSBTMUHwc4bpwCwKDPc3wGYTOY",
   // only viewer access via sheetApi
+  slackApiUrl: process.env.SLACK_API_URL,
 };

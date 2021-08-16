@@ -14,6 +14,8 @@ const fs = require("fs");
 const { UserModel } = require("./models/models");
 const validateLoginInput = require("./validation/login");
 const keys = require("./config/keys");
+const { default: axios } = require("axios");
+const { slackApiUrl } = require("./config/keys");
 require("./config/passport")(passport);
 
 const mongoDB = "mongodb://127.0.0.1/project_ias";
@@ -90,6 +92,13 @@ app.post("/signup", (req, res) => {
               });
             }
           );
+          //update on slack.
+          axios
+            .post(slackApiUrl, { text: `${item.email} just signed in` })
+            .then()
+            .catch((err) =>
+              console.log("Error while updating on slack : " + err)
+            );
         })
         .catch((err) => {
           console.log("error in adding User ", err);
