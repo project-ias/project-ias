@@ -88,7 +88,7 @@ export default function HitPyqs(props) {
         );
       }
     }
-    qNumber = props.hit["qnumber"][2] + props.hit["qnumber"][3] + ") ";
+    qNumber = props.hit["qnumber"] + ") ";
   } catch {}
 
   const completeCheckHandler = (solvedState, revisionCount) => {
