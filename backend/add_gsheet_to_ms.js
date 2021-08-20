@@ -16,10 +16,26 @@ async function gsheetToMS() {
     const dataArr = await sheetToJson(sheetID, sheetNames[i]);
     var array_length = dataArr.length;
     for (let i = 0; i < array_length; i++) {
-      const id = crypto
-        .createHash("sha256")
-        .update(dataArr[i].exam + dataArr[i].qnumber)
-        .digest("hex");
+      var idToken = dataArr[i].exam + dataArr[i].year + dataArr[i].qnumber;
+      // to preserve the previously stored ids, the 21st century questions will have tokens in different format. E.g. : GS11301
+      try {
+        if (
+          dataArr[i].year !== null &&
+          dataArr[i].year[0] == "2" &&
+          dataArr[i].year[1] == "0"
+        ) {
+          if (dataArr[i].qnumber !== null && parseInt(dataArr[i].qnumber) < 10)
+            dataArr[i].qnumber = "0" + dataArr[i].qnumber;
+          idToken =
+            dataArr[i].exam +
+            dataArr[i].year[2] +
+            dataArr[i].year[3] +
+            dataArr[i].qnumber;
+        }
+      } catch {
+        idToken = dataArr[i].exam + dataArr[i].year + dataArr[i].qnumber;
+      }
+      const id = crypto.createHash("sha256").update(idToken).digest("hex");
       dataArr[i]["id"] = id;
       // console.log(dataArr[i]);
       const x = await client.index("pyqs").addDocuments([dataArr[i]]);
@@ -53,7 +69,7 @@ async function sheetToJson(sheetId, sheetName) {
     const tempObject = {
       exam: mainArr[i][0],
       year: mainArr[i][1],
-      qnumber: mainArr[i][2].split("_").join(""),
+      qnumber: mainArr[i][2],
       question: mainArr[i][3],
       words: mainArr[i][5],
       marks: mainArr[i][6],
