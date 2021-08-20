@@ -28,16 +28,23 @@ const TreeNode = ({ node }) => {
   var label = node.label;
   const hasChild = node.children ? true : false;
   const showPercentage =
-    node.category === "examSubType" || node.category === "mainTopic";
+    (node.category === "examSubType" || node.category === "mainTopic") &&
+    localStorage.getItem("userEmail");
   var percentSolved = 0,
     totalQuestions = 0;
   var pathColor = "red";
 
   if (label === null || label === undefined) label = node;
 
+  var userMains;
+
   if (showPercentage) {
-    var userMains = localStorage.getItem("userMains") || "[]";
-    userMains = JSON.parse(userMains).map((item) => item.questionID);
+    try {
+      userMains = localStorage.getItem("userMains") || "[]";
+      userMains = JSON.parse(userMains).map((item) => item.questionID);
+    } catch (err) {
+      userMains = [];
+    }
 
     var temp = 0;
     for (var i = 0; i < userMains.length; i++) {
@@ -51,7 +58,19 @@ const TreeNode = ({ node }) => {
         }
       }
     }
-    if (node.category === "examSubType") totalQuestions /= userMains.length; //in case of examSubType, the questions get added multiple times as it is put inside the userMains for loop.
+
+    if (userMains.length === 0) {
+      if (node.category === "mainTopic") {
+        totalQuestions = node.questions.length;
+      } else {
+        for (j = 0; j < node.children.length; j++) {
+          totalQuestions += node.children[j].questions.length;
+        }
+      }
+    }
+
+    if (node.category === "examSubType" && userMains.length !== 0)
+      totalQuestions /= userMains.length; //in case of examSubType, the questions get added multiple times as it is put inside the userMains for loop.
     percentSolved = Math.floor((temp * 100) / totalQuestions);
     if (percentSolved < 30) pathColor = "red";
     else pathColor = "green";
@@ -92,7 +111,7 @@ const TreeNode = ({ node }) => {
             {showPercentage ? ` ( ${temp} / ${totalQuestions} ) ` : ""}
           </span>
         </div>
-        {showPercentage && localStorage.getItem("userEmail") && (
+        {showPercentage && (
           <div className="tree-menu-solved">
             <CircularProgressbar
               className="tree-menu-solved-svg"

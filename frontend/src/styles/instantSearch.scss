@@ -132,6 +132,39 @@
   }
 }
 
+.ais-Pagination {
+
+  &-list {
+    display: flex;
+    list-style: none;
+    padding-left: 1rem;
+  }
+
+  &-item {
+    background-color: #fefaee;
+    padding: .4rem .8rem;
+    margin-right: 1rem;
+    display: flex;
+    justify-content: center;
+    border-radius: 5px;
+
+    &--selected {
+      background-color: #FFEBC9;
+    }
+
+    &--disabled {
+      opacity: .6;
+    }
+  }
+
+  &-link {
+    text-decoration: none;
+    display: inline-block;
+    color: #1E212D;
+  }
+
+}
+
 .ais-Hits {
   margin: 0 0.5rem;
   max-width: 1000px;

@@ -13,6 +13,7 @@ import {
   Hits,
   Configure,
   Stats,
+  Pagination,
 } from "react-instantsearch-dom";
 import { instantMeiliSearch } from "@meilisearch/instant-meilisearch";
 import { useHistory, useLocation } from "react-router-dom";
@@ -324,6 +325,26 @@ export default function SearchPage() {
             </svg>
           }
         />
+        <Pagination
+          defaultRefinement={1}
+          padding={1}
+          translations={{
+            previous: "<",
+            next: ">",
+            first: "<<",
+            last: ">>",
+            page(currentRefinement) {
+              return currentRefinement;
+            },
+            ariaPrevious: "Previous page",
+            ariaNext: "Next page",
+            ariaFirst: "First page",
+            ariaLast: "Last page",
+            ariaPage(currentRefinement) {
+              return `Page ${currentRefinement}`;
+            },
+          }}
+        />
         <div className="mobile-view">
           <div className="types">
             <div
@@ -376,6 +397,27 @@ export default function SearchPage() {
           ) : null}
 
           <Hits hitComponent={ReturnHitComponent(examType)} />
+
+          <Pagination
+            defaultRefinement={1}
+            padding={1}
+            translations={{
+              previous: "<",
+              next: ">",
+              first: "<<",
+              last: ">>",
+              page(currentRefinement) {
+                return currentRefinement;
+              },
+              ariaPrevious: "Previous page",
+              ariaNext: "Next page",
+              ariaFirst: "First page",
+              ariaLast: "Last page",
+              ariaPage(currentRefinement) {
+                return `Page ${currentRefinement}`;
+              },
+            }}
+          />
         </div>
         <div className="results">
           <div className="division">
@@ -401,6 +443,27 @@ export default function SearchPage() {
             </div>
 
             <Hits hitComponent={ReturnHitComponent(examType)} />
+
+            <Pagination
+              defaultRefinement={1}
+              padding={1}
+              translations={{
+                previous: "<",
+                next: ">",
+                first: "<<",
+                last: ">>",
+                page(currentRefinement) {
+                  return currentRefinement;
+                },
+                ariaPrevious: "Previous page",
+                ariaNext: "Next page",
+                ariaFirst: "First page",
+                ariaLast: "Last page",
+                ariaPage(currentRefinement) {
+                  return `Page ${currentRefinement}`;
+                },
+              }}
+            />
             {/* {examType === "prelims"
               ? prelims.map((hit) => (
                   <div className="card-result">
