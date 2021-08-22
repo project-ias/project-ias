@@ -8,7 +8,7 @@ const sheetNames = ["GS1", "GS2", "GS3", "GS4"];
 async function gsheetToTopics() {
   const mainArr = [];
   for (var i = 0; i < sheetNames.length; i++) {
-    const topicsArr = await sheetToJson(keys.sheetID, sheetNames[i]);
+    const topicsArr = await sheetToJson(keys.mainsSheetID, sheetNames[i]);
     const topicsObj = {
       label: sheetNames[i],
       category: "examSubType",

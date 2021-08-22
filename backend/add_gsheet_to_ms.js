@@ -1,5 +1,5 @@
 const axios = require("axios");
-const { sheetApi, sheetID } = require("./config/keys");
+const { sheetApi, mainsSheetID } = require("./config/keys");
 const crypto = require("crypto");
 const { MeiliSearch } = require("meilisearch");
 const keys = require("./config/keys");
@@ -13,7 +13,7 @@ const sheetNames = ["GS1", "GS2", "GS3", "GS4"];
 
 async function gsheetToMS() {
   for (var i = 0; i < sheetNames.length; i++) {
-    const dataArr = await sheetToJson(sheetID, sheetNames[i]);
+    const dataArr = await sheetToJson(mainsSheetID, sheetNames[i]);
     var array_length = dataArr.length;
     for (let i = 0; i < array_length; i++) {
       var idToken = dataArr[i].exam + dataArr[i].year + dataArr[i].qnumber;
