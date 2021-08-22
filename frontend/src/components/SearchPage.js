@@ -325,27 +325,27 @@ export default function SearchPage() {
             </svg>
           }
         />
-        <Pagination
-          defaultRefinement={1}
-          padding={1}
-          translations={{
-            previous: "<",
-            next: ">",
-            first: "<<",
-            last: ">>",
-            page(currentRefinement) {
-              return currentRefinement;
-            },
-            ariaPrevious: "Previous page",
-            ariaNext: "Next page",
-            ariaFirst: "First page",
-            ariaLast: "Last page",
-            ariaPage(currentRefinement) {
-              return `Page ${currentRefinement}`;
-            },
-          }}
-        />
         <div className="mobile-view">
+          <Pagination
+            defaultRefinement={1}
+            padding={1}
+            translations={{
+              previous: "<",
+              next: ">",
+              first: "<<",
+              last: ">>",
+              page(currentRefinement) {
+                return currentRefinement;
+              },
+              ariaPrevious: "Previous page",
+              ariaNext: "Next page",
+              ariaFirst: "First page",
+              ariaLast: "Last page",
+              ariaPage(currentRefinement) {
+                return `Page ${currentRefinement}`;
+              },
+            }}
+          />
           <div className="types">
             <div
               className={`type ${examType === "pyqs" && "current"}`}
@@ -441,6 +441,27 @@ export default function SearchPage() {
                 Secure {examType === "secure" ? stats : null}
               </div>
             </div>
+
+            <Pagination
+              defaultRefinement={1}
+              padding={1}
+              translations={{
+                previous: "<",
+                next: ">",
+                first: "<<",
+                last: ">>",
+                page(currentRefinement) {
+                  return currentRefinement;
+                },
+                ariaPrevious: "Previous page",
+                ariaNext: "Next page",
+                ariaFirst: "First page",
+                ariaLast: "Last page",
+                ariaPage(currentRefinement) {
+                  return `Page ${currentRefinement}`;
+                },
+              }}
+            />
 
             <Hits hitComponent={ReturnHitComponent(examType)} />
 
