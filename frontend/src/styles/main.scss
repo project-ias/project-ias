@@ -13,12 +13,14 @@
   .title {
     text-align: center;
     margin: 1rem 0.5rem;
+    margin-top: -3rem;
     font-size: 5rem;
     color: #1E212D;
     letter-spacing: 2px;
 
     @include sm {
       font-size: 3.5rem;
+      margin-top: 0rem;
     }
   }
 

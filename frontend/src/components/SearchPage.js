@@ -70,7 +70,7 @@ export default function SearchPage() {
 
   function ReturnHitComponent(selectedType) {
     switch (selectedType) {
-      case "prelims":
+      case "prelims_sheet":
         return HitPrelims;
       case "pyqs":
         return HitPyqs;
@@ -280,7 +280,6 @@ export default function SearchPage() {
           onClick={() => setShowMenu(!showMenu)}
         />
         <div className="current-user">
-          <div className="current-user-email">{currentUserEmail}</div>
           <button
             className="current-user-auth-btn"
             onClick={currentUserChangeHandler}
@@ -354,10 +353,10 @@ export default function SearchPage() {
               Mains {examType === "pyqs" ? stats : null}
             </div>
             <div
-              className={`type ${examType === "prelims" && "current"}`}
-              onClick={() => setExamType("prelims")}
+              className={`type ${examType === "prelims_sheet" && "current"}`}
+              onClick={() => setExamType("prelims_sheet")}
             >
-              Prelims {examType === "prelims" ? stats : null}
+              Prelims {examType === "prelims_sheet" ? stats : null}
             </div>
             <div
               className={`type ${examType === "secure" && "current"}`}
@@ -429,10 +428,10 @@ export default function SearchPage() {
                 Mains {examType === "pyqs" ? stats : null}
               </div>
               <div
-                className={`type ${examType === "prelims" && "current"}`}
-                onClick={() => setExamType("prelims")}
+                className={`type ${examType === "prelims_sheet" && "current"}`}
+                onClick={() => setExamType("prelims_sheet")}
               >
-                Prelims {examType === "prelims" ? stats : null}
+                Prelims {examType === "prelims_sheet" ? stats : null}
               </div>
               <div
                 className={`type ${examType === "secure" && "current"}`}

@@ -21,7 +21,7 @@ export default function HitPrelims(props) {
   if (current_mains[props.hit.id] === undefined) {
     Q[props.hit.id] = {
       marked: "",
-      answer: props.hit.answer,
+      answer: props.hit.correct,
     };
 
     current_mains = { ...current_mains, ...Q };
@@ -35,7 +35,7 @@ export default function HitPrelims(props) {
     const changed = {};
     changed[id] = {
       marked: marked,
-      answer: answer,
+      answer: answer.toLowerCase().charCodeAt(0) - 97,
     };
     console.log("changed ", { ...mains, ...changed });
     setMains({ ...mains, ...changed });
@@ -56,11 +56,13 @@ export default function HitPrelims(props) {
         />
       ) : (
         <>
+          {" "}
+          <strong>{props.hit.qnumber}) </strong>
           <Highlight attribute="question" hit={props.hit} />
           {/* {props.hit.question} */}
           <div className="options">
-            Options:
-            {props.hit?.options?.map((item) => {
+            <strong>Options :</strong>
+            {props.hit?.options?.map((item, index) => {
               return (
                 <div>
                   <input
@@ -68,11 +70,11 @@ export default function HitPrelims(props) {
                     value={item}
                     name={item}
                     onChange={(e) =>
-                      markAns(props.hit.id, e.target.value, props.hit.answer)
+                      markAns(props.hit.id, index, props.hit.correct)
                     }
                     checked={
                       mains[props.hit.id] !== undefined &&
-                      item === mains[props.hit.id]["marked"]
+                      index === mains[props.hit.id]["marked"]
                     }
                   />
                   <label for={item}>
@@ -81,7 +83,7 @@ export default function HitPrelims(props) {
                       // it should be defined and marked
                       mains[props.hit.id] !== undefined &&
                       mains[props.hit.id]["marked"] !== ""
-                        ? item === mains[props.hit.id]["answer"]
+                        ? index === mains[props.hit.id]["answer"]
                           ? "✔️"
                           : "❌"
                         : ""
@@ -99,7 +101,16 @@ export default function HitPrelims(props) {
               );
             })}
           </div>
-
+          <br />
+          <div>
+            <strong>Section : </strong>
+            {props.hit.section}
+          </div>
+          <div>
+            <strong>Source : </strong>
+            {`CSP (${props.hit.year})`}
+          </div>
+          <br />
           <div
             className="solution"
             onClick={() => handleSolutionClick(props.hit.id)}
@@ -110,7 +121,7 @@ export default function HitPrelims(props) {
                 : "Show Answer"}
             </span>
             {selectedIds.includes(props.hit.id) &&
-              ReactHtmlParser(props.hit.explanation)}
+              ReactHtmlParser(props.hit.solution)}
           </div>
         </>
       )}
