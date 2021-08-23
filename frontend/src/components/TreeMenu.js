@@ -6,7 +6,7 @@ import { CircularProgressbar, buildStyles } from "react-circular-progressbar";
 import "react-circular-progressbar/dist/styles.css";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import React, { useState } from "react";
-import { useHistory } from "react-router-dom";
+import { useHistory, useLocation } from "react-router-dom";
 
 const TreeMenu = ({ data = [] }) => {
   return (
@@ -22,6 +22,7 @@ const TreeMenu = ({ data = [] }) => {
 
 const TreeNode = ({ node }) => {
   const history = useHistory();
+  const location = useLocation();
   const [childVisible, setChildVisible] = useState(
     node.category === "examType" ? true : false
   );
@@ -78,8 +79,11 @@ const TreeNode = ({ node }) => {
 
   const topicSelectHandler = (query) => {
     if (node.category === "examType") return;
-    history.push(`/?${query}`);
-    history.go(`/?${query}`);
+    var urlParams = new URLSearchParams(location.search);
+    urlParams.set("query", query);
+    urlParams.set("exam", "pyqs");
+    history.push(`/?${urlParams}`);
+    history.go(`/?${urlParams}`);
   };
 
   return (

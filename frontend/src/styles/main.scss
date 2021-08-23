@@ -59,19 +59,9 @@
         margin: 1rem 0.5rem;
       }
     }
-
-    @include sm {
-      display: none;
-    }
   }
 
-  .mobile-view {
-    display: none;
-
-    @include sm {
-      display: block;
-    }
-  }
+  
 
   .types {
     display: flex;

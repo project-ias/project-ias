@@ -24,6 +24,7 @@ import HitPyqs from "./HitPyqs";
 import HitPrelims from "./HitPrelims";
 import HitSecure from "./HitSecure";
 import Dashboard from "./Dashboard";
+import useWindowDimensions from "./WindowDimensions";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import "@fortawesome/free-solid-svg-icons";
 import { faArrowUp, faBars } from "@fortawesome/free-solid-svg-icons";
@@ -32,19 +33,22 @@ import HitWFV from "./HitWFV";
 const searchClient = instantMeiliSearch(NGROK_URL, "masterKey");
 
 export default function SearchPage() {
+
+  const history = useHistory();
+  const location = useLocation();
+  var urlParams = new URLSearchParams(location.search);
+
+
   const [pyqs, setPyqs] = useState([]);
   const [content, setContent] = useState([]);
   const [dnsContent, setDnsContent] = useState([]);
-  const [examType, setExamType] = useState("pyqs");
-  const [materialType, setMaterialType] = useState("content");
+  const [examType, setExamType] = useState(urlParams.get("exam") || "pyqs");
+  const [materialType, setMaterialType] = useState(urlParams.get("material") || "content");
   const [query, setQuery] = useState("");
   const [currentUserEmail, setCurrentUserEmail] = useState(
     localStorage.getItem("userEmail") || ""
   );
   const [showMenu, setShowMenu] = useState(false);
-
-  const history = useHistory();
-  const location = useLocation();
 
   // try {
   //   var temp = localStorage.getItem("userEmail");
@@ -68,6 +72,8 @@ export default function SearchPage() {
   //   }
   // } catch {}
 
+  const {height, width} = useWindowDimensions();
+
   function ReturnHitComponent(selectedType) {
     switch (selectedType) {
       case "prelims_sheet":
@@ -88,9 +94,20 @@ export default function SearchPage() {
   }
 
   useEffect(() => {
+    if(width > 1000) {
+      var urlParams = new URLSearchParams(location.search);
+      var tempExamMode = urlParams.get("exam");
+      if(tempExamMode !== "pyqs" && tempExamMode !== "prelims_sheet" && tempExamMode !== "secure") {
+        setExamType("pyqs");
+        setMaterialType(tempExamMode || "content");
+    }
+    }
+  }, [width]);
+
+  useEffect(() => {
     try {
-      const tempQuery = location.search.replace("?", "").replace(/%20/gi, " ");
-      setQuery(tempQuery);
+      var urlParams = new URLSearchParams(location.search);
+      setQuery(urlParams.get('query'));
     } catch (err) {
       console.log(err);
     }
@@ -149,6 +166,13 @@ export default function SearchPage() {
     //     });
     // }
   }, [materialType]);
+
+  useEffect(() => {
+    var urlParams = new URLSearchParams(location.search);
+    urlParams.set('exam', examType);
+    urlParams.set('material', materialType);
+    history.push(`/?${urlParams || ""}`);
+  },[examType, materialType])
 
   function handleChange(e) {
     var data = { query: "" };
@@ -221,7 +245,9 @@ export default function SearchPage() {
         console.log("err is ", err);
       });
 
-    history.push(`/?${e.target.value || ""}`);
+    var urlParams = new URLSearchParams(location.search);
+    urlParams.set('query', e.target.value || "");
+    history.push(`/?${urlParams || ""}`);
   }
 
   function debounce(func, timeout = 200) {
@@ -249,7 +275,7 @@ export default function SearchPage() {
     <Stats
       translations={{
         stats(nbHits) {
-          if (nbHits !== 0 && query.length !== 0)
+          if (nbHits !== 0 && query !== null && query.length !== 0)
             return `(${nbHits.toLocaleString()})`;
           else return null;
         },
@@ -324,7 +350,7 @@ export default function SearchPage() {
             </svg>
           }
         />
-        <div className="mobile-view">
+        {width <= 1000 && <div className="mobile-view">
           <Pagination
             defaultRefinement={1}
             padding={1}
@@ -417,8 +443,8 @@ export default function SearchPage() {
               },
             }}
           />
-        </div>
-        <div className="results">
+        </div>}
+        {width > 1000 && <div className="results">
           <div className="division">
             <div className="types">
               <div
@@ -551,7 +577,7 @@ export default function SearchPage() {
                   ))}
             </div>
           </div>
-        </div>
+        </div>}
       </InstantSearch>
       <a href="#top" className="back-to-top"><FontAwesomeIcon icon={faArrowUp}/></a>
     </div>
