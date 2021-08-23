@@ -227,3 +227,17 @@
   margin-top: 1.5rem;
   justify-content: flex-start;
 }
+
+.back-to-top {
+  position: fixed;
+  bottom: 1rem;
+  right: 1.5rem;
+  font-size: 2rem;
+  color: #1E212D;
+  transition: all .2s;
+
+    &:hover {
+        color: blue;
+        transform: scale(110%);
+    }
+}

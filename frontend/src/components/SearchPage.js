@@ -26,7 +26,7 @@ import HitSecure from "./HitSecure";
 import Dashboard from "./Dashboard";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import "@fortawesome/free-solid-svg-icons";
-import { faBars } from "@fortawesome/free-solid-svg-icons";
+import { faArrowUp, faBars } from "@fortawesome/free-solid-svg-icons";
 import HitWFV from "./HitWFV";
 
 const searchClient = instantMeiliSearch(NGROK_URL, "masterKey");
@@ -553,6 +553,7 @@ export default function SearchPage() {
           </div>
         </div>
       </InstantSearch>
+      <a href="#top" className="back-to-top"><FontAwesomeIcon icon={faArrowUp}/></a>
     </div>
   );
 }
