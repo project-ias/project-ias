@@ -52,10 +52,26 @@ async function sheetToJson(sheetId, sheetName) {
     )
       continue;
     else tempTopic = mainArr[i][4];
-    const questionID = crypto
-      .createHash("sha256")
-      .update(mainArr[i][0] + mainArr[i][2].split("_").join(""))
-      .digest("hex");
+    var idToken = mainArr[i][0] + mainArr[i][1] + mainArr[i][2];
+      // to preserve the previously stored ids, the 21st century questions will have tokens in different format. E.g. : GS11301
+      try {
+        if (
+          mainArr[i][1] !== null &&
+          mainArr[i][1][0] == "2" &&
+          mainArr[i][1][1] == "0"
+        ) {
+          if (mainArr[i][2] !== null && parseInt(mainArr[i][2]) < 10)
+            mainArr[i][2] = "0" + mainArr[i][2];
+          idToken =
+            mainArr[i][0] +
+            mainArr[i][1][2] +
+            mainArr[i][1][3] +
+            mainArr[i][2];
+        }
+      } catch {
+        idToken = mainArr[i][0] + mainArr[i][1] + mainArr[i][2];
+      }
+    const questionID = crypto.createHash("sha256").update(idToken).digest("hex");
     tempTopic = tempTopic.split(";");
     for (var j = 0; j < tempTopic.length; j++) {
       const mainTopic = tempTopic[j].split(":")[0].trim();
