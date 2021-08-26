@@ -29,13 +29,20 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import "@fortawesome/free-solid-svg-icons";
 import { faArrowUp, faBars } from "@fortawesome/free-solid-svg-icons";
 import HitWFV from "./HitWFV";
+import Session, { useSessionContext } from "supertokens-auth-react/recipe/session";
+import { signOut } from "supertokens-auth-react/recipe/thirdpartyemailpassword";
+import { redirectToAuth } from "supertokens-auth-react/lib/build/recipe/emailpassword";
 
 const searchClient = instantMeiliSearch(NGROK_URL, "masterKey");
 
 export default function SearchPage() {
 
+  console.log(useSessionContext());
+
   const history = useHistory();
   const location = useLocation();
+  Session.addAxiosInterceptors(axios);
+
   var urlParams = new URLSearchParams(location.search);
 
 
@@ -73,6 +80,11 @@ export default function SearchPage() {
   // } catch {}
 
   const {height, width} = useWindowDimensions();
+
+  const onLogout = async () => {
+    await signOut();
+    window.location.href = "/auth";
+  };
 
   function ReturnHitComponent(selectedType) {
     switch (selectedType) {
@@ -308,9 +320,9 @@ export default function SearchPage() {
         <div className="current-user">
           <button
             className="current-user-auth-btn"
-            onClick={currentUserChangeHandler}
+            onClick={onLogout}
           >
-            {currentUserEmail.length === 0 ? "Log in" : "Log Out"}
+            Log Out
           </button>
         </div>
       </div>

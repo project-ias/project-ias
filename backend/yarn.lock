@@ -84,7 +84,7 @@
   "resolved" "https://registry.npmjs.org/array-flatten/-/array-flatten-1.1.1.tgz"
   "version" "1.1.1"
 
-"axios@^0.21.1":
+"axios@^0.21.1", "axios@0.21.1":
   "integrity" "sha512-dKQiRHxGD9PPRIUNIWvZhPTPpl1rf/OxTYKsqKUDjBwYylTvV7SjSHJb9ratfyzM6wCdLCOYLzs73qpg5c4iGA=="
   "resolved" "https://registry.npmjs.org/axios/-/axios-0.21.1.tgz"
   "version" "0.21.1"
@@ -771,7 +771,12 @@
   "resolved" "https://registry.npmjs.org/json-buffer/-/json-buffer-3.0.0.tgz"
   "version" "3.0.0"
 
-"jsonwebtoken@^8.2.0", "jsonwebtoken@^8.5.1":
+"jsonschema@1.4.0":
+  "integrity" "sha512-/YgW6pRMr6M7C+4o8kS+B/2myEpHCrxO4PEWnqJNBFMjn7EWXqlQ4tGwL6xTHeRplwuZmcAncdvfOad1nT2yMw=="
+  "resolved" "https://registry.npmjs.org/jsonschema/-/jsonschema-1.4.0.tgz"
+  "version" "1.4.0"
+
+"jsonwebtoken@^8.2.0", "jsonwebtoken@^8.5.1", "jsonwebtoken@8.5.1":
   "integrity" "sha512-XjwVfRS6jTMsqYs0EsuJ4LGxXV14zQybNd4L2r0UvbVnSF9Af8x7p5MzbJ90Ioz/9TI41/hTCvznF/loiSzn8w=="
   "resolved" "https://registry.npmjs.org/jsonwebtoken/-/jsonwebtoken-8.5.1.tgz"
   "version" "8.5.1"
@@ -1176,6 +1181,11 @@
     "forwarded" "0.2.0"
     "ipaddr.js" "1.9.1"
 
+"psl@1.8.0":
+  "integrity" "sha512-RIdOzyoavK+hA18OGGWDqUTsCLhtA7IcZ/6NCs4fFJaHBDab+pDDmDIByWFRQJq2Cd7r1OoQxBGKOaztq+hjIQ=="
+  "resolved" "https://registry.npmjs.org/psl/-/psl-1.8.0.tgz"
+  "version" "1.8.0"
+
 "pstree.remy@^1.1.7":
   "integrity" "sha512-77DZwxQmxKnu3aR542U+X8FypNzbfJ+C5XQDk3uWjWxn6151aIMGthWYRXTqT1E5oJvg+ljaa2OJi+VfvCOQ8w=="
   "resolved" "https://registry.npmjs.org/pstree.remy/-/pstree.remy-1.1.8.tgz"
@@ -1449,6 +1459,18 @@
   "integrity" "sha1-PFMZQukIwml8DsNEhYwobHygpgo="
   "resolved" "https://registry.npmjs.org/strip-json-comments/-/strip-json-comments-2.0.1.tgz"
   "version" "2.0.1"
+
+"supertokens-node@^6.1.0":
+  "integrity" "sha512-cvsl1rsRfIXNQMRtOCl72Ygxzzt72iA5AHcg2XwMCCsrN46qra0yS0rCXyH5DOcg8OHt/suXeMgI96XWccuK0g=="
+  "resolved" "https://registry.npmjs.org/supertokens-node/-/supertokens-node-6.1.0.tgz"
+  "version" "6.1.0"
+  dependencies:
+    "axios" "0.21.1"
+    "body-parser" "1.19.0"
+    "cookie" "0.4.0"
+    "jsonschema" "1.4.0"
+    "jsonwebtoken" "8.5.1"
+    "psl" "1.8.0"
 
 "supports-color@^5.5.0":
   "integrity" "sha512-QjVjwdXIt408MIiAqCX4oUKsgU2EqAGzs2Ppkm4aQYbjm+ZEWEcW4SfFNTr4uMNZma0ey4f5lgLrkB0aX0QMow=="

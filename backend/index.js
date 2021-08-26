@@ -11,11 +11,16 @@ const passport = require("passport");
 const jwt = require("jsonwebtoken");
 const fs = require("fs");
 
+const supertokens = require("supertokens-node");
+const Session = require("supertokens-node/recipe/session");
+const ThirdPartyEmailPassword = require("supertokens-node/recipe/thirdpartyemailpassword");
+const {Google, Github, Facebook} = ThirdPartyEmailPassword;
+
 const { UserModel } = require("./models/models");
 const validateLoginInput = require("./validation/login");
 const keys = require("./config/keys");
 const { default: axios } = require("axios");
-const { slackApiUrl } = require("./config/keys");
+const { slackApiUrl, BACKEND_URL, FRONTEND_URL } = require("./config/keys");
 require("./config/passport")(passport);
 
 const mongoDB = "mongodb://127.0.0.1/project_ias";
@@ -23,18 +28,103 @@ mongoose.connect(mongoDB, { useNewUrlParser: true, useUnifiedTopology: true });
 const db = mongoose.connection;
 db.on("open", () => console.log("mongo connected"));
 
-const app = express();
-app.use(express.json());
-app.use(cors());
-app.options("*", cors());
-app.use(morgan("tiny"));
-app.use(passport.initialize());
-
 require("dotenv").config();
 const client = new MeiliSearch({
   host: keys.MEILISEARCH_URL,
   apiKey: "masterKey",
 });
+
+supertokens.init({
+  supertokens: {
+      connectionURI: "https://try.supertokens.io",
+  },
+  appInfo: {
+      // learn more about this on https://supertokens.io/docs/thirdpartyemailpassword/appinfo
+      appName: "Project IAS", // Example: "SuperTokens",
+      apiDomain: BACKEND_URL, // Example: "https://api.supertokens.io",
+      websiteDomain: FRONTEND_URL, // Example: "https://supertokens.io"
+  },
+  recipeList: [
+      ThirdPartyEmailPassword.init({
+          providers: [
+              Google({
+                  clientSecret: "IrnSBCVraGNTZifxkoKgmHh3",
+                  clientId: "684605264269-a91j7htrgigjvch7mshc6ajst6kkv8m3.apps.googleusercontent.com"
+              }),
+          ],
+          override: {
+            functions: (supertokensImpl) => {
+              return {
+                ...supertokensImpl,
+                signIn: async (input) => {
+                   // we check if the email exists in SuperTokens. If not,
+                   // then the sign in should be handled by you.
+                   if (await supertokensImpl.getUserByEmail({ email: input.email }) === undefined) {
+                      // TODO: sign in using your db
+                      UserModel.findOne({email: input.email}, (err, data) => {
+                        if(err) {
+                          console.log(err);
+                          return null;
+                        }
+                        if(data !== null) {
+                          console.log("new user created in supertokens.");
+                          return supertokensImpl.signUp(input);
+                        }
+                        else {
+                          console.log("user not found");
+                          return supertokensImpl.signIn(input);
+                        }
+                      })
+                   } else {
+                      return supertokensImpl.signIn(input);
+                   }
+                },
+                signUp: async (input) => {
+                   // all new users are created in SuperTokens;
+                   return supertokensImpl.signUp(input);
+                },
+                getUserByEmail: async (input) => {
+                   let superTokensUser = await supertokensImpl.getUserByEmail(input);
+                   if (superTokensUser === undefined) {
+                      let email = input.email;
+                      // TODO: fetch and return user info from your database...
+                   } else {
+                      return superTokensUser;
+                   }
+                },
+                getUserById: async (input) => {
+                   let superTokensUser = await supertokensImpl.getUserById(input);
+                   if (superTokensUser === undefined) {
+                      let userId = input.userId;
+                      // TODO: fetch and return user info from your database...
+                   } else {
+                      return superTokensUser;
+                   }
+                },
+                getUserCount: async () => {
+                   let supertokensCount = await supertokensImpl.getUserCount();
+                   let yourUsersCount = 0;// TODO: fetch the count from your db
+                   return yourUsersCount + supertokensCount;
+                }
+              }
+            }
+          }
+      }),
+      Session.init() // initializes session features
+  ]
+});
+
+const app = express();
+app.use(express.json());
+app.use(cors({
+  origin: FRONTEND_URL,
+  allowedHeaders: ["content-type",  ...supertokens.getAllCORSHeaders() ],
+  credentials: true, 
+}));
+app.use(supertokens.middleware());
+app.options("*", cors());
+app.use(morgan("tiny"));
+app.use(passport.initialize());
 
 app.get("/", (req, res) => {
   res.send("helo");
@@ -93,12 +183,12 @@ app.post("/signup", (req, res) => {
             }
           );
           //update on slack.
-          axios
-            .post(slackApiUrl, { text: `${item.email} just signed in` })
-            .then()
-            .catch((err) =>
-              console.log("Error while updating on slack : " + err)
-            );
+          // axios
+          //   .post(slackApiUrl, { text: `${item.email} just signed in` })
+          //   .then()
+          //   .catch((err) =>
+          //     console.log("Error while updating on slack : " + err)
+          //   );
         })
         .catch((err) => {
           console.log("error in adding User ", err);
@@ -292,6 +382,8 @@ app.get("/topics", (req, res) => {
     res.send("An error occured");
   }
 });
+
+app.use(supertokens.errorHandler())
 
 const PORT = process.env.PORT || 5000;
 app.listen(PORT);
