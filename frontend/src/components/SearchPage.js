@@ -37,8 +37,6 @@ const searchClient = instantMeiliSearch(NGROK_URL, "masterKey");
 
 export default function SearchPage() {
 
-  console.log(useSessionContext());
-
   const history = useHistory();
   const location = useLocation();
   Session.addAxiosInterceptors(axios);

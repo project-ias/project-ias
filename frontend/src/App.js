@@ -21,6 +21,17 @@ SuperTokens.init({
               providers: [
                   Google.init(),
               ]
+          },
+          onHandleEvent: async (context) => {
+            if (context.action === "SESSION_ALREADY_EXISTS") {
+              // TODO:
+            } else {
+              let {id, email} = context.user;
+              if (context.action === "SUCCESS") {
+                  //TODO
+                  localStorage.setItem("userEmail", email);
+              }
+          }
           }
       }),
       Session.init(),
