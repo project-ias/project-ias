@@ -14,12 +14,12 @@ export default function HitPyqs(props) {
   ];
   var solvedDate = [today.getFullYear(), today.getMonth() + 1, today.getDate()];
 
-  var userID = null,
+  var userEmail = null,
     userMains = [],
     userMainsObj = {};
   var qNumber = "";
   try {
-    userID = localStorage.getItem("userID");
+    userEmail = localStorage.getItem("userEmail");
     userMainsObj = JSON.parse(localStorage.getItem("userMains"));
     userMains = userMainsObj.map((item) => item.questionID);
   } catch {}
@@ -94,7 +94,7 @@ export default function HitPyqs(props) {
   const completeCheckHandler = (solvedState, revisionCount) => {
     axios
       .post(USER_MAINS_URL, {
-        userID: userID,
+        userEmail: userEmail,
         questionID: props.hit["id"],
         isSolved: !solvedState,
         hasRevised: revisionCount,

@@ -20,7 +20,7 @@ const { UserModel } = require("./models/models");
 const validateLoginInput = require("./validation/login");
 const keys = require("./config/keys");
 const { default: axios } = require("axios");
-const { slackApiUrl, BACKEND_URL, FRONTEND_URL } = require("./config/keys");
+const { slackApiUrl, BACKEND_URL, FRONTEND_URL, GOOGLE_CLIENT_SECRET, GOOGLE_CLIENT_ID, SUPERTOKENS_URI, SUPERTOKENS_APIKEY } = require("./config/keys");
 require("./config/passport")(passport);
 
 const mongoDB = "mongodb://127.0.0.1/project_ias";
@@ -36,20 +36,21 @@ const client = new MeiliSearch({
 
 supertokens.init({
   supertokens: {
-      connectionURI: "https://try.supertokens.io",
+      connectionURI: SUPERTOKENS_URI,
+      apiKey: SUPERTOKENS_APIKEY
   },
   appInfo: {
       // learn more about this on https://supertokens.io/docs/thirdpartyemailpassword/appinfo
-      appName: "Project IAS", // Example: "SuperTokens",
-      apiDomain: BACKEND_URL, // Example: "https://api.supertokens.io",
-      websiteDomain: FRONTEND_URL, // Example: "https://supertokens.io"
+      appName: "Project IAS",
+      apiDomain: BACKEND_URL,
+      websiteDomain: FRONTEND_URL,
   },
   recipeList: [
       ThirdPartyEmailPassword.init({
           providers: [
               Google({
-                  clientSecret: "IrnSBCVraGNTZifxkoKgmHh3",
-                  clientId: "684605264269-a91j7htrgigjvch7mshc6ajst6kkv8m3.apps.googleusercontent.com"
+                  clientSecret: GOOGLE_CLIENT_SECRET,
+                  clientId: GOOGLE_CLIENT_ID
               }),
           ],
           override: {
@@ -152,16 +153,21 @@ app.get("/", (req, res) => {
   res.send("helo");
 });
 
-app.get(
+app.post(
   "/currentuser",
-  passport.authenticate("jwt", { session: false }),
   (req, res) => {
-    res.json({
-      id: req.user.id,
-      email: req.user.email,
-      prelims: [...req.user.prelims],
-      mains: [...req.user.mains],
-    });
+    const email = req.body.email;
+    UserModel.findOne({email: email}, (err, data) => {
+      if(err) throw err;
+      if(data === null) res.status(400).send("No user found");
+      else {
+        res.json({
+          email: data.email,
+          prelims: [...data.prelims],
+          mains: [...data.mains],
+        });
+      }
+    })
   }
 );
 
@@ -237,7 +243,7 @@ app.post("/search_dns", async (req, res) => {
 });
 
 app.post("/user_mains", async (req, res) => {
-  const userID = req.body.userID;
+  const userEmail = req.body.userEmail;
   const questionID = req.body.questionID;
   const isSolved = req.body.isSolved;
   const hasRevised = req.body.hasRevised;
@@ -250,8 +256,9 @@ app.post("/user_mains", async (req, res) => {
     hasRevised: hasRevised,
   };
 
-  UserModel.findById(userID, (err, docs) => {
+  UserModel.findOne({email: userEmail}, (err, docs) => {
     if (err) console.log(err);
+    if(docs === null) res.status(400).send(err);
     else {
       var userQuestions = [...docs.mains];
       userQuestions = userQuestions.filter(
@@ -261,7 +268,7 @@ app.post("/user_mains", async (req, res) => {
         userQuestions.push(userQuestionObject);
       }
       UserModel.findByIdAndUpdate(
-        userID,
+        docs.id,
         { mains: userQuestions },
         { new: true },
         (err, result) => {

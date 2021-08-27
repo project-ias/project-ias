@@ -80,6 +80,7 @@ export default function SearchPage() {
   const {height, width} = useWindowDimensions();
 
   const onLogout = async () => {
+    localStorage.clear();
     await signOut();
     window.location.href = "/auth";
   };

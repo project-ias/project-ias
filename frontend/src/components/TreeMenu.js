@@ -47,6 +47,8 @@ const TreeNode = ({ node }) => {
       userMains = [];
     }
 
+    if(node.category === "mainTopic") console.log(node.questions)
+
     var temp = 0;
     for (var i = 0; i < userMains.length; i++) {
       if (node.category === "mainTopic") {
