@@ -1,5 +1,7 @@
 .App {
   margin: 0 auto;
-  overflow-x: scroll;
   -webkit-tap-highlight-color: transparent;
+  @include sm {
+    overflow-x: scroll;
+  }
 }
