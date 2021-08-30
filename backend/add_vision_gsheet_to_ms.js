@@ -20,9 +20,9 @@ async function gsheetToMS() {
     for (let i = 0; i < array_length; i++) {
       const id = crypto.randomBytes(20).toString("hex");
       dataArr[i]["id"] = id;
-      console.log(dataArr[i]);
-      //const x = await client.index("wfv").addDocuments([dataArr[i]]);
-      //console.log("added ", x);
+      //console.log(dataArr[i]);
+      const x = await client.index("wfv").addDocuments([dataArr[i]]);
+      console.log("added ", x);
     }
   }
 }
