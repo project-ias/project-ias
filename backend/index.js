@@ -234,6 +234,12 @@ app.post("/search_wfv", async (req, res) => {
   res.json(results);
 });
 
+app.post("/search_vision", async (req, res) => {
+  const query = req.body.query;
+  const results = await returnMeiliSearchResults("vision", query, 50);
+  res.json(results);
+});
+
 app.post("/search_dns", async (req, res) => {
   const query = req.body.query;
   const results = await returnMeiliSearchResults("dns", query, 5);
