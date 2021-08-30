@@ -1,8 +1,7 @@
-// wfv - Weekly Focus Vision
 //While updating the sheet data, delete the old index.
 
 const axios = require("axios");
-const { sheetApi, mainsSheetID } = require("./config/keys");
+const { sheetApi, visionSheetID } = require("./config/keys");
 const crypto = require("crypto");
 const { MeiliSearch } = require("meilisearch");
 const keys = require("./config/keys");
@@ -12,18 +11,18 @@ const client = new MeiliSearch({
   apiKey: "masterKey",
 });
 
-const sheetNames = ["WeeklyFocusVisionIAS"];
+const sheetNames = ["Sheet1"];
 
 async function gsheetToMS() {
   for (var i = 0; i < sheetNames.length; i++) {
-    const dataArr = await sheetToJson(mainsSheetID, sheetNames[i]);
+    const dataArr = await sheetToJson(visionSheetID, sheetNames[i]);
     var array_length = dataArr.length;
     for (let i = 0; i < array_length; i++) {
       const id = crypto.randomBytes(20).toString("hex");
       dataArr[i]["id"] = id;
-      // console.log(dataArr[i]);
-      const x = await client.index("wfv").addDocuments([dataArr[i]]);
-      console.log("added ", x);
+      console.log(dataArr[i]);
+      //const x = await client.index("wfv").addDocuments([dataArr[i]]);
+      //console.log("added ", x);
     }
   }
 }
@@ -38,13 +37,17 @@ async function sheetToJson(sheetId, sheetName) {
   );
   const mainArr = data["values"];
   var convertedArr = [];
+  var subject, month, link;
   for (var i = 1; i < mainArr.length; i++) {
-    if (mainArr[i][1] == undefined) continue;
-    if (mainArr[i][0] == undefined) var tempTopic = "";
-    else var tempTopic = mainArr[i][0];
+    if (mainArr[i][0] == undefined || mainArr[i][3] == undefined) continue;
+    subject = (mainArr[i][1] == undefined) ? "" : mainArr[i][1];
+    month = (mainArr[i][2] == undefined) ? "" : mainArr[i][2];
+    link = (mainArr[i][3] == undefined) ? "" : mainArr[i][3];
     const tempObject = {
-      topics: tempTopic,
-      link: mainArr[i][1],
+      topic: mainArr[i][0],
+      subject: subject,
+      month: month,
+      link: link
     };
     convertedArr.push(tempObject);
   }

@@ -8,16 +8,14 @@ const {returnMeiliSearchResults} = require('./meilisearch_results')
 const bcrypt = require('bcryptjs');
 const mongoose = require("mongoose");
 const passport = require("passport");
-const jwt = require("jsonwebtoken");
 const fs = require("fs");
 
 const supertokens = require("supertokens-node");
 const Session = require("supertokens-node/recipe/session");
 const ThirdPartyEmailPassword = require("supertokens-node/recipe/thirdpartyemailpassword");
-const {Google, Github, Facebook} = ThirdPartyEmailPassword;
+const {Google} = ThirdPartyEmailPassword;
 
 const { UserModel } = require("./models/models");
-const validateLoginInput = require("./validation/login");
 const keys = require("./config/keys");
 const { default: axios } = require("axios");
 const { slackApiUrl, BACKEND_URL, FRONTEND_URL, GOOGLE_CLIENT_SECRET, GOOGLE_CLIENT_ID, SUPERTOKENS_URI, SUPERTOKENS_APIKEY } = require("./config/keys");

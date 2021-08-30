@@ -1,4 +1,5 @@
 // password from browser being hashed to generate authToken
+//NOT USED ANYMORE. FOR REFERENCE ONLY.
 
 const JwtStrategy = require("passport-jwt").Strategy;
 const ExtractJwt = require("passport-jwt").ExtractJwt;
