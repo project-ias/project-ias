@@ -6,6 +6,7 @@ import {
   DNS_URL,
   NGROK_URL,
   WFV_URL,
+  VISION_URL,
 } from "../constants/constants";
 import {
   InstantSearch,
@@ -32,6 +33,7 @@ import HitWFV from "./HitWFV";
 import Session, { useSessionContext } from "supertokens-auth-react/recipe/session";
 import { signOut } from "supertokens-auth-react/recipe/thirdpartyemailpassword";
 import { redirectToAuth } from "supertokens-auth-react/lib/build/recipe/emailpassword";
+import HitVision from "./HitVision";
 
 const searchClient = instantMeiliSearch(NGROK_URL, "masterKey");
 
@@ -99,6 +101,8 @@ export default function SearchPage() {
         return HitSecure;
       case "wfv":
         return HitWFV;
+        case "vision":
+          return HitVision;
       default:
         return null;
     }
@@ -143,7 +147,17 @@ export default function SearchPage() {
         .catch((err) => {
           console.log("err is ", err);
         });
-    } else {
+    } else if (materialType === "vision") {
+      axios
+        .post(VISION_URL, data)
+        .then((res) => {
+          setContent(res.data.hits);
+        })
+        .catch((err) => {
+          console.log("err is ", err);
+        });
+    }
+     else {
       axios
         .post(CONTENT_URL, data)
         .then((res) => {
@@ -415,7 +429,7 @@ export default function SearchPage() {
             </div>
           </div>
 
-          {examType === "content" || examType === "wfv" ? (
+          {examType === "content" || examType === "wfv" || examType === "vision" ? (
             <div className="sub-types">
               <div
                 className={`type ${examType === "wfv" && "current"}`}
@@ -428,6 +442,12 @@ export default function SearchPage() {
                 onClick={() => setExamType("content")}
               >
                 Drishti
+              </div>
+              <div
+                className={`type ${examType === "vision" && "current"}`}
+                onClick={() => setExamType("vision")}
+              >
+                Vision Monthly
               </div>
             </div>
           ) : null}
@@ -544,7 +564,7 @@ export default function SearchPage() {
               </div>
               <div
                 className={`type ${
-                  (materialType === "content" || materialType === "wfv") &&
+                  (materialType === "content" || materialType === "wfv" || materialType === "vision") &&
                   "current"
                 }`}
                 onClick={() => setMaterialType("content")}
@@ -566,24 +586,37 @@ export default function SearchPage() {
                 >
                   Drishti
                 </div>
+                <div
+                  className={`type ${materialType === "vision" && "current"}`}
+                  onClick={() => setMaterialType("vision")}
+                >
+                  Vision Monthly
+                </div>
               </div>
             ) : null}
             <div>
               {materialType === "dns"
-                ? dnsContent.map((hit) => (
+                && dnsContent.map((hit) => (
                     <div className="card-result">
                       <HitDNS hit={hit} />
                     </div>
-                  ))
-                : materialType === "content"
-                ? content.map((hit) => (
+                  )) }
+                { materialType === "content"
+                && content.map((hit) => (
                     <div className="card-result">
                       <HitDrishti hit={hit} />
                     </div>
-                  ))
-                : content.map((hit) => (
+                  )) }
+                { materialType === "wfv"
+                && content.map((hit) => (
                     <div className="card-result">
                       <HitWFV hit={hit} />
+                    </div>
+                  ))}
+                { materialType === "vision"
+                && content.map((hit) => (
+                    <div className="card-result">
+                      <HitVision hit={hit} />
                     </div>
                   ))}
             </div>

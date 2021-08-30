@@ -12,6 +12,7 @@ export const PRELIMS_URL = `${BACKEND_URL}/search_prelims`;
 export const DNS_URL = `${BACKEND_URL}/search_dns`;
 export const CONTENT_URL = `${BACKEND_URL}/search_content`;
 export const WFV_URL = `${BACKEND_URL}/search_wfv`;
+export const VISION_URL = `${BACKEND_URL}/search_vision`;
 
 export const LOG_URL = `${BACKEND_URL}/log`;
 
