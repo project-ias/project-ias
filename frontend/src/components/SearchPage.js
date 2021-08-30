@@ -200,6 +200,7 @@ export default function SearchPage() {
   },[examType, materialType])
 
   function handleChange(e) {
+    e.preventDefault();
     var data = { query: "" };
     if (e.target.value === undefined || e.target.value === null) {
       setQuery("");
@@ -572,7 +573,7 @@ export default function SearchPage() {
                 Read
               </div>
             </div>
-            {materialType === "content" || materialType === "wfv" ? (
+            {materialType === "content" || materialType === "wfv" || materialType === "vision" ? (
               <div className="sub-types">
                 <div
                   className={`type ${materialType === "wfv" && "current"}`}

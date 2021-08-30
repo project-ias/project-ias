@@ -72,31 +72,34 @@
 
   .ais-SearchBox-submit {
     position: absolute;
-    right: 10px;
+    right: 0;
+    top: 0;
+    min-height: 3.5rem;
+    border-radius: 0 6px 6px 0;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
     border: none;
-    background-color: transparent;
-    margin: 8px 0 1rem 0.2rem;
+    background-color: #FFEBC9;
     cursor: pointer;
 
     svg {
-      height: 35px;
-      width: 35px;
+      height: 2.7rem;
+      width: 3.5rem;
+      transform: translate(.2rem, .2rem);
       stroke: #fff;
       stroke-width: 4.5px;
 
       path {
-        fill: #000;
+        fill: #1E212D;
       }
-    }
-
-    @include sm {
-      right: 10px;
     }
   }
 
   .ais-SearchBox-reset {
     position: absolute;
-    right: 55px;
+    right: 70px;
     border: none;
     background-color: transparent;
     margin: 0 0 1rem 0;
