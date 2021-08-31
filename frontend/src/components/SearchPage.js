@@ -169,27 +169,6 @@ export default function SearchPage() {
         });
     }
 
-    // for exam
-    // for prelims and mains
-    // if (examType === "prelims") {
-    //   axios
-    //     .post(PRELIMS_URL, data)
-    //     .then((res) => {
-    //       setPrelims(res.data.hits);
-    //     })
-    //     .catch((err) => {
-    //       console.log("err is ", err);
-    //     });
-    // } else {
-    //   axios
-    //     .post(MAINS_URL, data)
-    //     .then((res) => {
-    //       setMainsContent(res.data.hits);
-    //     })
-    //     .catch((err) => {
-    //       console.log("err is ", err);
-    //     });
-    // }
   }, [materialType]);
 
   useEffect(() => {
@@ -210,8 +189,7 @@ export default function SearchPage() {
       data = { query: e.target.value };
     }
 
-    // if(query !== ""){
-    // console.log("Non empty query", query);
+
     if (materialType === "dns") {
       axios
         .post(DNS_URL, data)
@@ -221,7 +199,26 @@ export default function SearchPage() {
         .catch((err) => {
           console.log("err is ", err);
         });
-    } else {
+    } else if (materialType === "wfv") {
+      axios
+        .post(WFV_URL, data)
+        .then((res) => {
+          setContent(res.data.hits);
+        })
+        .catch((err) => {
+          console.log("err is ", err);
+        });
+    } else if (materialType === "vision") {
+      axios
+        .post(VISION_URL, data)
+        .then((res) => {
+          setContent(res.data.hits);
+        })
+        .catch((err) => {
+          console.log("err is ", err);
+        });
+    }
+     else {
       axios
         .post(CONTENT_URL, data)
         .then((res) => {
@@ -232,27 +229,6 @@ export default function SearchPage() {
           console.log("err is ", err);
         });
     }
-
-    // for prelims and mains
-    // if (examType === "prelims") {
-    //   axios
-    //     .post(PRELIMS_URL, data)
-    //     .then((res) => {
-    //       setPrelims(res.data.hits);
-    //     })
-    //     .catch((err) => {
-    //       console.log("err is ", err);
-    //     });
-    // } else {
-    //   axios
-    //     .post(MAINS_URL, data)
-    //     .then((res) => {
-    //       setMainsContent(res.data.hits);
-    //     })
-    //     .catch((err) => {
-    //       console.log("err is ", err);
-    //     });
-    // }
 
     // Logging
     const log = {
@@ -287,15 +263,6 @@ export default function SearchPage() {
   }
 
   const processChange = debounce((e) => handleChange(e));
-
-  const currentUserChangeHandler = () => {
-    if (currentUserEmail.length === 0) {
-      history.push("/login");
-    } else {
-      localStorage.clear();
-      setCurrentUserEmail("");
-    }
-  };
 
   const stats = (
     <Stats
