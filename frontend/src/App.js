@@ -2,7 +2,6 @@ import { BrowserRouter, Route, Switch } from "react-router-dom";
 import axios from "axios";
 import "./styles/main.scss";
 import SearchPage from "./components/SearchPage";
-import LoginPage from "./components/LoginPage";
 
 import SuperTokens, { getSuperTokensRoutesForReactRouterDom } from "supertokens-auth-react";
 import ThirdPartyEmailPassword, {Google, ThirdPartyEmailPasswordAuth} from "supertokens-auth-react/recipe/thirdpartyemailpassword";

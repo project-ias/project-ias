@@ -108,6 +108,7 @@ export default function SearchPage() {
     }
   }
 
+  //Exam type is left tab in desktop. in mobiles it is the only tab shown.
   useEffect(() => {
     if(width > 1000) {
       var urlParams = new URLSearchParams(location.search);
