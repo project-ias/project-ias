@@ -84,16 +84,11 @@
     background-color: #FFEBC9;
     cursor: pointer;
 
-    svg {
+    .search-logo {
       height: 2.7rem;
       width: 3.5rem;
-      transform: translate(.2rem, .2rem);
-      stroke: #fff;
+      stroke: #1E212D;
       stroke-width: 4.5px;
-
-      path {
-        fill: #1E212D;
-      }
     }
   }
 
