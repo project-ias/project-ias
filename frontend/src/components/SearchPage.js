@@ -45,20 +45,14 @@ export default function SearchPage() {
 
   var urlParams = new URLSearchParams(location.search);
   const {width} = useWindowDimensions();
+  const currentUserEmail = localStorage.getItem("userEmail") || "";
 
-
-  const [pyqs, setPyqs] = useState([]);
   const [content, setContent] = useState([]);
   const [dnsContent, setDnsContent] = useState([]);
   const [examType, setExamType] = useState(urlParams.get("exam") || "pyqs");
   const [materialType, setMaterialType] = useState(urlParams.get("material") || "content");
   const [query, setQuery] = useState("");
-  const [currentUserEmail, setCurrentUserEmail] = useState(
-    localStorage.getItem("userEmail") || ""
-  );
   const [showMenu, setShowMenu] = useState(false);
-  const [mainsContent, setMainsContent] = useState([]);
-  const [prelims, setPrelims] = useState([]);
 
   //Supertokens logout
   const onLogout = async () => {
@@ -257,18 +251,37 @@ export default function SearchPage() {
     />
   );
 
-  var dashboard = null;
+  const dashboard = showMenu ? (
+    <Dashboard
+      hide={() => {
+        setShowMenu(!showMenu);
+      }}
+      email={currentUserEmail}
+    ></Dashboard>
+  ) : null;
 
-  if (showMenu) {
-    dashboard = (
-      <Dashboard
-        hide={() => {
-          setShowMenu(!showMenu);
-        }}
-        email={currentUserEmail}
-      ></Dashboard>
-    );
-  }
+  const pagination = (
+    <Pagination
+            defaultRefinement={1}
+            padding={1}
+            translations={{
+              previous: "<",
+              next: ">",
+              first: "<<",
+              last: ">>",
+              page(currentRefinement) {
+                return currentRefinement;
+              },
+              ariaPrevious: "Previous page",
+              ariaNext: "Next page",
+              ariaFirst: "First page",
+              ariaLast: "Last page",
+              ariaPage(currentRefinement) {
+                return `Page ${currentRefinement}`;
+              },
+            }}
+          />
+  );
 
   return (
     <div className="main">
@@ -306,26 +319,7 @@ export default function SearchPage() {
           }
         />
         {width <= 1000 && <div className="mobile-view">
-          <Pagination
-            defaultRefinement={1}
-            padding={1}
-            translations={{
-              previous: "<",
-              next: ">",
-              first: "<<",
-              last: ">>",
-              page(currentRefinement) {
-                return currentRefinement;
-              },
-              ariaPrevious: "Previous page",
-              ariaNext: "Next page",
-              ariaFirst: "First page",
-              ariaLast: "Last page",
-              ariaPage(currentRefinement) {
-                return `Page ${currentRefinement}`;
-              },
-            }}
-          />
+          {pagination}
           <div className="types">
             <div
               className={`type ${examType === "pyqs" && "current"}`}
@@ -383,27 +377,8 @@ export default function SearchPage() {
           ) : null}
 
           <Hits hitComponent={ReturnHitComponent(examType)} />
+            {pagination}
 
-          <Pagination
-            defaultRefinement={1}
-            padding={1}
-            translations={{
-              previous: "<",
-              next: ">",
-              first: "<<",
-              last: ">>",
-              page(currentRefinement) {
-                return currentRefinement;
-              },
-              ariaPrevious: "Previous page",
-              ariaNext: "Next page",
-              ariaFirst: "First page",
-              ariaLast: "Last page",
-              ariaPage(currentRefinement) {
-                return `Page ${currentRefinement}`;
-              },
-            }}
-          />
         </div>}
         {width > 1000 && <div className="results">
           <div className="division">
@@ -428,60 +403,11 @@ export default function SearchPage() {
               </div>
             </div>
 
-            <Pagination
-              defaultRefinement={1}
-              padding={1}
-              translations={{
-                previous: "<",
-                next: ">",
-                first: "<<",
-                last: ">>",
-                page(currentRefinement) {
-                  return currentRefinement;
-                },
-                ariaPrevious: "Previous page",
-                ariaNext: "Next page",
-                ariaFirst: "First page",
-                ariaLast: "Last page",
-                ariaPage(currentRefinement) {
-                  return `Page ${currentRefinement}`;
-                },
-              }}
-            />
+            {pagination}
 
             <Hits hitComponent={ReturnHitComponent(examType)} />
 
-            <Pagination
-              defaultRefinement={1}
-              padding={1}
-              translations={{
-                previous: "<",
-                next: ">",
-                first: "<<",
-                last: ">>",
-                page(currentRefinement) {
-                  return currentRefinement;
-                },
-                ariaPrevious: "Previous page",
-                ariaNext: "Next page",
-                ariaFirst: "First page",
-                ariaLast: "Last page",
-                ariaPage(currentRefinement) {
-                  return `Page ${currentRefinement}`;
-                },
-              }}
-            />
-            {/* {examType === "prelims"
-              ? prelims.map((hit) => (
-                  <div className="card-result">
-                    <HitPrelims hit={hit} />
-                  </div>
-                ))
-              : mainsContent.map((hit) => (
-                  <div className="card-result">
-                    <HitPyqs hit={hit} />
-                  </div>
-                ))} */}
+            {pagination}
           </div>
 
           <div className="division">
