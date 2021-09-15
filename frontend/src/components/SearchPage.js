@@ -164,6 +164,17 @@ export default function SearchPage() {
       data = { query: e.target.value };
     }
 
+    if(performance.now() - parseFloat(localStorage.getItem("timeNow")) > 5000) {
+      localStorage.setItem("searchCount", parseInt(localStorage.getItem("searchCount")) + 1);
+    }
+
+    localStorage.setItem("timeNow", performance.now());
+
+    if(localStorage.getItem("searchCount") > 5 && (currentUserEmail === "" || currentUserEmail === null)) {
+      localStorage.setItem("trial", "expired");
+      history.go("/auth");
+    }
+
 
     if (materialType === "dns") {
       axios
@@ -297,7 +308,7 @@ export default function SearchPage() {
             className="current-user-auth-btn"
             onClick={onLogout}
           >
-            Log Out
+            {(currentUserEmail !== null && currentUserEmail !== "") ? "Log Out" : "Log In"}
           </button>
         </div>
       </div>

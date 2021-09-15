@@ -54,6 +54,14 @@ SuperTokens.init({
 });
 
 function App() {
+
+  const hasExpired = localStorage.getItem("trial")==="expired";
+
+  if(!localStorage.getItem("searchCount")) {
+    localStorage.setItem("timeNow", performance.now());
+    localStorage.setItem("searchCount", 0);
+  }
+
   return (
     <BrowserRouter>
       <div className="App">
@@ -61,9 +69,13 @@ function App() {
         <Switch>
           {getSuperTokensRoutesForReactRouterDom(require("react-router-dom"))}
           <Route path="/">
-            <ThirdPartyEmailPasswordAuth>
+            {hasExpired 
+            ? 
+            (<ThirdPartyEmailPasswordAuth>
                 <SearchPage/>
-            </ThirdPartyEmailPasswordAuth>
+            </ThirdPartyEmailPasswordAuth>) 
+            : 
+            <SearchPage/>}
           </Route>
         </Switch>
       </div>

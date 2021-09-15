@@ -84,6 +84,7 @@ const TreeNode = ({ node }) => {
     var urlParams = new URLSearchParams(location.search);
     urlParams.set("query", query);
     urlParams.set("exam", "pyqs");
+    localStorage.setItem("searchCount", parseInt(localStorage.getItem("searchCount")) + 1);
     history.push(`/?${urlParams}`);
     history.go(`/?${urlParams}`);
   };
