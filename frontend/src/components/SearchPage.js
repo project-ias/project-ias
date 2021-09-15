@@ -170,7 +170,7 @@ export default function SearchPage() {
 
     localStorage.setItem("timeNow", performance.now());
 
-    if(localStorage.getItem("searchCount") > 5 && (currentUserEmail === "" || currentUserEmail === null)) {
+    if(localStorage.getItem("searchCount") > 100 && (currentUserEmail === "" || currentUserEmail === null)) {
       localStorage.setItem("trial", "expired");
       history.go("/auth");
     }
