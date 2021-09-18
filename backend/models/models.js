@@ -5,8 +5,8 @@ const userSchema = new Schema({
     'email': String,
     'password': String,
     'prelims': Array,
-    'mains': Array // for array of solved questions on website
-
+    'mains': Array, // for array of solved questions on website
+    'payDate': Date
 })
 
 const UserModel = mongoose.model('User', userSchema )

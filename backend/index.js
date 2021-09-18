@@ -137,6 +137,7 @@ supertokens.init({
 
 const app = express();
 app.use(express.json());
+app.use(express.urlencoded({extended: true}));
 app.use(cors({
   origin: FRONTEND_URL,
   allowedHeaders: ["content-type",  ...supertokens.getAllCORSHeaders() ],
@@ -297,6 +298,41 @@ app.get("/topics", (req, res) => {
   }
 });
 
+app.post("/payment", (req,res) => {
+  const today = new Date();
+  const date = today.getFullYear() + "-" + (today.getMonth() + 1) + "-" + today.getDate();
+  try {
+    const email = req.body.buyer;
+    const status = req.body.status;
+
+    if(status !== "Credit") res.status(400).send("Payment failed.");
+    else {
+      UserModel.findOne({email: email}, (err, docs) => {
+        if(err) res.status(400).send(err);
+        else if(docs === null) {
+          //user not found in db.
+          console.log("paid user email not found.");
+          res.status(400).send("unknown email.");
+        }
+        else {
+          UserModel.findByIdAndUpdate(docs.id, {payDate: date}, {new: true}, (err, result) => {
+            if(err) {
+              console.log(err);
+              res.status(400).send(err);
+            }
+            else {
+              res.send("OK");
+            }
+          })
+        }
+      })
+    }
+  }
+  catch(err) {
+    throw err;
+  }
+})
+
 app.use(supertokens.errorHandler())
 
 const PORT = process.env.PORT || 5000;
@@ -425,3 +461,6 @@ console.log(`APP Started on ${PORT}`);
 //     }
 //   });
 // });
+
+//updating existing users in mongoDB
+//db.users.update({payDate: {$exists: false}},{$set: {payDate: "2021-9-18"}},{multi:true})
