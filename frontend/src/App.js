@@ -2,6 +2,7 @@ import { BrowserRouter, Route, Switch } from "react-router-dom";
 import axios from "axios";
 import "./styles/main.scss";
 import SearchPage from "./components/SearchPage";
+import Payment from "./components/Payment";
 
 import SuperTokens, { getSuperTokensRoutesForReactRouterDom } from "supertokens-auth-react";
 import ThirdPartyEmailPassword, {Google, ThirdPartyEmailPasswordAuth} from "supertokens-auth-react/recipe/thirdpartyemailpassword";
@@ -68,6 +69,9 @@ function App() {
         {/* <Route path="/" component={SearchPage} /> */}
         <Switch>
           {getSuperTokensRoutesForReactRouterDom(require("react-router-dom"))}
+          <Route path="/payment">
+            <Payment/>
+          </Route>
           <Route path="/">
             {hasExpired 
             ? 
