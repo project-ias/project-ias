@@ -6,7 +6,7 @@ const userSchema = new Schema({
     'password': String,
     'prelims': Array,
     'mains': Array, // for array of solved questions on website
-    'payDate': Date
+    'payDate': String
 })
 
 const UserModel = mongoose.model('User', userSchema )

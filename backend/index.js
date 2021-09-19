@@ -22,7 +22,7 @@ const { slackApiUrl, BACKEND_URL, FRONTEND_URL, GOOGLE_CLIENT_SECRET, GOOGLE_CLI
 require("./config/passport")(passport);
 
 const mongoDB = "mongodb://127.0.0.1/project_ias";
-mongoose.connect(mongoDB, { useNewUrlParser: true, useUnifiedTopology: true });
+mongoose.connect(mongoDB, { useNewUrlParser: true, useUnifiedTopology: true, useFindAndModify: false });
 const db = mongoose.connection;
 db.on("open", () => console.log("mongo connected"));
 
@@ -164,6 +164,7 @@ app.post(
           email: data.email,
           prelims: [...data.prelims],
           mains: [...data.mains],
+          payDate: data.payDate,
         });
       }
     })
