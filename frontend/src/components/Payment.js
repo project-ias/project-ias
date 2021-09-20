@@ -1,8 +1,9 @@
 import { faCaretRight } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import React, {useEffect} from "react";
+import axios from "axios";
 import { signOut } from "supertokens-auth-react/recipe/session";
-import { INSTAMOJO_URL, TELEGRAM_URL } from "../constants/constants";
+import { INSTAMOJO_URL, TELEGRAM_URL, USER_URL } from "../constants/constants";
 import paymentLogo from "../logo.svg";
 import subscription from "../helpers/subscription";
 
@@ -17,12 +18,17 @@ const onLogout = async () => {
 const Payment = () => {
 
     //to check for trial and subscription
-    useEffect(() => {
+    useEffect( async () => {
         if(currentUserEmail !== null && currentUserEmail !== "") {
-        const payDate = localStorage.getItem("payDate");
-        if(subscription(payDate)) {
-            window.location.href = "/";
+            const {data} = await axios.post(USER_URL, {email: currentUserEmail});
+            const payDate = data.payDate;
+            localStorage.setItem("payDate", data.payDate);
+            if(subscription(payDate)) {
+                window.location.href = "/";
+            }
         }
+        else {
+            window.location.href = "/auth";
         }
     }, []);
 

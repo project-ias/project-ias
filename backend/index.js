@@ -18,7 +18,7 @@ const {Google} = ThirdPartyEmailPassword;
 const { UserModel } = require("./models/models");
 const keys = require("./config/keys");
 const { default: axios } = require("axios");
-const { slackApiUrl, BACKEND_URL, FRONTEND_URL, GOOGLE_CLIENT_SECRET, GOOGLE_CLIENT_ID, SUPERTOKENS_URI, SUPERTOKENS_APIKEY } = require("./config/keys");
+const { slackApiUrl, BACKEND_URL, FRONTEND_URL, GOOGLE_CLIENT_SECRET, GOOGLE_CLIENT_ID, SUPERTOKENS_URI, SUPERTOKENS_APIKEY, INSTAMOJO_URL, INSTAMOJO_APIKEY, INSTAMOJO_TOKEN } = require("./config/keys");
 require("./config/passport")(passport);
 
 const mongoDB = "mongodb://127.0.0.1/project_ias";
@@ -299,12 +299,17 @@ app.get("/topics", (req, res) => {
   }
 });
 
-app.post("/payment", (req,res) => {
+app.post("/payment", async (req,res) => {
   const today = new Date();
   const date = today.getFullYear() + "-" + (today.getMonth() + 1) + "-" + today.getDate();
   try {
-    const email = req.body.buyer;
-    const status = req.body.status;
+    const requestURL = INSTAMOJO_URL + req.body.payment_id;
+    const headers = {'X-Api-Key': INSTAMOJO_APIKEY, 'X-Auth-Token': INSTAMOJO_TOKEN};
+
+    const {data} = await axios.get(requestURL, {headers: headers});
+    console.log(data);
+    const email = data.payment.buyer_email;
+    const status = data.payment.status;
 
     if(status !== "Credit") res.status(400).send("Payment failed.");
     else {
