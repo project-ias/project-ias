@@ -43,6 +43,10 @@ SuperTokens.init({
                         "userMains",
                         JSON.stringify(user.data.mains)
                       );
+                      localStorage.setItem(
+                        "payDate",
+                        user.data.payDate
+                      );
                     } catch {}
                   })
               }

@@ -7,6 +7,7 @@ import {
   SEARCHCLIENT_URL,
   WFV_URL,
   VISION_URL,
+  USER_URL,
 } from "../constants/constants";
 import {
   InstantSearch,
@@ -34,6 +35,7 @@ import HitVision from "./HitVision";
 import HitWFV from "./HitWFV";
 import Dashboard from "./Dashboard";
 import useWindowDimensions from "./WindowDimensions";
+import subscription from "../helpers/subscription";
 
 const searchClient = instantMeiliSearch(SEARCHCLIENT_URL, "masterKey");
 
@@ -56,7 +58,7 @@ export default function SearchPage() {
 
   //Supertokens logout
   const onLogout = async () => {
-    localStorage.clear();
+    localStorage.removeItem("userEmail");
     await signOut();
     window.location.href = "/auth";
   };
@@ -81,6 +83,16 @@ export default function SearchPage() {
         return null;
     }
   }
+
+  //to check for trial and subscription
+  useEffect(() => {
+    if(currentUserEmail !== null && currentUserEmail !== "") {
+      const payDate = localStorage.getItem("payDate");
+      if(!subscription(payDate)) {
+        window.location.href = "/payment";
+      }
+    }
+  }, []);
 
   //Exam type is left tab in desktop. in mobiles it is the only tab shown.
   useEffect(() => {

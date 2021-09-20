@@ -1,8 +1,8 @@
-export const BACKEND_URL = "https://api.project-ias.com";
-//export const BACKEND_URL = "http://localhost:5000";
+//export const BACKEND_URL = "https://api.project-ias.com";
+export const BACKEND_URL = "http://localhost:5000";
 
-export const FRONTEND_URL = "https://project-ias.com";
-//export const FRONTEND_URL = "http://localhost:3000";
+//export const FRONTEND_URL = "https://project-ias.com";
+export const FRONTEND_URL = "http://localhost:3000";
 
 export const SEARCHCLIENT_URL = "https://search.project-ias.com";
 export const GA_MEASUREMENT_ID = "G-QDM8PF4XX9";
@@ -28,3 +28,6 @@ export const TOPICS_URL = `${BACKEND_URL}/topics`;
 
 export const TELEGRAM_URL = "https://t.me/joinchat/TlvHlSsdL2wwMDE9";
 export const INSTA_URL = "https://www.instagram.com/project.ias/";
+
+//export const INSTAMOJO_URL = "https://imjo.in/tucwem";
+export const INSTAMOJO_URL = "https://test.instamojo.com/@flairstudios828049/l2a1c66d63371402ba167efc1a04dd26f/";

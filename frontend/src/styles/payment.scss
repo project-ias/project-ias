@@ -54,14 +54,30 @@
         
     }
 
+    &-signout {
+        position: absolute;
+        top: 2rem;
+        right: 1.5rem;
+    }
+
+    &-rate {
+        color: #1E212D;
+        font-size: 1.3rem;
+    }
+
+    &-links-div {
+        display: flex;
+        justify-content: center;
+    }
+
     &-button {
-        margin: 2.5rem 0 1rem 0;
+        margin: 2.5rem 1rem 1rem 1rem;
         background-color: #FFEBC9;
         padding: .7rem 1.5rem;
         border-radius: 5px;
 
         @include sm {
-            margin: 1rem;
+            margin: 1rem 0.5rem;
         }
 
         &-link {
@@ -70,6 +86,14 @@
             font-weight: bolder;
             font-size: 1.5rem;
             letter-spacing: 2px;
+
+            @include sm {
+                font-size: 1rem;
+            }
+        }
+
+        &-green {
+            background-color: #57CC99;
         }
     }
 }
