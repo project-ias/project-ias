@@ -87,11 +87,14 @@ supertokens.init({
                      //new user. create entry in mongodb
                     const salt = bcrypt.genSaltSync(10);
                     const hash = bcrypt.hashSync(input.password, salt);
+                    const today = new Date();
+                    const date = today.getFullYear() + "-" + (today.getMonth() + 1) + "-" + today.getDate();
                      let newUser = new UserModel({
                        email: input.email,
                        password: hash,
                        prelims: [],
                        mains: [],
+                       payDate: date,
                      });
                      await newUser.save(err => console.log(err));
                      //update on slack.
@@ -301,17 +304,13 @@ app.get("/topics", (req, res) => {
 
 app.post("/payment", async (req,res) => {
   const today = new Date();
-  const date = today.getFullYear() + "-" + (today.getMonth() + 1) + "-" + today.getDate();
+  const date = [today.getFullYear(), today.getMonth(), today.getDate()];
   try {
-    const requestURL = INSTAMOJO_URL + req.body.payment_id;
-    const headers = {'X-Api-Key': INSTAMOJO_APIKEY, 'X-Auth-Token': INSTAMOJO_TOKEN};
+    const email = req.body.payload.payment.entity.email;
+    const status = req.body.event;
+    const amount = req.body.payload.payment.entity.amount / 100;
 
-    const {data} = await axios.get(requestURL, {headers: headers});
-    console.log(data);
-    const email = data.payment.buyer_email;
-    const status = data.payment.status;
-
-    if(status !== "Credit") res.status(400).send("Payment failed.");
+    if(status !== "payment.captured") res.status(400).send("Payment failed.");
     else {
       UserModel.findOne({email: email}, (err, docs) => {
         if(err) res.status(400).send(err);
@@ -321,7 +320,55 @@ app.post("/payment", async (req,res) => {
           res.status(400).send("unknown email.");
         }
         else {
-          UserModel.findByIdAndUpdate(docs.id, {payDate: date}, {new: true}, (err, result) => {
+
+          var payDate = docs.payDate.split("-").map((i) => Number(i));
+          const daysLeft = (payDate[0] - date[0]) * 365 + (payDate[1] - date[1]) * 30 + (payDate[2] - date[2]);
+
+          //subscription still left. add subscription after expiry date.
+          if(daysLeft > 0) {
+            if(amount <= 50) {
+              if(payDate[1] >= 12) {
+                payDate[1] = (payDate[1] + 1) % 12;
+                payDate[0] += 1;
+              }
+              else payDate[1] += 1;
+            }
+            else if(amount <= 250) {
+              if(payDate[1] >= 7) {
+                payDate[1] = (payDate[1] + 6) % 12;
+                payDate[0] += 1;
+              }
+              else payDate[1] += 6;
+            }
+            else {
+              payDate[0] += 1;
+            }
+          }
+
+          //subscription over or not activated. start from present day.
+          else {
+            if(amount <= 50) {
+              if(date[1] >= 12) {
+                payDate[1] = (date[1] + 1) % 12;
+                payDate[0]  = date[0] + 1;
+              }
+              else payDate[1] = date[1] + 1;
+            }
+            else if(amount <= 250) {
+              if(date[1] >= 7) {
+                payDate[1] = (date[1] + 6) % 12;
+                payDate[0] = date[0] + 1;
+              }
+              else payDate[1] = date[1] + 6;
+            }
+            else {
+              payDate[0] = date[0] + 1;
+            }
+          }
+
+          payDate = payDate.join("-");
+
+          UserModel.findByIdAndUpdate(docs.id, {payDate: payDate}, {new: true}, (err, result) => {
             if(err) {
               console.log(err);
               res.status(400).send(err);
