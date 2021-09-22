@@ -88,7 +88,7 @@ export default function SearchPage() {
   useEffect(() => {
     if(currentUserEmail !== null && currentUserEmail !== "") {
       const payDate = localStorage.getItem("payDate");
-      if(!subscription(payDate)) {
+      if(subscription(payDate) < 0) {
         window.location.href = "/payment";
       }
     }

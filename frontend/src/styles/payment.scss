@@ -2,7 +2,7 @@
 
     &-card {
         background-color: #fefaee;
-        margin-top: 20vh;
+        margin-top: 15vh;
         min-height: 60vh;
         width: 38rem;
         border-radius: 5px;
@@ -62,7 +62,32 @@
 
     &-rate {
         color: #1E212D;
-        font-size: 1.3rem;
+        width: 30rem;
+
+        &-slider {
+            width: 30rem;
+        }
+
+        &-label {
+            display: flex;
+            justify-content: space-between;
+
+            .left {
+                text-align: left;
+            }
+
+            .center {
+                text-align: center;
+            }
+
+            .right {
+                text-align: right;
+            }
+
+            .bold {
+                font-weight: bolder;
+            }
+        }
     }
 
     &-links-div {

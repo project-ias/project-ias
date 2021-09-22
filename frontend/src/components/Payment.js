@@ -1,9 +1,9 @@
 import { faCaretRight } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import React, {useEffect} from "react";
+import React, {useEffect, useState} from "react";
 import axios from "axios";
 import { signOut } from "supertokens-auth-react/recipe/session";
-import { INSTAMOJO_URL, TELEGRAM_URL, USER_URL } from "../constants/constants";
+import { RAZOR_URL, TELEGRAM_URL, USER_URL } from "../constants/constants";
 import paymentLogo from "../logo.svg";
 import subscription from "../helpers/subscription";
 
@@ -14,8 +14,11 @@ const onLogout = async () => {
     await signOut();
     window.location.href = "/auth";
 };
-
 const Payment = () => {
+
+    const [rateStyles, setRateStyles] = useState(["left", "center", "right"]);
+    const [rateSelected, setrateSelected] = useState(0);
+
 
     //to check for trial and subscription
     useEffect( async () => {
@@ -23,7 +26,7 @@ const Payment = () => {
             const {data} = await axios.post(USER_URL, {email: currentUserEmail});
             const payDate = data.payDate;
             localStorage.setItem("payDate", data.payDate);
-            if(subscription(payDate)) {
+            if(subscription(payDate) >= 0) {
                 window.location.href = "/";
             }
         }
@@ -31,6 +34,13 @@ const Payment = () => {
             window.location.href = "/auth";
         }
     }, []);
+
+    const rateChange = (value) => {
+        const tempRateStyles = ["left", "center", "right"];
+        tempRateStyles[value] += " bold";
+        setrateSelected(Number(value));
+        setRateStyles(tempRateStyles);
+    }
 
     return(
         <div>
@@ -47,10 +57,18 @@ const Payment = () => {
                     <li className="payment-benefit-item"><FontAwesomeIcon icon={faCaretRight}/> Progress tracking</li>
                     <li className="payment-benefit-item"><FontAwesomeIcon icon={faCaretRight}/> Revision reminder</li>
                 </ul>
-                <div className="payment-rate"><strong>Rs. 500 only</strong> ( 1 year )</div>
+                <div className="payment-rate">
+                    <input type="range" min="0" max="2" className="payment-rate-slider" id="myPrice" onChange={(event) => rateChange(event.target.value)} />
+                    <div className="payment-rate-label">
+                        <div className={rateStyles[0]} >Rs. 50 <br/> 1 month</div>
+                        <div className={rateStyles[1]} >Rs. 250 <br/> 6 months</div>
+                        <div className={rateStyles[2]} >Rs. 400 <br/> 12 months</div>
+                    </div>
+                </div>
+                {/* <div className="payment-rate"><strong>Rs. 500 only</strong> ( 1 year )</div> */}
                 <div className="payment-links-div">
                     <div className="payment-button payment-button-green" >
-                        <a href={INSTAMOJO_URL} rel="im-checkout" data-text="PAY" className="payment-button-link" data-layout="vertical">PAY</a>
+                        <a href={RAZOR_URL[rateSelected]} className="payment-button-link">PROCEED</a>
                     </div>
                     <div className="payment-button">
                         <a href={TELEGRAM_URL} className="payment-button-link">CONTACT US</a>

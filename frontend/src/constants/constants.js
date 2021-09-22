@@ -31,3 +31,5 @@ export const INSTA_URL = "https://www.instagram.com/project.ias/";
 
 //export const INSTAMOJO_URL = "https://imjo.in/tucwem";
 export const INSTAMOJO_URL = "https://test.instamojo.com/@flairstudios828049/l2a1c66d63371402ba167efc1a04dd26f/";
+
+export const RAZOR_URL = ["https://rzp.io/l/I88zAeEMgs", "https://rzp.io/l/xyIZhYH", "https://rzp.io/l/LlX14ON"];
