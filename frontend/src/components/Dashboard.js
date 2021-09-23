@@ -10,11 +10,13 @@ import { useEffect, useState, useRef } from "react";
 import axios from "axios";
 import TreeMenu from "./TreeMenu";
 import Loader from "react-loader-spinner";
+import subscription from "../helpers/subscription";
 
 const Dashboard = (props) => {
   const node = useRef();
   var userEmail = props.email;
   const [menu, setMenu] = useState([]);
+  const [subsMessage, setSubsMessage] = useState("");
 
   const handleClick = (e) => {
     if (node.current.contains(e.target)) {
@@ -25,6 +27,14 @@ const Dashboard = (props) => {
   };
 
   useEffect(() => {
+
+    const trialStatus = localStorage.getItem("trial") !== "expired";
+    const subStatus = subscription(localStorage.getItem("payDate")) > 0;
+
+    if(trialStatus && !subStatus) setSubsMessage((100 - localStorage.getItem("searchCount")) + " searches left for trial.");
+    else if(subStatus) setSubsMessage("Subscription Activated");
+
+
     axios
       .get(TOPICS_URL)
       .then((Response) => {
@@ -85,6 +95,7 @@ const Dashboard = (props) => {
           />
         </div>
         {emailDiv}
+        <div className="subscription-status">{subsMessage}</div>
         {menuDiv}
         <div className="contact-us">
           <div className="contact-us-text">Contact Us!</div>

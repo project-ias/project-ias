@@ -11,6 +11,7 @@ const currentUserEmail = localStorage.getItem("userEmail") || "";
 
 const onLogout = async () => {
     localStorage.removeItem("userEmail");
+    localStorage.removeItem("payDate");
     await signOut();
     window.location.href = "/auth";
 };
@@ -27,10 +28,7 @@ const Payment = () => {
         if(currentUserEmail !== null && currentUserEmail !== "") {
             const {data} = await axios.post(USER_URL, {email: currentUserEmail});
             const payDate = data.payDate;
-            localStorage.setItem("payDate", data.payDate);
-            if(subscription(payDate) >= 0) {
-                window.location.href = "/";
-            }
+            localStorage.setItem("payDate", payDate);
         }
         else {
             window.location.href = "/auth";

@@ -307,7 +307,7 @@ app.post("/payment", async (req,res) => {
   const today = new Date();
   const date = [today.getFullYear(), today.getMonth(), today.getDate()];
   try {
-    const email = req.body.payload.payment.entity.email;
+    const email = req.body.payload.payment.entity.notes.email;
     const status = req.body.event;
     const amount = req.body.payload.payment.entity.amount / 100;
 

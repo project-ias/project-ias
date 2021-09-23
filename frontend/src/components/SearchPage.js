@@ -59,6 +59,7 @@ export default function SearchPage() {
   //Supertokens logout
   const onLogout = async () => {
     localStorage.removeItem("userEmail");
+    localStorage.removeItem("payDate");
     await signOut();
     window.location.href = "/auth";
   };
