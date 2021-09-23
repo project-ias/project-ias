@@ -2,7 +2,7 @@
 
     &-card {
         background-color: #fefaee;
-        margin-top: 15vh;
+        margin: 10vh 0 5vh 0;
         min-height: 60vh;
         width: 38rem;
         border-radius: 5px;
@@ -64,8 +64,17 @@
         color: #1E212D;
         width: 30rem;
 
+        @include sm {
+            width: 18rem;
+            font-size: 1rem;
+        }
+
         &-slider {
             width: 30rem;
+
+            @include sm {
+                width: 18rem;
+            }
         }
 
         &-label {
@@ -119,6 +128,32 @@
 
         &-green {
             background-color: #57CC99;
+        }
+    }
+
+    &-coupon {
+        display: flex;
+        align-items: center;
+        margin-top: 2rem;
+
+        &-input {
+            height: 2rem;
+            align-self: center;
+            padding: .5rem .8rem;
+
+            @include sm {
+                padding: .2rem .5rem;
+                width: 9rem;
+            }
+        }
+
+        &-button {
+
+            margin: 1rem;
+
+            .payment-button-link {
+                font-size: 1rem;
+            }
         }
     }
 }

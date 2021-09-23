@@ -88,7 +88,8 @@ export default function SearchPage() {
   useEffect(() => {
     if(currentUserEmail !== null && currentUserEmail !== "") {
       const payDate = localStorage.getItem("payDate");
-      if(subscription(payDate) < 0) {
+      const trial = localStorage.getItem("trial")
+      if(subscription(payDate) < 0 && trial === "expired") {
         window.location.href = "/payment";
       }
     }
@@ -316,6 +317,12 @@ export default function SearchPage() {
           onClick={() => setShowMenu(!showMenu)}
         />
         <div className="current-user">
+          <button
+            className="current-user-auth-btn"
+            onClick={() => window.location.href = "/payment"}
+          >
+            Premium
+          </button>
           <button
             className="current-user-auth-btn"
             onClick={onLogout}

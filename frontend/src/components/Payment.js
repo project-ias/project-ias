@@ -3,7 +3,7 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import React, {useEffect, useState} from "react";
 import axios from "axios";
 import { signOut } from "supertokens-auth-react/recipe/session";
-import { RAZOR_URL, TELEGRAM_URL, USER_URL } from "../constants/constants";
+import { COUPON_URL, RAZOR_URL, TELEGRAM_URL, USER_URL } from "../constants/constants";
 import paymentLogo from "../logo.svg";
 import subscription from "../helpers/subscription";
 
@@ -18,6 +18,8 @@ const Payment = () => {
 
     const [rateStyles, setRateStyles] = useState(["left", "center", "right"]);
     const [rateSelected, setrateSelected] = useState(0);
+    const [coupon, setCoupon] = useState("");
+    const [error, setError] = useState("");
 
 
     //to check for trial and subscription
@@ -40,6 +42,16 @@ const Payment = () => {
         tempRateStyles[value] += " bold";
         setrateSelected(Number(value));
         setRateStyles(tempRateStyles);
+    }
+
+    const handleCoupon = async () => {
+        axios.post(COUPON_URL, {coupon: coupon})
+             .then((response) => {
+                 window.open(response.data.link, "_blank");
+             })
+             .catch((error) => {
+                 setError("Coupon not found!");
+             });
     }
 
     return(
@@ -65,13 +77,21 @@ const Payment = () => {
                         <div className={rateStyles[2]} >Rs. 400 <br/> 12 months</div>
                     </div>
                 </div>
-                {/* <div className="payment-rate"><strong>Rs. 500 only</strong> ( 1 year )</div> */}
+                <div className="payment-coupon">
+                    <div className="payment-coupon-input-div">
+                        <input type="text" placeholder="Any coupon code ?" className="payment-coupon-input" value={coupon} onChange={(event) => setCoupon(event.target.value.toUpperCase())}></input>
+                    </div>
+                    <div className="payment-button payment-coupon-button">
+                        <a href="#" className="payment-button-link" onClick={handleCoupon}>APPLY</a>
+                    </div>
+                </div>
+                <div className="payment-error">{error}</div>
                 <div className="payment-links-div">
                     <div className="payment-button payment-button-green" >
                         <a href={RAZOR_URL[rateSelected]} className="payment-button-link">PROCEED</a>
                     </div>
                     <div className="payment-button">
-                        <a href={TELEGRAM_URL} className="payment-button-link">CONTACT US</a>
+                        <a href={TELEGRAM_URL} className="payment-button-link">CONTACT</a>
                     </div>
                 </div>
             </div>

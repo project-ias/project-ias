@@ -18,7 +18,8 @@ const {Google} = ThirdPartyEmailPassword;
 const { UserModel } = require("./models/models");
 const keys = require("./config/keys");
 const { default: axios } = require("axios");
-const { slackApiUrl, BACKEND_URL, FRONTEND_URL, GOOGLE_CLIENT_SECRET, GOOGLE_CLIENT_ID, SUPERTOKENS_URI, SUPERTOKENS_APIKEY, INSTAMOJO_URL, INSTAMOJO_APIKEY, INSTAMOJO_TOKEN } = require("./config/keys");
+const { slackApiUrl, BACKEND_URL, FRONTEND_URL, GOOGLE_CLIENT_SECRET, GOOGLE_CLIENT_ID, SUPERTOKENS_URI, SUPERTOKENS_APIKEY, couponSheetID } = require("./config/keys");
+const gsheetURL = require("./helpers/gsheetURL");
 require("./config/passport")(passport);
 
 const mongoDB = "mongodb://127.0.0.1/project_ias";
@@ -384,6 +385,25 @@ app.post("/payment", async (req,res) => {
   catch(err) {
     throw err;
   }
+})
+
+app.post("/coupon", async (req, res) => {
+  const coupon = req.body.coupon;
+  const { data } = await axios.get(gsheetURL(couponSheetID, "Sheet1"));
+  const mainArr = data.values;
+  var found = false;
+  for(var i = 1; i < mainArr.length; i++) {
+    if(mainArr[i][0] === coupon) {
+      found = true;
+      const payload = {
+        link: mainArr[i][1],
+        promoter: mainArr[i][2]
+      };
+      res.send(payload);
+      break;
+    }
+  }
+  if(!found) res.status(400).send("coupon not found");
 })
 
 app.use(supertokens.errorHandler())
