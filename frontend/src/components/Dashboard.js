@@ -18,7 +18,9 @@ const Dashboard = (props) => {
   const [menu, setMenu] = useState([]);
   const [subsMessage, setSubsMessage] = useState("");
 
+  // hide if clicked outside the side menu bar 
   const handleClick = (e) => {
+    // if mouse is IN the node , then nothing
     if (node.current.contains(e.target)) {
       return;
     } else {
@@ -27,12 +29,15 @@ const Dashboard = (props) => {
   };
 
   useEffect(() => {
+    // 1. check for subscription status 
+    // 2. Get topics from backend TOPIC_URL 
+    // 3. attach addEventListener to mousedown events outside the sidebar node 
 
     const trialStatus = localStorage.getItem("trial") !== "expired";
     const subStatus = subscription(localStorage.getItem("payDate")) > 0;
 
-    if(trialStatus && !subStatus) setSubsMessage((100 - localStorage.getItem("searchCount")) + " searches left for trial.");
-    else if(subStatus) setSubsMessage("Subscription Activated");
+    if (trialStatus && !subStatus) setSubsMessage((100 - localStorage.getItem("searchCount")) + " searches left for trial.");
+    else if (subStatus) setSubsMessage("Subscription Activated");
 
 
     axios
@@ -44,11 +49,14 @@ const Dashboard = (props) => {
       .catch((err) => console.log(err));
 
     document.addEventListener("mousedown", handleClick);
-
     return () => {
       document.removeEventListener("mousedown", handleClick);
     };
+    // if `[]` is the second argument in useEffect => run only ONCE (initially)
+    // if NO second argument in useEffect => always run
+    // if [var1, var2] are the second argument in useEffect => run only on change of var1 or var2 value
   }, []);
+
 
   if (userEmail === null || userEmail === undefined || userEmail === "")
     userEmail = "User";

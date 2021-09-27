@@ -43,10 +43,12 @@ export default function SearchPage() {
 
   const history = useHistory();
   const location = useLocation();
+
+  // supertokens ka part hai -- if using axios, then do this.
   Session.addAxiosInterceptors(axios);
 
   var urlParams = new URLSearchParams(location.search);
-  const {width} = useWindowDimensions();
+  const { width } = useWindowDimensions();
   const currentUserEmail = localStorage.getItem("userEmail") || "";
 
   const [content, setContent] = useState([]);
@@ -78,8 +80,8 @@ export default function SearchPage() {
         return HitSecure;
       case "wfv":
         return HitWFV;
-        case "vision":
-          return HitVision;
+      case "vision":
+        return HitVision;
       default:
         return null;
     }
@@ -87,10 +89,10 @@ export default function SearchPage() {
 
   //to check for trial and subscription
   useEffect(() => {
-    if(currentUserEmail !== null && currentUserEmail !== "") {
+    if (currentUserEmail !== null && currentUserEmail !== undefined && currentUserEmail !== "") {
       const payDate = localStorage.getItem("payDate");
       const trial = localStorage.getItem("trial")
-      if(subscription(payDate) < 0 && trial === "expired") {
+      if (subscription(payDate) < 0 && trial === "expired") {
         window.location.href = "/payment";
       }
     }
@@ -98,13 +100,13 @@ export default function SearchPage() {
 
   //Exam type is left tab in desktop. in mobiles it is the only tab shown.
   useEffect(() => {
-    if(width > 1000) {
+    if (width > 1000) {
       var urlParams = new URLSearchParams(location.search);
       var tempExamMode = urlParams.get("exam");
-      if(tempExamMode !== "pyqs" && tempExamMode !== "prelims_sheet" && tempExamMode !== "secure") {
+      if (tempExamMode !== "pyqs" && tempExamMode !== "prelims_sheet" && tempExamMode !== "secure") {
         setExamType("pyqs");
         setMaterialType(tempExamMode || "content");
-    }
+      }
     }
   }, [width]);
 
@@ -146,7 +148,7 @@ export default function SearchPage() {
           console.log("err is ", err);
         });
     }
-     else {
+    else {
       axios
         .post(CONTENT_URL, data)
         .then((res) => {
@@ -165,9 +167,10 @@ export default function SearchPage() {
     urlParams.set('exam', examType);
     urlParams.set('material', materialType);
     history.push(`/?${urlParams || ""}`);
-  },[examType, materialType])
+  }, [examType, materialType])
 
   function handleChange(e) {
+    // prevent default can be removed?
     e.preventDefault();
     var data = { query: "" };
     if (e.target.value === undefined || e.target.value === null) {
@@ -178,13 +181,13 @@ export default function SearchPage() {
       data = { query: e.target.value };
     }
 
-    if(performance.now() - parseFloat(localStorage.getItem("timeNow")) > 5000) {
+    if (performance.now() - parseFloat(localStorage.getItem("timeNow")) > 5000) {
       localStorage.setItem("searchCount", parseInt(localStorage.getItem("searchCount")) + 1);
     }
 
     localStorage.setItem("timeNow", performance.now());
 
-    if(localStorage.getItem("searchCount") > 100 && (currentUserEmail === "" || currentUserEmail === null)) {
+    if (localStorage.getItem("searchCount") > 100 && (currentUserEmail === "" || currentUserEmail === null)) {
       localStorage.setItem("trial", "expired");
       history.go("/auth");
     }
@@ -218,7 +221,7 @@ export default function SearchPage() {
           console.log("err is ", err);
         });
     }
-     else {
+    else {
       axios
         .post(CONTENT_URL, data)
         .then((res) => {
@@ -287,25 +290,25 @@ export default function SearchPage() {
 
   const pagination = (
     <Pagination
-            defaultRefinement={1}
-            padding={1}
-            translations={{
-              previous: "<",
-              next: ">",
-              first: "<<",
-              last: ">>",
-              page(currentRefinement) {
-                return currentRefinement;
-              },
-              ariaPrevious: "Previous page",
-              ariaNext: "Next page",
-              ariaFirst: "First page",
-              ariaLast: "Last page",
-              ariaPage(currentRefinement) {
-                return `Page ${currentRefinement}`;
-              },
-            }}
-          />
+      defaultRefinement={1}
+      padding={1}
+      translations={{
+        previous: "<",
+        next: ">",
+        first: "<<",
+        last: ">>",
+        page(currentRefinement) {
+          return currentRefinement;
+        },
+        ariaPrevious: "Previous page",
+        ariaNext: "Next page",
+        ariaFirst: "First page",
+        ariaLast: "Last page",
+        ariaPage(currentRefinement) {
+          return `Page ${currentRefinement}`;
+        },
+      }}
+    />
   );
 
   return (
@@ -346,7 +349,7 @@ export default function SearchPage() {
             placeholder: "search citizen charter",
           }}
           submit={
-            <img src={searchLogo} className="search-logo" alt="search-logo"/>
+            <img src={searchLogo} className="search-logo" alt="search-logo" />
           }
         />
         {width <= 1000 && <div className="mobile-view">
@@ -408,7 +411,7 @@ export default function SearchPage() {
           ) : null}
 
           <Hits hitComponent={ReturnHitComponent(examType)} />
-            {pagination}
+          {pagination}
 
         </div>}
         {width > 1000 && <div className="results">
@@ -450,10 +453,9 @@ export default function SearchPage() {
                 DNS
               </div>
               <div
-                className={`type ${
-                  (materialType === "content" || materialType === "wfv" || materialType === "vision") &&
+                className={`type ${(materialType === "content" || materialType === "wfv" || materialType === "vision") &&
                   "current"
-                }`}
+                  }`}
                 onClick={() => setMaterialType("content")}
               >
                 Read
@@ -484,33 +486,50 @@ export default function SearchPage() {
             <div>
               {materialType === "dns"
                 && dnsContent.map((hit) => (
-                    <div className="card-result">
-                      <HitDNS hit={hit} />
-                    </div>
-                  )) }
-                { materialType === "content"
+                  <div className="card-result">
+                    <HitDNS hit={hit} />
+                  </div>
+                ))}
+              {materialType === "content"
                 && content.map((hit) => (
-                    <div className="card-result">
-                      <HitDrishti hit={hit} />
-                    </div>
-                  )) }
-                { materialType === "wfv"
+                  <div className="card-result">
+                    <HitDrishti hit={hit} />
+                  </div>
+                ))}
+              {materialType === "wfv"
                 && content.map((hit) => (
-                    <div className="card-result">
-                      <HitWFV hit={hit} />
-                    </div>
-                  ))}
-                { materialType === "vision"
+                  <div className="card-result">
+                    <HitWFV hit={hit} />
+                  </div>
+                ))}
+              {materialType === "vision"
                 && content.map((hit) => (
-                    <div className="card-result">
-                      <HitVision hit={hit} />
-                    </div>
-                  ))}
+                  <div className="card-result">
+                    <HitVision hit={hit} />
+                  </div>
+                ))}
             </div>
           </div>
         </div>}
       </InstantSearch>
-      <a href="#top" className="back-to-top"><FontAwesomeIcon icon={faArrowUp}/></a>
+      <a href="#top" className="back-to-top"><FontAwesomeIcon icon={faArrowUp} /></a>
     </div>
   );
 }
+
+
+
+
+
+// checkTrialSubscriptiononMount()
+// loadSideDashboard()
+
+// userQueryParameters()
+// updateUrlonSearch()
+
+// checkWindowSize() {
+//   if (window>1000)
+//   loadOneColumn()
+//   else
+//   loadTwoColums()
+// }
