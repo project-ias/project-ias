@@ -34,10 +34,15 @@ const Dashboard = (props) => {
     // 3. attach addEventListener to mousedown events outside the sidebar node 
 
     const trialStatus = localStorage.getItem("trial") !== "expired";
-    const subStatus = subscription(localStorage.getItem("payDate")) > 0;
+    const payDate = localStorage.getItem("payDate");
+    const subStatus = subscription(payDate) > 0;
 
-    if (trialStatus && !subStatus) setSubsMessage((100 - localStorage.getItem("searchCount")) + " searches left for trial.");
-    else if (subStatus) setSubsMessage("Subscription Activated");
+    if (trialStatus && !subStatus){
+      setSubsMessage((100 - localStorage.getItem("searchCount")) + " searches left for trial.");
+    }
+    else if (subStatus){
+      setSubsMessage(`Subscription available till : ${payDate.split("-").reverse().join("-")}`);
+    }
 
 
     axios
@@ -103,7 +108,7 @@ const Dashboard = (props) => {
           />
         </div>
         {emailDiv}
-        <div className="subscription-status">{subsMessage}</div>
+        <div className="subscription-status ">{subsMessage}</div>
         {menuDiv}
         <div className="contact-us">
           <div className="contact-us-text">Contact Us!</div>

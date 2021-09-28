@@ -9,12 +9,20 @@ import subscription from "../helpers/subscription";
 
 const currentUserEmail = localStorage.getItem("userEmail") || "";
 
+
 const onLogout = async () => {
     localStorage.removeItem("userEmail");
     localStorage.removeItem("payDate");
     await signOut();
     window.location.href = "/auth";
 };
+
+
+const goBack = () => {
+    window.location.href = "/";
+}
+
+
 const Payment = () => {
 
     const [rateStyles, setRateStyles] = useState(["left", "center", "right"]);
@@ -35,12 +43,14 @@ const Payment = () => {
         }
     }, []);
 
+
     const rateChange = (value) => {
         const tempRateStyles = ["left", "center", "right"];
         tempRateStyles[value] += " bold";
         setrateSelected(Number(value));
         setRateStyles(tempRateStyles);
     }
+
 
     const handleCoupon = async () => {
         axios.post(COUPON_URL, {coupon: coupon})
@@ -52,9 +62,13 @@ const Payment = () => {
              });
     }
 
+
     return(
         <div>
-            <div className="payment-signout">
+            <div className="payment-topbar">
+                <button className="current-user-auth-btn" onClick={goBack}>
+                    Back
+                </button>
                 <button className="current-user-auth-btn" onClick={onLogout}>
                     Log Out
                 </button>
@@ -79,7 +93,7 @@ const Payment = () => {
                     <div className="payment-coupon-input-div">
                         <input type="text" placeholder="Any coupon code ?" className="payment-coupon-input" value={coupon} onChange={(event) => setCoupon(event.target.value.toUpperCase())}></input>
                     </div>
-                    <div className="payment-button payment-coupon-button">
+                    <div className="payment-button payment-coupon-button payment-button-green">
                         <a href="#" className="payment-button-link" onClick={handleCoupon}>APPLY</a>
                     </div>
                 </div>

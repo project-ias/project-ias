@@ -54,10 +54,13 @@
         
     }
 
-    &-signout {
+    &-topbar {
         position: absolute;
-        top: 2rem;
-        right: 1.5rem;
+        top: 1rem;
+        left: 0;
+        width: 100vw;
+        display: flex;
+        justify-content: space-between;
     }
 
     &-rate {
@@ -140,6 +143,15 @@
             height: 2rem;
             align-self: center;
             padding: .5rem .8rem;
+            border-radius: 5px 0 0 5px;
+            border: 2px solid #57CC99;
+            background-color: #FFEBC9;
+            font-size: 1rem;
+
+            &:focus {
+                border: 2px solid #57CC99;
+                outline: none;
+            }
 
             @include sm {
                 padding: .2rem .5rem;
@@ -149,7 +161,18 @@
 
         &-button {
 
-            margin: 1rem;
+            margin: 0;
+            padding: .5rem .8rem;
+            border-radius: 0 5px 5px 0;
+            border: 2px solid #57CC99;
+            height: 2rem;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+
+            @include sm {
+                padding: .2rem .5rem;
+            }
 
             .payment-button-link {
                 font-size: 1rem;
