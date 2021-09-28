@@ -34,7 +34,7 @@ import HitSecure from "./HitSecure";
 import HitVision from "./HitVision";
 import HitWFV from "./HitWFV";
 import Dashboard from "./Dashboard";
-import useWindowDimensions from "./WindowDimensions";
+import useWindowDimensions from "../helpers/WindowDimensions.js";
 import subscription from "../helpers/subscription";
 
 const searchClient = instantMeiliSearch(SEARCHCLIENT_URL, "masterKey");

@@ -4,71 +4,46 @@ import Loader from "react-loader-spinner";
 import { Highlight } from "react-instantsearch-dom";
 import axios from "axios";
 import { USER_MAINS_URL } from "../constants/constants";
+import {findRevisionInterval, hasRevisedChecker} from "../helpers/spacedRepetition";
 
 export default function HitPyqs(props) {
-  const today = new Date();
-  const todayDate = [
-    today.getFullYear(),
-    today.getMonth() + 1,
-    today.getDate(),
-  ];
-  var solvedDate = [today.getFullYear(), today.getMonth() + 1, today.getDate()];
+  
+  const [solved, setSolved] = useState(false);
+  const [revised, setRevised] = useState(false);
 
-  var userEmail = null,
-    userMains = [],
-    userMainsObj = {};
+  var solvedDate = null;
+  var userEmail = null, userMains = [], userMainsObj = [];
   var qNumber = "";
+  var revisionCount = 0;
+
   try {
     userEmail = localStorage.getItem("userEmail");
     userMainsObj = JSON.parse(localStorage.getItem("userMains"));
     userMains = userMainsObj.map((item) => item.questionID);
   } catch {}
 
-  const [solved, setSolved] = useState(false);
-  var revisionCount = 0;
-
   try {
-    if (!solved) {
-      solvedDate = [...todayDate];
-    } else {
-      const tempRevisionCount =
-        userMainsObj[userMains.findIndex((id) => id === props.hit["id"])]
-          .hasRevised;
-      if (tempRevisionCount === false) revisionCount = 0;
-      //solving the problem that initially revisionCount is saved as false in database instead of 0.
-      else revisionCount = tempRevisionCount;
-      solvedDate =
-        userMainsObj[
-          userMains.findIndex((id) => id === props.hit["id"])
-        ].date.split("-");
-    }
-  } catch {}
-
-  const revisionInterval =
-    (todayDate[0] - solvedDate[0]) * 365 +
-    (todayDate[1] - solvedDate[1]) * 30 +
-    (todayDate[2] - solvedDate[2]);
-
-  const [revised, setRevised] = useState(false);
+    const tempRevisionCount = userMainsObj[userMains.findIndex((id) => id === props.hit["id"])].hasRevised;
+    if (tempRevisionCount === false) revisionCount = 0;
+    //solving the problem that initially revisionCount is saved as false in database instead of 0.
+    else revisionCount = tempRevisionCount;
+    solvedDate = userMainsObj[userMains.findIndex((id) => id === props.hit["id"])].date.split("-");
+  } catch {
+    //question not solved. set default value.
+    solvedDate = null;
+    revisionCount = 0;
+  }
 
   useEffect(() => {
+
     setSolved(
       userMains !== undefined &&
         userMains !== null &&
         userMains.includes(props.hit["id"])
     );
+    
+    setRevised(hasRevisedChecker(solvedDate, revisionCount));
 
-    var tempRevisedState = true;
-
-    if (revisionInterval > 2 && revisionCount < 1) tempRevisedState = false;
-    else if (revisionInterval > 7 && revisionCount < 2)
-      tempRevisedState = false;
-    else if (revisionInterval > 15 && revisionCount < 3)
-      tempRevisedState = false;
-    else if (revisionInterval > 35 && revisionCount < 4)
-      tempRevisedState = false;
-
-    setRevised(tempRevisedState);
   }, [props]);
 
   var pyqCardClass = "";
@@ -108,7 +83,8 @@ export default function HitPyqs(props) {
   };
 
   const reviseCheckHandler = () => {
-    var revisionCount;
+    var revisionCount = 0;
+    const revisionInterval = findRevisionInterval(solvedDate);
     if (revisionInterval > 35) revisionCount = 4;
     else if (revisionInterval > 15) revisionCount = 3;
     else if (revisionInterval > 7) revisionCount = 2;
@@ -118,24 +94,20 @@ export default function HitPyqs(props) {
     setRevised(true);
   };
 
-  var revisionDiv = null;
-
-  if (!revised) {
-    revisionDiv = (
-      <div className="pyqs-revised-div">
-        <div className="pyqs-revised-text">{`You solved this ${revisionInterval} days ago. Solve again to remember.`}</div>
-        <div className="pyqs-solved-toggle">
-          <label className="pyqs-solved-toggle-text">Solved Again ?</label>
-          <input
-            type="checkbox"
-            className="pyqs-solved-toggle-check"
-            onChange={() => reviseCheckHandler()}
-            checked={revised}
-          ></input>
-        </div>
+  const revisionDiv = (
+    <div className="pyqs-revised-div">
+      <div className="pyqs-revised-text">{`You solved this ${findRevisionInterval(solvedDate)} days ago. Solve again to remember.`}</div>
+      <div className="pyqs-solved-toggle">
+        <label className="pyqs-solved-toggle-text">Solved Again ?</label>
+        <input
+          type="checkbox"
+          className="pyqs-solved-toggle-check"
+          onChange={() => reviseCheckHandler()}
+          checked={revised}
+        ></input>
       </div>
-    );
-  }
+    </div>
+  );
 
   return (
     <div className={pyqCardClass}>
@@ -172,7 +144,7 @@ export default function HitPyqs(props) {
               checked={solved}
             ></input>
           </div>
-          {revisionDiv}
+          {!revised && revisionDiv}
         </div>
       )}
     </div>
