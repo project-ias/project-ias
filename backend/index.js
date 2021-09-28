@@ -18,7 +18,7 @@ const {Google} = ThirdPartyEmailPassword;
 const { UserModel } = require("./models/models");
 const keys = require("./config/keys");
 const { default: axios } = require("axios");
-const { slackApiUrl, BACKEND_URL, FRONTEND_URL, GOOGLE_CLIENT_SECRET, GOOGLE_CLIENT_ID, SUPERTOKENS_URI, SUPERTOKENS_APIKEY, couponSheetID } = require("./config/keys");
+const { slackApiUrl, BACKEND_URL, FRONTEND_URL, GOOGLE_CLIENT_SECRET, GOOGLE_CLIENT_ID, SUPERTOKENS_URI, SUPERTOKENS_APIKEY, subscriptionSheetID } = require("./config/keys");
 const gsheetURL = require("./helpers/gsheetURL");
 require("./config/passport")(passport);
 
@@ -387,9 +387,24 @@ app.post("/payment", async (req,res) => {
   }
 })
 
+app.get("/subscriptionPlans", async (req, res) => {
+  const { data } = await axios.get(gsheetURL(subscriptionSheetID, "Subscription Plans"));
+  const mainArr = data.values;
+  const payLoadArr = [];
+  for(var i = 1; i < mainArr.length; i++) {
+    const payload = {
+      tenure: mainArr[i][0],
+      fee: mainArr[i][1],
+      link: mainArr[i][2]
+    }
+    payLoadArr.push(payload);
+  }
+  res.json(payLoadArr);
+})
+
 app.post("/coupon", async (req, res) => {
   const coupon = req.body.coupon;
-  const { data } = await axios.get(gsheetURL(couponSheetID, "Sheet1"));
+  const { data } = await axios.get(gsheetURL(subscriptionSheetID, "Referral Codes"));
   const mainArr = data.values;
   var found = false;
   for(var i = 1; i < mainArr.length; i++) {

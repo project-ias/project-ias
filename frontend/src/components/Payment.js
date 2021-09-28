@@ -3,7 +3,7 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import React, {useEffect, useState} from "react";
 import axios from "axios";
 import { signOut } from "supertokens-auth-react/recipe/session";
-import { COUPON_URL, RAZOR_URL, TELEGRAM_URL, USER_URL } from "../constants/constants";
+import { COUPON_URL, RAZOR_URL, SUBSCRIPTION_PLANS_URL, TELEGRAM_URL, USER_URL } from "../constants/constants";
 import paymentLogo from "../logo.svg";
 import subscription from "../helpers/subscription";
 
@@ -25,8 +25,8 @@ const goBack = () => {
 
 const Payment = () => {
 
-    const [rateStyles, setRateStyles] = useState(["left", "center", "right"]);
-    const [rateSelected, setrateSelected] = useState(0);
+    const [rates, setRates] = useState([]);
+    const [rateSelected, setRateSelected] = useState(0);
     const [coupon, setCoupon] = useState("");
     const [error, setError] = useState("");
 
@@ -37,19 +37,14 @@ const Payment = () => {
             const {data} = await axios.post(USER_URL, {email: currentUserEmail});
             const payDate = data.payDate;
             localStorage.setItem("payDate", payDate);
+
+            const rates = await axios.get(SUBSCRIPTION_PLANS_URL);
+            setRates(rates.data);
         }
         else {
             window.location.href = "/auth";
         }
     }, []);
-
-
-    const rateChange = (value) => {
-        const tempRateStyles = ["left", "center", "right"];
-        tempRateStyles[value] += " bold";
-        setrateSelected(Number(value));
-        setRateStyles(tempRateStyles);
-    }
 
 
     const handleCoupon = async () => {
@@ -60,6 +55,27 @@ const Payment = () => {
              .catch((error) => {
                  setError("Coupon not found!");
              });
+    }
+
+
+    const ratesDiv = (ratesObj, index) => {
+        var rateClass = "";
+        if(index === 0) {
+            rateClass = "left";
+        }
+        else if(index === rates.length - 1) {
+            rateClass = "right";
+        }
+        else {
+            rateClass = "center";
+        }
+        if(index === rateSelected) {
+            rateClass += " bold";
+        }
+
+        return (
+            <div className={rateClass} key={index}>Rs. {ratesObj.fee} <br/> {ratesObj.tenure}</div>
+        )
     }
 
 
@@ -82,11 +98,11 @@ const Payment = () => {
                     <li className="payment-benefit-item"><FontAwesomeIcon icon={faCaretRight}/> Revision reminder</li>
                 </ul>
                 <div className="payment-rate">
-                    <input type="range" min="0" max="2" className="payment-rate-slider" id="myPrice" onChange={(event) => rateChange(event.target.value)} />
+                    <input type="range" min="0" max={rates.length-1} className="payment-rate-slider" id="myPrice" onChange={(event) => setRateSelected(Number(event.target.value))} />
                     <div className="payment-rate-label">
-                        <div className={rateStyles[0]} >Rs. 50 <br/> 1 month</div>
-                        <div className={rateStyles[1]} >Rs. 250 <br/> 6 months</div>
-                        <div className={rateStyles[2]} >Rs. 400 <br/> 12 months</div>
+                        { rates.map((rateObj, index) => (
+                            ratesDiv(rateObj, index)
+                        ))}
                     </div>
                 </div>
                 <div className="payment-coupon">
@@ -100,7 +116,7 @@ const Payment = () => {
                 <div className="payment-error">{error}</div>
                 <div className="payment-links-div">
                     <div className="payment-button payment-button-green" >
-                        <a href={RAZOR_URL[rateSelected]} className="payment-button-link">PROCEED</a>
+                        <a href={rates.length && rates[rateSelected].link} className="payment-button-link">PROCEED</a>
                     </div>
                     <div className="payment-button">
                         <a href={TELEGRAM_URL} className="payment-button-link">CONTACT</a>
