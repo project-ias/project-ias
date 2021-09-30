@@ -20,6 +20,7 @@ const keys = require("./config/keys");
 const { default: axios } = require("axios");
 const { slackApiUrl, BACKEND_URL, FRONTEND_URL, GOOGLE_CLIENT_SECRET, GOOGLE_CLIENT_ID, SUPERTOKENS_URI, SUPERTOKENS_APIKEY, subscriptionSheetID } = require("./config/keys");
 const gsheetURL = require("./helpers/gsheetURL");
+const validateCoupon = require("./helpers/coupon_validator");
 require("./config/passport")(passport);
 
 const mongoDB = "mongodb://127.0.0.1/project_ias";
@@ -388,37 +389,25 @@ app.post("/payment", async (req,res) => {
 })
 
 app.get("/subscriptionPlans", async (req, res) => {
-  const { data } = await axios.get(gsheetURL(subscriptionSheetID, "Subscription Plans"));
-  const mainArr = data.values;
-  const payLoadArr = [];
-  for(var i = 1; i < mainArr.length; i++) {
-    const payload = {
-      tenure: mainArr[i][0],
-      fee: mainArr[i][1],
-      link: mainArr[i][2]
-    }
-    payLoadArr.push(payload);
+
+  try {
+    const payloadString = fs.readFileSync("./cached_data/sub_rates.json");
+    res.json(JSON.parse(payloadString));
   }
-  res.json(payLoadArr);
+  catch (err) {
+    console.log(err);
+    res.status(500).send(err);
+  }
+
 })
 
 app.post("/coupon", async (req, res) => {
+
   const coupon = req.body.coupon;
-  const { data } = await axios.get(gsheetURL(subscriptionSheetID, "Referral Codes"));
-  const mainArr = data.values;
-  var found = false;
-  for(var i = 1; i < mainArr.length; i++) {
-    if(mainArr[i][0] === coupon) {
-      found = true;
-      const payload = {
-        link: mainArr[i][1],
-        promoter: mainArr[i][2]
-      };
-      res.send(payload);
-      break;
-    }
-  }
-  if(!found) res.status(400).send("coupon not found");
+  const payload = validateCoupon(coupon);
+  if(payload === null) res.status(400).send("coupon not found");
+  else res.json(payload);
+
 })
 
 app.use(supertokens.errorHandler())
