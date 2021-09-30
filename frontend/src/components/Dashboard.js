@@ -11,6 +11,7 @@ import axios from "axios";
 import TreeMenu from "./TreeMenu";
 import Loader from "react-loader-spinner";
 import subscription from "../helpers/subscription";
+import { checkMaxSearchLimit, checkTrialStatus, trialSearchLeft } from "../helpers/trialPeriod";
 
 const Dashboard = (props) => {
   const node = useRef();
@@ -33,15 +34,19 @@ const Dashboard = (props) => {
     // 2. Get topics from backend TOPIC_URL 
     // 3. attach addEventListener to mousedown events outside the sidebar node 
 
-    const trialStatus = localStorage.getItem("trial") !== "expired";
     const payDate = localStorage.getItem("payDate");
     const subStatus = subscription(payDate) > 0;
 
-    if (trialStatus && !subStatus){
-      setSubsMessage((100 - localStorage.getItem("searchCount")) + " searches left for trial.");
+    checkMaxSearchLimit(); //updating trial searchCount
+
+    if (checkTrialStatus() && !subStatus){
+      setSubsMessage(trialSearchLeft() + " searches left for trial.");
     }
     else if (subStatus){
       setSubsMessage(`Subscription available till : ${payDate.split("-").reverse().join("-")}`);
+    }
+    else {
+      window.location.href = "/payment";
     }
 
 

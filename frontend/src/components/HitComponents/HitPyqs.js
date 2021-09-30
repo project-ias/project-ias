@@ -3,8 +3,8 @@ import "react-loader-spinner/dist/loader/css/react-spinner-loader.css";
 import Loader from "react-loader-spinner";
 import { Highlight } from "react-instantsearch-dom";
 import axios from "axios";
-import { USER_MAINS_URL } from "../constants/constants";
-import {findRevisionInterval, hasRevisedChecker} from "../helpers/spacedRepetition";
+import { USER_MAINS_URL } from "../../constants/constants";
+import {findRevisionInterval, hasRevisedChecker} from "../../helpers/spacedRepetition";
 
 export default function HitPyqs(props) {
   

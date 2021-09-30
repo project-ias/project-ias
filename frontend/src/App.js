@@ -9,6 +9,7 @@ import ThirdPartyEmailPassword, {Google, ThirdPartyEmailPasswordAuth} from "supe
 import Session from "supertokens-auth-react/recipe/session";
 import { BACKEND_URL, FRONTEND_URL, USER_URL } from "./constants/constants";
 import EmailPassword from "supertokens-auth-react/recipe/emailpassword";
+import { checkTrialStatus } from "./helpers/trialPeriod";
 
 Session.addAxiosInterceptors(axios);
 
@@ -60,8 +61,6 @@ SuperTokens.init({
 
 function App() {
 
-  const hasExpired = localStorage.getItem("trial")==="expired";
-
   if(!localStorage.getItem("searchCount")) {
     localStorage.setItem("timeNow", performance.now());
     localStorage.setItem("searchCount", 0);
@@ -77,7 +76,7 @@ function App() {
             <Payment/>
           </Route>
           <Route path="/">
-            {hasExpired 
+            {!checkTrialStatus()
             ? 
             (<ThirdPartyEmailPasswordAuth>
                 <SearchPage/>

@@ -7,6 +7,7 @@ import "react-circular-progressbar/dist/styles.css";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import React, { useState } from "react";
 import { useHistory, useLocation } from "react-router-dom";
+import { updateSearchCountDashboard } from "../helpers/trialPeriod";
 
 const TreeMenu = ({ data = [] }) => {
   return (
@@ -84,7 +85,7 @@ const TreeNode = ({ node }) => {
     var urlParams = new URLSearchParams(location.search);
     urlParams.set("query", query);
     urlParams.set("exam", "pyqs");
-    localStorage.setItem("searchCount", parseInt(localStorage.getItem("searchCount")) + 1);
+    updateSearchCountDashboard();
     history.push(`/?${urlParams}`);
     history.go(`/?${urlParams}`);
   };

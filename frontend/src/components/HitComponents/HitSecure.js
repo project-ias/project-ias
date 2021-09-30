@@ -3,8 +3,8 @@ import { Highlight } from "react-instantsearch-dom";
 import React, { useEffect, useState } from "react";
 import "react-loader-spinner/dist/loader/css/react-spinner-loader.css";
 import axios from "axios";
-import { USER_MAINS_URL } from "../constants/constants";
-import { findRevisionInterval, hasRevisedChecker } from "../helpers/spacedRepetition";
+import { USER_MAINS_URL } from "../../constants/constants";
+import { findRevisionInterval, hasRevisedChecker } from "../../helpers/spacedRepetition";
 
 export default function HitSecure(props) {
   

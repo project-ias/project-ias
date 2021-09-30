@@ -7,7 +7,6 @@ import {
   SEARCHCLIENT_URL,
   WFV_URL,
   VISION_URL,
-  USER_URL,
 } from "../constants/constants";
 import {
   InstantSearch,
@@ -26,16 +25,17 @@ import Session from "supertokens-auth-react/recipe/session";
 import { signOut } from "supertokens-auth-react/recipe/thirdpartyemailpassword";
 import searchLogo from "../logo.svg";
 
-import HitDrishti from "./HitDrishti";
-import HitDNS from "./HitDNS";
-import HitPyqs from "./HitPyqs";
-import HitPrelims from "./HitPrelims";
-import HitSecure from "./HitSecure";
-import HitVision from "./HitVision";
-import HitWFV from "./HitWFV";
+import HitDrishti from "./HitComponents/HitDrishti";
+import HitDNS from "./HitComponents/HitDNS";
+import HitPyqs from "./HitComponents/HitPyqs";
+import HitPrelims from "./HitComponents/HitPrelims";
+import HitSecure from "./HitComponents/HitSecure";
+import HitVision from "./HitComponents/HitVision";
+import HitWFV from "./HitComponents/HitWFV";
 import Dashboard from "./Dashboard";
 import useWindowDimensions from "../helpers/WindowDimensions.js";
 import subscription from "../helpers/subscription";
+import { checkMaxSearchLimit, checkTrialStatus, updateSearchCount } from "../helpers/trialPeriod";
 
 const searchClient = instantMeiliSearch(SEARCHCLIENT_URL, "masterKey");
 
@@ -88,15 +88,12 @@ export default function SearchPage() {
   }
 
   //to check for trial and subscription
-  useEffect(() => {
     if (currentUserEmail !== null && currentUserEmail !== undefined && currentUserEmail !== "") {
       const payDate = localStorage.getItem("payDate");
-      const trial = localStorage.getItem("trial")
-      if (subscription(payDate) < 0 && trial === "expired") {
+      if (subscription(payDate) < 0 && !checkTrialStatus()) {
         window.location.href = "/payment";
       }
     }
-  }, []);
 
   //Exam type is left tab in desktop. in mobiles it is the only tab shown.
   useEffect(() => {
@@ -181,16 +178,9 @@ export default function SearchPage() {
       data = { query: e.target.value };
     }
 
-    if (performance.now() - parseFloat(localStorage.getItem("timeNow")) > 5000) {
-      localStorage.setItem("searchCount", parseInt(localStorage.getItem("searchCount")) + 1);
-    }
+    updateSearchCount();
 
-    localStorage.setItem("timeNow", performance.now());
-
-    if (localStorage.getItem("searchCount") > 100 && (currentUserEmail === "" || currentUserEmail === null)) {
-      localStorage.setItem("trial", "expired");
-      history.go("/auth");
-    }
+    if(!checkMaxSearchLimit()) history.go("/auth");
 
 
     if (materialType === "dns") {
