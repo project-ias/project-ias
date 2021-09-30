@@ -3,8 +3,6 @@ const cors = require("cors");
 const morgan = require("morgan");
 const { MeiliSearch } = require("meilisearch");
 const crypto = require("crypto");
-const shell = require('shelljs')
-const {returnMeiliSearchResults} = require('./meilisearch_results')
 const bcrypt = require('bcryptjs');
 const mongoose = require("mongoose");
 const passport = require("passport");
@@ -21,6 +19,9 @@ const { default: axios } = require("axios");
 const { slackApiUrl, BACKEND_URL, FRONTEND_URL, GOOGLE_CLIENT_SECRET, GOOGLE_CLIENT_ID, SUPERTOKENS_URI, SUPERTOKENS_APIKEY, subscriptionSheetID } = require("./config/keys");
 const gsheetURL = require("./helpers/gsheetURL");
 const validateCoupon = require("./helpers/coupon_validator");
+const premium = require("./apis/premium");
+const manualMeilisearch = require("./apis/manual_meilisearch");
+const cronjobs = require("./apis/run_cronjob");
 require("./config/passport")(passport);
 
 const mongoDB = "mongodb://127.0.0.1/project_ias";
@@ -184,74 +185,9 @@ app.post("/log", async (req, res) => {
   res.send("Added");
 });
 
-app.get("/cron_dhristi", (req, res) => {
-  res.send("Will Start Cronjob to fetch Dhristi Content");
-  try {
-    shell.exec("bash add_today_dhristi.sh");
-  } catch (err) {
-    console.log("Error in running bash", err);
-  }
-});
+app.use("/cronjobs", cronjobs);
 
-app.get("/cron_dns", (req, res) => {
-  res.send("Will Start Cronjob to fetch Rau DNS");
-  try {
-    shell.exec("bash add_today_dns.sh");
-  } catch (err) {
-    console.log("Error in running bash", err);
-  }
-});
-
-app.get("/cron_gsheet", (req, res) => {
-  res.send("Will Start Cronjob to sync Google Sheet changes");
-  try {
-    shell.exec("bash update_gsheets.sh");
-  } catch (err) {
-    console.log("Error in running bash", err);
-  }
-});
-
-app.post("/search_pyq", async (req, res) => {
-  const query = req.body.query;
-  const results = await returnMeiliSearchResults("pyqs", query, 50);
-  res.json(results);
-});
-
-app.post("/search_prelims", async (req, res) => {
-  const query = req.body.query;
-  const results = await returnMeiliSearchResults("prelims", query, 50);
-  res.json(results);
-});
-
-app.post("/search_secure", async (req, res) => {
-  const query = req.body.query;
-  const results = await returnMeiliSearchResults("secure", query, 50);
-  res.json(results);
-});
-
-app.post("/search_content", async (req, res) => {
-  const query = req.body.query;
-  const results = await returnMeiliSearchResults("content", query);
-  res.json(results);
-});
-
-app.post("/search_wfv", async (req, res) => {
-  const query = req.body.query;
-  const results = await returnMeiliSearchResults("wfv", query, 50);
-  res.json(results);
-});
-
-app.post("/search_vision", async (req, res) => {
-  const query = req.body.query;
-  const results = await returnMeiliSearchResults("vision", query, 50);
-  res.json(results);
-});
-
-app.post("/search_dns", async (req, res) => {
-  const query = req.body.query;
-  const results = await returnMeiliSearchResults("dns", query, 5);
-  res.json(results);
-});
+app.use("/search", manualMeilisearch);
 
 app.post("/user_mains", async (req, res) => {
   const userEmail = req.body.userEmail;
@@ -388,27 +324,7 @@ app.post("/payment", async (req,res) => {
   }
 })
 
-app.get("/subscriptionPlans", async (req, res) => {
-
-  try {
-    const payloadString = fs.readFileSync("./cached_data/sub_rates.json");
-    res.json(JSON.parse(payloadString));
-  }
-  catch (err) {
-    console.log(err);
-    res.status(500).send(err);
-  }
-
-})
-
-app.post("/coupon", async (req, res) => {
-
-  const coupon = req.body.coupon;
-  const payload = validateCoupon(coupon);
-  if(payload === null) res.status(400).send("coupon not found");
-  else res.json(payload);
-
-})
+app.use("/premium", premium);
 
 app.use(supertokens.errorHandler())
 
@@ -416,128 +332,6 @@ const PORT = process.env.PORT || 5000;
 app.listen(PORT);
 console.log(`APP Started on ${PORT}`);
 
-
-
-//OLD API. FOR REFERENCE ONLY
-
-// app.post("/signup", (req, res) => {
-//   const { errors, isValid } = validateLoginInput(req.body);
-
-//   // Check Validation
-//   if (!isValid) {
-//     return res.status(400).json(errors);
-//   }
-
-//   const email = req.body.email;
-//   const password = req.body.password;
-
-//   //hash password
-//   const salt = bcrypt.genSaltSync(10);
-//   const hash = bcrypt.hashSync(password, salt);
-
-//   UserModel.find({ email: email }, (err, data) => {
-//     if (err) {
-//       return res.status(400).json(errors);
-//     }
-
-//     if (data.length) {
-//       // if no matches, data is an empty array
-//       errors.email = "Already have an account with this email";
-//       return res.status(400).json(errors);
-//     } else {
-//       let newUser = new UserModel({
-//         email: email,
-//         password: hash,
-//         prelims: [],
-//         mains: [],
-//       });
-//       newUser
-//         .save()
-//         .then((item) => {
-//           const payload = {
-//             id: item.id,
-//             email: item.email,
-//             prelims: item.prelims,
-//             mains: item.mains,
-//           }; // Create JWT Payload
-//           // Sign Token
-//           jwt.sign(
-//             payload,
-//             keys.secretOrKey,
-//             { expiresIn: 86400 },
-//             (err, token) => {
-//               return res.json({
-//                 success: true,
-//                 token: "Bearer " + token,
-//               });
-//             }
-//           );
-//           //update on slack.
-//           // axios
-//           //   .post(slackApiUrl, { text: `${item.email} just signed in` })
-//           //   .then()
-//           //   .catch((err) =>
-//           //     console.log("Error while updating on slack : " + err)
-//           //   );
-//         })
-//         .catch((err) => {
-//           console.log("error in adding User ", err);
-//           return res.status(500).send("Try again");
-//         });
-//     }
-//   });
-// });
-
-// app.post("/signin", (req, res) => {
-//   const { errors, isValid } = validateLoginInput(req.body);
-
-//   // Check Validation
-//   if (!isValid) {
-//     return res.status(400).json(errors);
-//   }
-
-//   const email = req.body.email;
-//   const password = req.body.password;
-
-//   UserModel.findOne({ email: email }, (err, data) => {
-//     if (err) {
-//       return res.status(400).json(errors);
-//     }
-//     if (data !== null) {
-//       // if no matches, data is an empty array
-//       bcrypt.compare(password, data.password, (err, result) => {
-//         if (err) return res.status(500).send("Try again");
-
-//         if (result) {
-//           const payload = {
-//             id: data.id,
-//             email: data.email,
-//             prelims: data.prelims,
-//             mains: data.mains,
-//           }; // Create JWT Payload
-//           // Sign Token
-//           jwt.sign(
-//             payload,
-//             keys.secretOrKey,
-//             { expiresIn: 86400 },
-//             (err, token) => {
-//               return res.json({
-//                 success: true,
-//                 token: "Bearer " + token,
-//               });
-//             }
-//           );
-//         } else {
-//           errors.password = "Wrong Password";
-//           return res.status(400).json(errors);
-//         }
-//       });
-//     } else {
-//       errors.email = "No existing account";
-//       return res.status(400).json(errors);
-//     }
-//   });
-// });
 
 //updating existing users in mongoDB
 //db.users.update({payDate: {$exists: false}},{$set: {payDate: "2021-9-18"}},{multi:true})

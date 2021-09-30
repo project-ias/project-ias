@@ -7,12 +7,13 @@ export const FRONTEND_URL = ENV_FRONTEND_URL;
 export const SEARCHCLIENT_URL = "https://search.project-ias.com";
 export const GA_MEASUREMENT_ID = "G-QDM8PF4XX9";
 
-export const MAINS_URL = `${BACKEND_URL}/search_pyq`;
-export const PRELIMS_URL = `${BACKEND_URL}/search_prelims`;
-export const DNS_URL = `${BACKEND_URL}/search_dns`;
-export const CONTENT_URL = `${BACKEND_URL}/search_content`;
-export const WFV_URL = `${BACKEND_URL}/search_wfv`;
-export const VISION_URL = `${BACKEND_URL}/search_vision`;
+const MANUAL_SEARCH_URL = `${BACKEND_URL}/search`;
+export const MAINS_URL = `${MANUAL_SEARCH_URL}/search_pyq`;
+export const PRELIMS_URL = `${MANUAL_SEARCH_URL}/search_prelims`;
+export const DNS_URL = `${MANUAL_SEARCH_URL}/search_dns`;
+export const CONTENT_URL = `${MANUAL_SEARCH_URL}/search_content`;
+export const WFV_URL = `${MANUAL_SEARCH_URL}/search_wfv`;
+export const VISION_URL = `${MANUAL_SEARCH_URL}/search_vision`;
 
 export const LOG_URL = `${BACKEND_URL}/log`;
 
@@ -26,14 +27,9 @@ export const USER_MAINS_URL = `${BACKEND_URL}/user_mains`;
 
 export const TOPICS_URL = `${BACKEND_URL}/topics`;
 
-export const SUBSCRIPTION_PLANS_URL = `${BACKEND_URL}/subscriptionPlans`;
-export const COUPON_URL = `${BACKEND_URL}/coupon`;
+const PREMIUM_URL = `${BACKEND_URL}/premium`
+export const SUBSCRIPTION_PLANS_URL = `${PREMIUM_URL}/subscriptionPlans`;
+export const COUPON_URL = `${PREMIUM_URL}/coupon`;
 
 export const TELEGRAM_URL = "https://t.me/joinchat/TlvHlSsdL2wwMDE9";
 export const INSTA_URL = "https://www.instagram.com/project.ias/";
-
-//export const INSTAMOJO_URL = "https://imjo.in/tucwem";
-export const INSTAMOJO_URL = "https://test.instamojo.com/@flairstudios828049/l2a1c66d63371402ba167efc1a04dd26f/";
-
-//export const RAZOR_URL = ["https://rzp.io/l/I88zAeEMgs", "https://rzp.io/l/xyIZhYH", "https://rzp.io/l/LlX14ON"];
-export const RAZOR_URL = ["https://rzp.io/l/Project-IAS-1M", "https://rzp.io/l/Project-IAS-6M", "https://rzp.io/l/Project-IAS-12M"];
