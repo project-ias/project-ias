@@ -1,0 +1,15 @@
+{
+  "private": true,
+  "workspaces": [
+    "frontend",
+    "backend"
+  ],
+  "scripts": {
+    "start": "concurrently \"yarn start-frontend\" \"yarn start-backend\"",
+    "start-frontend": "yarn --cwd frontend start",
+    "start-backend": "yarn --cwd backend dev"
+  },
+  "devDependencies": {
+    "concurrently": "^6.2.2"
+  }
+}
