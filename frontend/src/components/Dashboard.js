@@ -1,17 +1,21 @@
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import "@fortawesome/free-brands-svg-icons";
 import {
   faInstagram,
   faTelegramPlane,
 } from "@fortawesome/free-brands-svg-icons";
 import { faTimes } from "@fortawesome/free-solid-svg-icons";
-import { INSTA_URL, TELEGRAM_URL, TOPICS_URL } from "../constants/constants";
-import { useEffect, useState, useRef } from "react";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import axios from "axios";
-import TreeMenu from "./TreeMenu";
+import { useEffect, useRef, useState } from "react";
 import Loader from "react-loader-spinner";
+import { INSTA_URL, TELEGRAM_URL, TOPICS_URL } from "../constants/constants";
 import subscription from "../helpers/subscription";
-import { checkMaxSearchLimit, checkTrialStatus, trialSearchLeft } from "../helpers/trialPeriod";
+import {
+  checkMaxSearchLimit,
+  checkTrialStatus,
+  trialSearchLeft,
+} from "../helpers/trialPeriod";
+import TreeMenu from "./TreeMenu";
 
 const Dashboard = (props) => {
   const node = useRef();
@@ -19,7 +23,7 @@ const Dashboard = (props) => {
   const [menu, setMenu] = useState([]);
   const [subsMessage, setSubsMessage] = useState("");
 
-  // hide if clicked outside the side menu bar 
+  // hide if clicked outside the side menu bar
   const handleClick = (e) => {
     // if mouse is IN the node , then nothing
     if (node.current.contains(e.target)) {
@@ -30,25 +34,27 @@ const Dashboard = (props) => {
   };
 
   useEffect(() => {
-    // 1. check for subscription status 
-    // 2. Get topics from backend TOPIC_URL 
-    // 3. attach addEventListener to mousedown events outside the sidebar node 
+    // 1. check for subscription status
+    // 2. Get topics from backend TOPIC_URL
+    // 3. attach addEventListener to mousedown events outside the sidebar node
 
     const payDate = localStorage.getItem("payDate");
     const subStatus = subscription(payDate) > 0;
 
     checkMaxSearchLimit(); //updating trial searchCount
 
-    if (checkTrialStatus() && !subStatus){
+    if (checkTrialStatus() && !subStatus) {
       setSubsMessage(trialSearchLeft() + " searches left for trial.");
-    }
-    else if (subStatus){
-      setSubsMessage(`Subscription available till : ${payDate.split("-").reverse().join("-")}`);
-    }
-    else {
+    } else if (subStatus) {
+      setSubsMessage(
+        `Subscription available till : ${payDate
+          .split("-")
+          .reverse()
+          .join("-")}`
+      );
+    } else {
       window.location.href = "/payment";
     }
-
 
     axios
       .get(TOPICS_URL)
@@ -66,7 +72,6 @@ const Dashboard = (props) => {
     // if NO second argument in useEffect => always run
     // if [var1, var2] are the second argument in useEffect => run only on change of var1 or var2 value
   }, []);
-
 
   if (userEmail === null || userEmail === undefined || userEmail === "")
     userEmail = "User";

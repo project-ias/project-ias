@@ -2,7 +2,7 @@ name: Hitting the cronjob endpoint every day at 15:00 UTC(20:30 IST) to udpate D
 
 on:
   schedule:
-    - cron: '0 15 * * *'
+    - cron: "0 15 * * *"
 jobs:
   build:
     name: Send a GET request via wget

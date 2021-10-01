@@ -1,8 +1,8 @@
+import { parse } from "node-html-parser";
 import React from "react";
 import ReactHtmlParser from "react-html-parser";
-import { parse } from "node-html-parser";
-import "react-loader-spinner/dist/loader/css/react-spinner-loader.css";
 import Loader from "react-loader-spinner";
+import "react-loader-spinner/dist/loader/css/react-spinner-loader.css";
 
 function removePrevNext(htmlString) {
   let parsedHtml = parse(htmlString);

@@ -18,14 +18,21 @@ export default function HitVision(props) {
       ) : (
         <div>
           <p>
-            <strong>Topic in News:</strong> <br/>
-            <a className="vision-links"
-               href={props.hit.link}
-               target="_blank"
-               rel="noreferrer">{props.hit.topic}</a>
+            <strong>Topic in News:</strong> <br />
+            <a
+              className="vision-links"
+              href={props.hit.link}
+              target="_blank"
+              rel="noreferrer"
+            >
+              {props.hit.topic}
+            </a>
           </p>
           <div>
-              <strong>Source:</strong> {`${props.hit.subject} ${props.hit.month ? `(${props.hit.month})` : ""}`}
+            <strong>Source:</strong>{" "}
+            {`${props.hit.subject} ${
+              props.hit.month ? `(${props.hit.month})` : ""
+            }`}
           </div>
         </div>
       )}

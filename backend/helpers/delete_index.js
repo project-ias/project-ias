@@ -1,4 +1,4 @@
-const { MeiliSearch } = require("meilisearch")
+const { MeiliSearch } = require("meilisearch");
 const keys = require("../config/keys");
 
 const client = new MeiliSearch({
@@ -6,8 +6,6 @@ const client = new MeiliSearch({
   apiKey: "masterKey",
 });
 
+const indexName = "pyqs";
 
-const indexName = "pyqs"
-
-client.deleteIndex(indexName)
-
+client.deleteIndex(indexName);

@@ -1,46 +1,48 @@
-import React, { useEffect, useState } from "react";
-import axios from "axios";
-import {
-  LOG_URL,
-  CONTENT_URL,
-  DNS_URL,
-  SEARCHCLIENT_URL,
-  WFV_URL,
-  VISION_URL,
-} from "../constants/constants";
-import {
-  InstantSearch,
-  SearchBox,
-  Hits,
-  Configure,
-  Stats,
-  Pagination,
-} from "react-instantsearch-dom";
-import { instantMeiliSearch } from "@meilisearch/instant-meilisearch";
-import { useHistory, useLocation } from "react-router-dom";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import "@fortawesome/free-solid-svg-icons";
 import { faArrowUp, faBars } from "@fortawesome/free-solid-svg-icons";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { instantMeiliSearch } from "@meilisearch/instant-meilisearch";
+import axios from "axios";
+import React, { useEffect, useState } from "react";
+import {
+  Configure,
+  Hits,
+  InstantSearch,
+  Pagination,
+  SearchBox,
+  Stats,
+} from "react-instantsearch-dom";
+import { useHistory, useLocation } from "react-router-dom";
 import Session from "supertokens-auth-react/recipe/session";
 import { signOut } from "supertokens-auth-react/recipe/thirdpartyemailpassword";
+import {
+  CONTENT_URL,
+  DNS_URL,
+  LOG_URL,
+  SEARCHCLIENT_URL,
+  VISION_URL,
+  WFV_URL,
+} from "../constants/constants";
+import subscription from "../helpers/subscription";
+import {
+  checkMaxSearchLimit,
+  checkTrialStatus,
+  updateSearchCount,
+} from "../helpers/trialPeriod";
+import useWindowDimensions from "../helpers/WindowDimensions.js";
 import searchLogo from "../logo.svg";
-
-import HitDrishti from "./HitComponents/HitDrishti";
+import Dashboard from "./Dashboard";
 import HitDNS from "./HitComponents/HitDNS";
-import HitPyqs from "./HitComponents/HitPyqs";
+import HitDrishti from "./HitComponents/HitDrishti";
 import HitPrelims from "./HitComponents/HitPrelims";
+import HitPyqs from "./HitComponents/HitPyqs";
 import HitSecure from "./HitComponents/HitSecure";
 import HitVision from "./HitComponents/HitVision";
 import HitWFV from "./HitComponents/HitWFV";
-import Dashboard from "./Dashboard";
-import useWindowDimensions from "../helpers/WindowDimensions.js";
-import subscription from "../helpers/subscription";
-import { checkMaxSearchLimit, checkTrialStatus, updateSearchCount } from "../helpers/trialPeriod";
 
 const searchClient = instantMeiliSearch(SEARCHCLIENT_URL, "masterKey");
 
 export default function SearchPage() {
-
   const history = useHistory();
   const location = useLocation();
 
@@ -54,7 +56,9 @@ export default function SearchPage() {
   const [content, setContent] = useState([]);
   const [dnsContent, setDnsContent] = useState([]);
   const [examType, setExamType] = useState(urlParams.get("exam") || "pyqs");
-  const [materialType, setMaterialType] = useState(urlParams.get("material") || "content");
+  const [materialType, setMaterialType] = useState(
+    urlParams.get("material") || "content"
+  );
   const [query, setQuery] = useState("");
   const [showMenu, setShowMenu] = useState(false);
 
@@ -88,19 +92,27 @@ export default function SearchPage() {
   }
 
   //to check for trial and subscription
-    if (currentUserEmail !== null && currentUserEmail !== undefined && currentUserEmail !== "") {
-      const payDate = localStorage.getItem("payDate");
-      if (subscription(payDate) < 0 && !checkTrialStatus()) {
-        window.location.href = "/payment";
-      }
+  if (
+    currentUserEmail !== null &&
+    currentUserEmail !== undefined &&
+    currentUserEmail !== ""
+  ) {
+    const payDate = localStorage.getItem("payDate");
+    if (subscription(payDate) < 0 && !checkTrialStatus()) {
+      window.location.href = "/payment";
     }
+  }
 
   //Exam type is left tab in desktop. in mobiles it is the only tab shown.
   useEffect(() => {
     if (width > 1000) {
       var urlParams = new URLSearchParams(location.search);
       var tempExamMode = urlParams.get("exam");
-      if (tempExamMode !== "pyqs" && tempExamMode !== "prelims_sheet" && tempExamMode !== "secure") {
+      if (
+        tempExamMode !== "pyqs" &&
+        tempExamMode !== "prelims_sheet" &&
+        tempExamMode !== "secure"
+      ) {
         setExamType("pyqs");
         setMaterialType(tempExamMode || "content");
       }
@@ -110,7 +122,7 @@ export default function SearchPage() {
   useEffect(() => {
     try {
       var urlParams = new URLSearchParams(location.search);
-      setQuery(urlParams.get('query'));
+      setQuery(urlParams.get("query"));
     } catch (err) {
       console.log(err);
     }
@@ -144,8 +156,7 @@ export default function SearchPage() {
         .catch((err) => {
           console.log("err is ", err);
         });
-    }
-    else {
+    } else {
       axios
         .post(CONTENT_URL, data)
         .then((res) => {
@@ -156,15 +167,14 @@ export default function SearchPage() {
           console.log("err is ", err);
         });
     }
-
   }, [materialType]);
 
   useEffect(() => {
     var urlParams = new URLSearchParams(location.search);
-    urlParams.set('exam', examType);
-    urlParams.set('material', materialType);
+    urlParams.set("exam", examType);
+    urlParams.set("material", materialType);
     history.push(`/?${urlParams || ""}`);
-  }, [examType, materialType])
+  }, [examType, materialType]);
 
   function handleChange(e) {
     // prevent default can be removed?
@@ -180,8 +190,7 @@ export default function SearchPage() {
 
     updateSearchCount();
 
-    if(!checkMaxSearchLimit()) history.go("/auth");
-
+    if (!checkMaxSearchLimit()) history.go("/auth");
 
     if (materialType === "dns") {
       axios
@@ -210,8 +219,7 @@ export default function SearchPage() {
         .catch((err) => {
           console.log("err is ", err);
         });
-    }
-    else {
+    } else {
       axios
         .post(CONTENT_URL, data)
         .then((res) => {
@@ -241,7 +249,7 @@ export default function SearchPage() {
       });
 
     var urlParams = new URLSearchParams(location.search);
-    urlParams.set('query', e.target.value || "");
+    urlParams.set("query", e.target.value || "");
     history.push(`/?${urlParams || ""}`);
   }
 
@@ -313,15 +321,14 @@ export default function SearchPage() {
         <div className="current-user">
           <button
             className="current-user-auth-btn"
-            onClick={() => window.location.href = "/payment"}
+            onClick={() => (window.location.href = "/payment")}
           >
             Premium
           </button>
-          <button
-            className="current-user-auth-btn"
-            onClick={onLogout}
-          >
-            {(currentUserEmail !== null && currentUserEmail !== "") ? "Log Out" : "Log In"}
+          <button className="current-user-auth-btn" onClick={onLogout}>
+            {currentUserEmail !== null && currentUserEmail !== ""
+              ? "Log Out"
+              : "Log In"}
           </button>
         </div>
       </div>
@@ -342,70 +349,9 @@ export default function SearchPage() {
             <img src={searchLogo} className="search-logo" alt="search-logo" />
           }
         />
-        {width <= 1000 && <div className="mobile-view">
-          {pagination}
-          <div className="types">
-            <div
-              className={`type ${examType === "pyqs" && "current"}`}
-              onClick={() => setExamType("pyqs")}
-            >
-              Mains {examType === "pyqs" ? stats : null}
-            </div>
-            <div
-              className={`type ${examType === "prelims_sheet" && "current"}`}
-              onClick={() => setExamType("prelims_sheet")}
-            >
-              Prelims {examType === "prelims_sheet" ? stats : null}
-            </div>
-            <div
-              className={`type ${examType === "secure" && "current"}`}
-              onClick={() => setExamType("secure")}
-            >
-              Secure {examType === "secure" ? stats : null}
-            </div>
-            <div
-              className={`type ${examType === "content" && "current"}`}
-              onClick={() => setExamType("content")}
-            >
-              Read
-            </div>
-            <div
-              className={`type ${examType === "dns" && "current"}`}
-              onClick={() => setExamType("dns")}
-            >
-              DNS
-            </div>
-          </div>
-
-          {examType === "content" || examType === "wfv" || examType === "vision" ? (
-            <div className="sub-types">
-              <div
-                className={`type ${examType === "wfv" && "current"}`}
-                onClick={() => setExamType("wfv")}
-              >
-                Weekly Focus Vision
-              </div>
-              <div
-                className={`type ${examType === "content" && "current"}`}
-                onClick={() => setExamType("content")}
-              >
-                Drishti
-              </div>
-              <div
-                className={`type ${examType === "vision" && "current"}`}
-                onClick={() => setExamType("vision")}
-              >
-                Vision Monthly
-              </div>
-            </div>
-          ) : null}
-
-          <Hits hitComponent={ReturnHitComponent(examType)} />
-          {pagination}
-
-        </div>}
-        {width > 1000 && <div className="results">
-          <div className="division">
+        {width <= 1000 && (
+          <div className="mobile-view">
+            {pagination}
             <div className="types">
               <div
                 className={`type ${examType === "pyqs" && "current"}`}
@@ -425,91 +371,164 @@ export default function SearchPage() {
               >
                 Secure {examType === "secure" ? stats : null}
               </div>
-            </div>
-
-            {pagination}
-
-            <Hits hitComponent={ReturnHitComponent(examType)} />
-
-            {pagination}
-          </div>
-
-          <div className="division">
-            <div className="types">
               <div
-                className={`type ${materialType === "dns" && "current"}`}
-                onClick={() => setMaterialType("dns")}
-              >
-                DNS
-              </div>
-              <div
-                className={`type ${(materialType === "content" || materialType === "wfv" || materialType === "vision") &&
-                  "current"
-                  }`}
-                onClick={() => setMaterialType("content")}
+                className={`type ${examType === "content" && "current"}`}
+                onClick={() => setExamType("content")}
               >
                 Read
               </div>
+              <div
+                className={`type ${examType === "dns" && "current"}`}
+                onClick={() => setExamType("dns")}
+              >
+                DNS
+              </div>
             </div>
-            {materialType === "content" || materialType === "wfv" || materialType === "vision" ? (
+
+            {examType === "content" ||
+            examType === "wfv" ||
+            examType === "vision" ? (
               <div className="sub-types">
                 <div
-                  className={`type ${materialType === "wfv" && "current"}`}
-                  onClick={() => setMaterialType("wfv")}
+                  className={`type ${examType === "wfv" && "current"}`}
+                  onClick={() => setExamType("wfv")}
                 >
                   Weekly Focus Vision
                 </div>
                 <div
-                  className={`type ${materialType === "content" && "current"}`}
-                  onClick={() => setMaterialType("content")}
+                  className={`type ${examType === "content" && "current"}`}
+                  onClick={() => setExamType("content")}
                 >
                   Drishti
                 </div>
                 <div
-                  className={`type ${materialType === "vision" && "current"}`}
-                  onClick={() => setMaterialType("vision")}
+                  className={`type ${examType === "vision" && "current"}`}
+                  onClick={() => setExamType("vision")}
                 >
                   Vision Monthly
                 </div>
               </div>
             ) : null}
-            <div>
-              {materialType === "dns"
-                && dnsContent.map((hit) => (
-                  <div className="card-result">
-                    <HitDNS hit={hit} />
+
+            <Hits hitComponent={ReturnHitComponent(examType)} />
+            {pagination}
+          </div>
+        )}
+        {width > 1000 && (
+          <div className="results">
+            <div className="division">
+              <div className="types">
+                <div
+                  className={`type ${examType === "pyqs" && "current"}`}
+                  onClick={() => setExamType("pyqs")}
+                >
+                  Mains {examType === "pyqs" ? stats : null}
+                </div>
+                <div
+                  className={`type ${
+                    examType === "prelims_sheet" && "current"
+                  }`}
+                  onClick={() => setExamType("prelims_sheet")}
+                >
+                  Prelims {examType === "prelims_sheet" ? stats : null}
+                </div>
+                <div
+                  className={`type ${examType === "secure" && "current"}`}
+                  onClick={() => setExamType("secure")}
+                >
+                  Secure {examType === "secure" ? stats : null}
+                </div>
+              </div>
+
+              {pagination}
+
+              <Hits hitComponent={ReturnHitComponent(examType)} />
+
+              {pagination}
+            </div>
+
+            <div className="division">
+              <div className="types">
+                <div
+                  className={`type ${materialType === "dns" && "current"}`}
+                  onClick={() => setMaterialType("dns")}
+                >
+                  DNS
+                </div>
+                <div
+                  className={`type ${
+                    (materialType === "content" ||
+                      materialType === "wfv" ||
+                      materialType === "vision") &&
+                    "current"
+                  }`}
+                  onClick={() => setMaterialType("content")}
+                >
+                  Read
+                </div>
+              </div>
+              {materialType === "content" ||
+              materialType === "wfv" ||
+              materialType === "vision" ? (
+                <div className="sub-types">
+                  <div
+                    className={`type ${materialType === "wfv" && "current"}`}
+                    onClick={() => setMaterialType("wfv")}
+                  >
+                    Weekly Focus Vision
                   </div>
-                ))}
-              {materialType === "content"
-                && content.map((hit) => (
-                  <div className="card-result">
-                    <HitDrishti hit={hit} />
+                  <div
+                    className={`type ${
+                      materialType === "content" && "current"
+                    }`}
+                    onClick={() => setMaterialType("content")}
+                  >
+                    Drishti
                   </div>
-                ))}
-              {materialType === "wfv"
-                && content.map((hit) => (
-                  <div className="card-result">
-                    <HitWFV hit={hit} />
+                  <div
+                    className={`type ${materialType === "vision" && "current"}`}
+                    onClick={() => setMaterialType("vision")}
+                  >
+                    Vision Monthly
                   </div>
-                ))}
-              {materialType === "vision"
-                && content.map((hit) => (
-                  <div className="card-result">
-                    <HitVision hit={hit} />
-                  </div>
-                ))}
+                </div>
+              ) : null}
+              <div>
+                {materialType === "dns" &&
+                  dnsContent.map((hit) => (
+                    <div className="card-result">
+                      <HitDNS hit={hit} />
+                    </div>
+                  ))}
+                {materialType === "content" &&
+                  content.map((hit) => (
+                    <div className="card-result">
+                      <HitDrishti hit={hit} />
+                    </div>
+                  ))}
+                {materialType === "wfv" &&
+                  content.map((hit) => (
+                    <div className="card-result">
+                      <HitWFV hit={hit} />
+                    </div>
+                  ))}
+                {materialType === "vision" &&
+                  content.map((hit) => (
+                    <div className="card-result">
+                      <HitVision hit={hit} />
+                    </div>
+                  ))}
+              </div>
             </div>
           </div>
-        </div>}
+        )}
       </InstantSearch>
-      <a href="#top" className="back-to-top"><FontAwesomeIcon icon={faArrowUp} /></a>
+      <a href="#top" className="back-to-top">
+        <FontAwesomeIcon icon={faArrowUp} />
+      </a>
     </div>
   );
 }
-
-
-
-
 
 // checkTrialSubscriptiononMount()
 // loadSideDashboard()

@@ -1,151 +1,151 @@
 .login-page {
-    width: 100vw;
-    height: auto;
+  width: 100vw;
+  height: auto;
 }
 
 .login-back-btn {
-    position: absolute;
-    top: 0;
-    left: 0;
-    margin: 3rem 3.5rem;
-    padding: .7rem 1.5rem;
-    font-size: 1rem;
-    background-color: #fefaee;
-    color: #1E212D;
-    border: none;
-    border-radius: 7px;
-    box-shadow: 0px 6px 12px rgba(0, 0, 0, 0.10);
+  position: absolute;
+  top: 0;
+  left: 0;
+  margin: 3rem 3.5rem;
+  padding: 0.7rem 1.5rem;
+  font-size: 1rem;
+  background-color: #fefaee;
+  color: #1e212d;
+  border: none;
+  border-radius: 7px;
+  box-shadow: 0px 6px 12px rgba(0, 0, 0, 0.1);
 }
 
 .login-box {
-    margin: 20vh auto;
-    min-height: 60vh;
-    height: auto;
-    width: 40rem;
-    background-color: #fefaee;
-    border-radius: 5px;
-    box-shadow: 0px 6px 12px rgba(0, 0, 0, 0.20);
-    display: flex;
-    flex-direction: column;
-    align-items: center;
+  margin: 20vh auto;
+  min-height: 60vh;
+  height: auto;
+  width: 40rem;
+  background-color: #fefaee;
+  border-radius: 5px;
+  box-shadow: 0px 6px 12px rgba(0, 0, 0, 0.2);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
 
-    @include sm {
-        width: 80vw;
-    }
+  @include sm {
+    width: 80vw;
+  }
 }
 
 .login-heading {
-    text-align: center;
-    padding: 1.5rem 1rem .7rem 1rem;
-    letter-spacing: 3px;
-    font-size: 3.2rem;
+  text-align: center;
+  padding: 1.5rem 1rem 0.7rem 1rem;
+  letter-spacing: 3px;
+  font-size: 3.2rem;
 
-    @include sm {
-        padding: 1rem 3rem;
-        font-size: 2.5rem;
-    }
+  @include sm {
+    padding: 1rem 3rem;
+    font-size: 2.5rem;
+  }
 }
 
 .login-toggle {
-    display: flex;
-    justify-content: center;
-    padding-bottom: 1rem;
+  display: flex;
+  justify-content: center;
+  padding-bottom: 1rem;
 
-    &-text {
-        padding: 0 8px;
+  &-text {
+    padding: 0 8px;
+  }
+
+  &-link {
+    color: blue;
+
+    &:hover {
+      cursor: pointer;
+      color: #3c8dad;
     }
+  }
 
-    &-link {
-        color: blue;
-
-        &:hover {
-            cursor: pointer;
-            color: #3C8DAD;
-        }
-    }
-
-    @include sm {
-        font-size: 1rem;
-    }
+  @include sm {
+    font-size: 1rem;
+  }
 }
 
 .input-contain {
-    position: relative;
-    margin: 1.5rem;
+  position: relative;
+  margin: 1.5rem;
 }
 
 .login-input {
-    width: 25rem;
-    height: 2.5rem;
-    border: 2px solid #555;
-    border-radius: 7px;
-    padding: 0.5rem 1.3rem;
-    font-size: 1.2rem;
-    background-color: #fefaee;
+  width: 25rem;
+  height: 2.5rem;
+  border: 2px solid #555;
+  border-radius: 7px;
+  padding: 0.5rem 1.3rem;
+  font-size: 1.2rem;
+  background-color: #fefaee;
 
-    @include sm {
-        width: 40vw;
-        padding: 0.4rem 0.8rem;
-        font-size: 1rem;
-        height: 2rem;
-    }
+  @include sm {
+    width: 40vw;
+    padding: 0.4rem 0.8rem;
+    font-size: 1rem;
+    height: 2rem;
+  }
 
-    &:focus {
-        outline: none;
-        border-color: #3b70ed;
-    }
+  &:focus {
+    outline: none;
+    border-color: #3b70ed;
+  }
 }
 
 .placeholder-label {
-    position: absolute;
-    top: 0;
-    left: 0;
-    transform: translateY(-50%);
-    border: 3px solid transparent;
-    background-color: #fefaee;
-    pointer-events: none;
-    margin-left: 1.3rem;
-    font-size: 1.1rem;
-    color: #555;
-    font-size: 1rem;
+  position: absolute;
+  top: 0;
+  left: 0;
+  transform: translateY(-50%);
+  border: 3px solid transparent;
+  background-color: #fefaee;
+  pointer-events: none;
+  margin-left: 1.3rem;
+  font-size: 1.1rem;
+  color: #555;
+  font-size: 1rem;
 
-    @include sm {
-        font-size: .7rem;
-    }
+  @include sm {
+    font-size: 0.7rem;
+  }
 }
 
 input:focus + .placeholder-label .placeholder-text {
-    color: #3b70ed;
+  color: #3b70ed;
 }
 
 .error-div {
-    font-size: 1rem;
-    color: red;
-    margin: .5rem 0 0 1rem;
+  font-size: 1rem;
+  color: red;
+  margin: 0.5rem 0 0 1rem;
 
-    @include sm {
-        font-size: 0.8rem;
-        margin: .3rem 0 0 .8rem;
-    }
+  @include sm {
+    font-size: 0.8rem;
+    margin: 0.3rem 0 0 0.8rem;
+  }
 }
 
 .login-submit {
-    background-color: #FCA652;
-    color: #1E212D;
-    font-weight: bolder;
-    width: 20rem;
-    border: 2px solid black;
-    box-shadow: 0px 6px 12px rgba(0, 0, 0, 0.05);
-    border-radius: 7px;
-    padding: 1rem 1.3rem;
-    font-size: 1.3rem;
-    border: none;
+  background-color: #fca652;
+  color: #1e212d;
+  font-weight: bolder;
+  width: 20rem;
+  border: 2px solid black;
+  box-shadow: 0px 6px 12px rgba(0, 0, 0, 0.05);
+  border-radius: 7px;
+  padding: 1rem 1.3rem;
+  font-size: 1.3rem;
+  border: none;
 
-    @include sm {
-        width: 8rem;
-    }
+  @include sm {
+    width: 8rem;
+  }
 
-    &:hover {
-        background-color: #C87941;
-    }
+  &:hover {
+    background-color: #c87941;
+  }
 }

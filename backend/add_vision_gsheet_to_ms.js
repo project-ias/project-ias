@@ -40,14 +40,14 @@ async function sheetToJson(sheetId, sheetName) {
   var subject, month, link;
   for (var i = 1; i < mainArr.length; i++) {
     if (mainArr[i][0] == undefined || mainArr[i][3] == undefined) continue;
-    subject = (mainArr[i][1] == undefined) ? "" : mainArr[i][1];
-    month = (mainArr[i][2] == undefined) ? "" : mainArr[i][2];
-    link = (mainArr[i][3] == undefined) ? "" : mainArr[i][3];
+    subject = mainArr[i][1] == undefined ? "" : mainArr[i][1];
+    month = mainArr[i][2] == undefined ? "" : mainArr[i][2];
+    link = mainArr[i][3] == undefined ? "" : mainArr[i][3];
     const tempObject = {
       topic: mainArr[i][0],
       subject: subject,
       month: month,
-      link: link
+      link: link,
     };
     convertedArr.push(tempObject);
   }
