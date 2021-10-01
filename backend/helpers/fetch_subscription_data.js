@@ -1,6 +1,6 @@
 const { default:axios } = require("axios");
 const fs = require("fs");
-const { subscriptionSheetID, sheetApi } = require("../config/keys");
+const { subscriptionSheetID } = require("../config/keys");
 const gsheetURL = require("./gsheetURL");
 require("dotenv").config();
 
@@ -43,7 +43,7 @@ const fetchSubscriptionDataFromGsheet = async () => {
 
     cacheSubscriptionRates();
     cacheSubscriptionCoupons();
-    
+
 }
 
 fetchSubscriptionDataFromGsheet();

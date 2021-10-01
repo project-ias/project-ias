@@ -1,5 +1,6 @@
 const express = require('express');
 const fs = require('fs');
+const validateCoupon = require("../helpers/coupon_validator");
 
 const app = express.Router();
 
@@ -13,9 +14,9 @@ app.get("/subscriptionPlans", async (req, res) => {
       console.log(err);
       res.status(500).send(err);
     }
-  
+
 })
-  
+
 app.post("/coupon", async (req, res) => {
 
     const coupon = req.body.coupon;

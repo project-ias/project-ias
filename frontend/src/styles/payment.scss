@@ -1,182 +1,191 @@
 .payment {
+	&-card {
+		background-color: #fefaee;
+		margin: 10vh 0 5vh 0;
+		min-height: 60vh;
+		width: 38rem;
+		border-radius: 5px;
+		display: flex;
+		flex-direction: column;
+		align-items: center;
+		padding: 1rem 0.2rem;
+		box-shadow: 0px 6px 12px rgba(0, 0, 0, 0.05);
 
-    &-card {
-        background-color: #fefaee;
-        margin: 10vh 0 5vh 0;
-        min-height: 60vh;
-        width: 38rem;
-        border-radius: 5px;
-        display: flex;
-        flex-direction: column;
-        align-items: center;
-        padding: 1rem .2rem;
-        box-shadow: 0px 6px 12px rgba(0, 0, 0, 0.05);
+		@include sm {
+			width: 20rem;
+			margin-top: 15vh;
+		}
+	}
 
-        @include sm {
-            width: 20rem;
-            margin-top: 15vh;
-        }
-    }
+	&-logo {
+		width: 5rem;
+		margin: 1.5rem 0 0.5rem 0;
 
-    &-logo {
-        width: 5rem;
-        margin: 1.5rem 0 .5rem 0;
+		@include sm {
+			width: 3rem;
+		}
+	}
 
-        @include sm {
-            width: 3rem;
-        }
-    }
+	&-heading {
+		font-size: 2.5rem;
+		letter-spacing: 4px;
 
-    &-heading {
-        font-size: 2.5rem;
-        letter-spacing: 4px;
+		@include sm {
+			font-size: 1.5rem;
+		}
+	}
 
-        @include sm {
-            font-size: 1.5rem;
-        }
-    }
+	&-benefit {
+		&-list {
+			list-style: none;
+			padding: 0 2rem 0 2.2rem;
+		}
 
-    &-benefit {
+		&-item {
+			padding: 0.5rem 0;
+			font-size: 1.5rem;
 
-        &-list {
-            list-style: none;
-            padding: 0 2rem 0 2.2rem;
-        }
+			@include sm {
+				font-size: 1.3rem;
+			}
+		}
+	}
 
-        &-item {
-            padding: 0.5rem 0;
-            font-size: 1.5rem;
+	&-topbar {
+		position: absolute;
+		top: 1rem;
+		left: 0;
+		width: 100vw;
+		display: flex;
+		justify-content: space-between;
+	}
 
-            @include sm {
-                font-size: 1.3rem;
-            }
-        }
-        
-    }
+	&-rate {
+		color: #1e212d;
+		width: 30rem;
 
-    &-topbar {
-        position: absolute;
-        top: 1rem;
-        left: 0;
-        width: 100vw;
-        display: flex;
-        justify-content: space-between;
-    }
+		@include sm {
+			width: 18rem;
+			font-size: 1rem;
+		}
 
-    &-rate {
-        color: #1E212D;
-        width: 30rem;
+		&-slider {
+			width: 30rem;
 
-        @include sm {
-            width: 18rem;
-            font-size: 1rem;
-        }
+			@include sm {
+				width: 18rem;
+			}
+		}
 
-        &-slider {
-            width: 30rem;
+		&-label {
+			display: flex;
+			justify-content: space-between;
 
-            @include sm {
-                width: 18rem;
-            }
-        }
+			.left {
+				text-align: left;
+			}
 
-        &-label {
-            display: flex;
-            justify-content: space-between;
+			.center {
+				text-align: center;
+			}
 
-            .left {
-                text-align: left;
-            }
+			.right {
+				text-align: right;
+			}
 
-            .center {
-                text-align: center;
-            }
+			.bold {
+				font-weight: bolder;
+			}
+		}
+	}
 
-            .right {
-                text-align: right;
-            }
+	&-links-div {
+		display: flex;
+		justify-content: center;
+	}
 
-            .bold {
-                font-weight: bolder;
-            }
-        }
-    }
+	&-button {
+		margin: 2.5rem 1rem 1rem 1rem;
+		background-color: #ffebc9;
+		padding: 0.7rem 1.5rem;
+		border-radius: 5px;
 
-    &-links-div {
-        display: flex;
-        justify-content: center;
-    }
+		@include sm {
+			margin: 1rem 0.5rem;
+		}
 
-    &-button {
-        margin: 2.5rem 1rem 1rem 1rem;
-        background-color: #FFEBC9;
-        padding: .7rem 1.5rem;
-        border-radius: 5px;
+		&-link {
+			color: #1e212d;
+			text-decoration: none;
+			font-weight: bolder;
+			font-size: 1.5rem;
+			letter-spacing: 2px;
 
-        @include sm {
-            margin: 1rem 0.5rem;
-        }
+			@include sm {
+				font-size: 1rem;
+			}
+		}
 
-        &-link {
-            color: #1E212D;
-            text-decoration: none;
-            font-weight: bolder;
-            font-size: 1.5rem;
-            letter-spacing: 2px;
+		&-green {
+			background-color: #57cc99;
+		}
+	}
 
-            @include sm {
-                font-size: 1rem;
-            }
-        }
+	&-coupon {
+		display: flex;
+		align-items: center;
+		margin-top: 2rem;
 
-        &-green {
-            background-color: #57CC99;
-        }
-    }
+		&-input {
+			height: 2rem;
+			align-self: center;
+			padding: 0.5rem 0.8rem;
+			border-radius: 5px 0 0 5px;
+			border: 2px solid #57cc99;
+			background-color: #ffebc9;
+			font-size: 1rem;
 
-    &-coupon {
-        display: flex;
-        align-items: center;
-        margin-top: 2rem;
+			&:focus {
+				border: 2px solid #57cc99;
+				outline: none;
+			}
 
-        &-input {
-            height: 2rem;
-            align-self: center;
-            padding: .5rem .8rem;
-            border-radius: 5px 0 0 5px;
-            border: 2px solid #57CC99;
-            background-color: #FFEBC9;
-            font-size: 1rem;
+			@include sm {
+				padding: 0.2rem 0.5rem;
+				width: 9rem;
+			}
+		}
 
-            &:focus {
-                border: 2px solid #57CC99;
-                outline: none;
-            }
+		&-button {
+			margin: 0;
+			padding: 0.5rem 0.8rem;
+			border-radius: 0 5px 5px 0;
+			border: 2px solid #57cc99;
+			height: 2rem;
+			display: flex;
+			flex-direction: column;
+			justify-content: center;
 
-            @include sm {
-                padding: .2rem .5rem;
-                width: 9rem;
-            }
-        }
+			@include sm {
+				padding: 0.2rem 0.5rem;
+			}
 
-        &-button {
+			.payment-button-link {
+				font-size: 1rem;
+			}
+		}
+	}
 
-            margin: 0;
-            padding: .5rem .8rem;
-            border-radius: 0 5px 5px 0;
-            border: 2px solid #57CC99;
-            height: 2rem;
-            display: flex;
-            flex-direction: column;
-            justify-content: center;
-
-            @include sm {
-                padding: .2rem .5rem;
-            }
-
-            .payment-button-link {
-                font-size: 1rem;
-            }
-        }
-    }
+	&-server-error {
+		background-color: #fefaee;
+		position: absolute;
+		left: 50vw;
+		top: 50vh;
+		transform: translate(-50%, -50%);
+		width: 30rem;
+		padding: 2rem 2.5rem;
+		border-radius: 10px;
+		text-align: center;
+		font-weight: bolder;
+	}
 }

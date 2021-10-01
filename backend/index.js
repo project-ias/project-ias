@@ -16,9 +16,7 @@ const {Google} = ThirdPartyEmailPassword;
 const { UserModel } = require("./models/models");
 const keys = require("./config/keys");
 const { default: axios } = require("axios");
-const { slackApiUrl, BACKEND_URL, FRONTEND_URL, GOOGLE_CLIENT_SECRET, GOOGLE_CLIENT_ID, SUPERTOKENS_URI, SUPERTOKENS_APIKEY, subscriptionSheetID } = require("./config/keys");
-const gsheetURL = require("./helpers/gsheetURL");
-const validateCoupon = require("./helpers/coupon_validator");
+const { slackApiUrl, BACKEND_URL, FRONTEND_URL, GOOGLE_CLIENT_SECRET, GOOGLE_CLIENT_ID, SUPERTOKENS_URI, SUPERTOKENS_APIKEY } = require("./config/keys");
 const premium = require("./apis/premium");
 const manualMeilisearch = require("./apis/manual_meilisearch");
 const cronjobs = require("./apis/run_cronjob");
@@ -88,13 +86,11 @@ supertokens.init({
                    const existUser = await UserModel.findOne({email: input.email}).exec();
                    if(existUser === null) {
                      //new user. create entry in mongodb
-                    const salt = bcrypt.genSaltSync(10);
-                    const hash = bcrypt.hashSync(input.password, salt);
                     const today = new Date();
                     const date = today.getFullYear() + "-" + (today.getMonth() + 1) + "-" + today.getDate();
                      let newUser = new UserModel({
                        email: input.email,
-                       password: hash,
+                       password: "supertokens",
                        prelims: [],
                        mains: [],
                        payDate: date,
@@ -147,7 +143,7 @@ app.use(express.urlencoded({extended: true}));
 app.use(cors({
   origin: FRONTEND_URL,
   allowedHeaders: ["content-type",  ...supertokens.getAllCORSHeaders() ],
-  credentials: true, 
+  credentials: true,
 }));
 app.use(supertokens.middleware());
 app.options("*", cors());

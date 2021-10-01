@@ -29,17 +29,22 @@ const Payment = () => {
     const [rateSelected, setRateSelected] = useState(0);
     const [coupon, setCoupon] = useState("");
     const [error, setError] = useState("");
+    const [isServerError, setIsServerError] = useState(false);
 
 
     //to check for trial and subscription
     useEffect( async () => {
         if(currentUserEmail !== null && currentUserEmail !== "") {
-            const {data} = await axios.post(USER_URL, {email: currentUserEmail});
-            const payDate = data.payDate;
-            localStorage.setItem("payDate", payDate);
-
-            const rates = await axios.get(SUBSCRIPTION_PLANS_URL);
-            setRates(rates.data);
+            try {
+                const {data} = await axios.post(USER_URL, {email: currentUserEmail});
+                const payDate = data.payDate;
+                localStorage.setItem("payDate", payDate);
+                const rates = await axios.get(SUBSCRIPTION_PLANS_URL);
+                setRates(rates.data);
+            }
+            catch(err) {
+                setIsServerError(true);
+            }
         }
         else {
             window.location.href = "/auth";
@@ -89,7 +94,7 @@ const Payment = () => {
                     Log Out
                 </button>
             </div>
-            <div className="payment-card">
+            {!isServerError && <div className="payment-card">
                 <img src={paymentLogo} className="payment-logo" alt="payment-logo"/>
                 <h1 className="payment-heading">PROJECT-IAS</h1>
                 <ul className="payment-benefit-list">
@@ -122,7 +127,10 @@ const Payment = () => {
                         <a href={TELEGRAM_URL} className="payment-button-link">CONTACT</a>
                     </div>
                 </div>
-            </div>
+            </div>}
+            {isServerError && <div className="payment-server-error">
+                We are facing issue with payment right now! We promise it will be resolved soon. Sorry for the inconvenience caused.
+            </div>}
         </div>
     )
 }
