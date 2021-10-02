@@ -188,13 +188,19 @@
           "children": [
             "Political History - Shastri and Indira Era",
             "Political History - Nehruvian Era and early challenges",
-            "Rise of Regional Aspiration - J&K, Punjab, NE and Dravidian Movement"
+            "Rise of Regional Aspiration - J&K, Punjab, NE and Dravidian Movement",
+            "Political \nHistory - Nehruvian Era and early \nchallenges"
           ],
           "questions": [
             "74cb44d348c7589b46b6b607ae96450ca21af0e798bd167346719815acc939d6",
             "b401009b579b47f9fed1f6e8c366720736b3bd9af51948d29d0c68c2ba6a64e9",
             "967bd1dd4842475775c17e9381d622df1b5a944343e9a088cabb46bcb3a0ab8f",
-            "3ab0be8c9cae2002aa5a2fa8bf7ea9c7343f8ee7dcbea0ffef332f0906ef951c"
+            "3ab0be8c9cae2002aa5a2fa8bf7ea9c7343f8ee7dcbea0ffef332f0906ef951c",
+            "6a5744151e7a32fa4dba409b72b8549176467bc487be0994a1310390b395b88a",
+            "a663e979a3cce718f2379e8ee0a222f6eded5d58dbd144eee8c3b80bf2e773f1",
+            "c24f70dfb960b8de6987a4d09ce725e221a9dc37adda9b5bf252cec070523853",
+            "3bbbd8f2d37bc0269ae461ab39907eea64487313364a7a40a7db956485d5b0ed",
+            "38f3974998605ecaf0f052daa4d1b92e4659df4cb46a4cfc7e235b4ac90373fc"
           ]
         },
         {
@@ -582,21 +588,6 @@
             "f601a0b2b1300b5359929a498b7cc5ff0e356db369f92f0c69ea10635f7a9315",
             "c4c67a886493edbbaa6b22409a7c90dadd47fe8b0393e36090cff70f23d3549b",
             "c9752424f2e6896d1576b759b2d94e39c504d98add415d60a38cb7e5114dd8bc"
-          ]
-        },
-        {
-          "label": "Post-Independence India",
-          "category": "mainTopic",
-          "children": [
-            "Political \r\nHistory - Nehruvian Era and early \r\nchallenges",
-            "Political \nHistory - Nehruvian Era and early \nchallenges"
-          ],
-          "questions": [
-            "6a5744151e7a32fa4dba409b72b8549176467bc487be0994a1310390b395b88a",
-            "a663e979a3cce718f2379e8ee0a222f6eded5d58dbd144eee8c3b80bf2e773f1",
-            "c24f70dfb960b8de6987a4d09ce725e221a9dc37adda9b5bf252cec070523853",
-            "3bbbd8f2d37bc0269ae461ab39907eea64487313364a7a40a7db956485d5b0ed",
-            "38f3974998605ecaf0f052daa4d1b92e4659df4cb46a4cfc7e235b4ac90373fc"
           ]
         },
         {
@@ -1383,7 +1374,7 @@
             "9c0882dda067be02b802aa177b21ececfe33bdeac8c8bd0d95aca686d79357e3",
             "04e2164619a4589db357e9bf2211090b1a48ecd51c397363111577c0eced4929",
             "f52ec394efe748a0adfc8d24410d5e3337dc9c19788d0d7bd5c75df41318e516",
-            "69a65c238de8f1fcedd089e65a313418da14f113d3221d69dd71f5d0774e3bb8",
+            "cd41deb11c97c5c99bd5f4fdfb5884b8ce78e6a47e4f64d4f7c1dd4a52772d30",
             "ee534c40cd62d915110cb48943d324effe359e51e734b3bd1b1531aa85036776",
             "0fa6b4e53b9a9ba1e56c0d425cb2c6910483f5dc844ded92d720fc0272a86898",
             "b8bf2a8634b9cd0ec2a036b5aa1b03c72a96f95fd0a76ce480677a2ae537b099",

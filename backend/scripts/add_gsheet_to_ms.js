@@ -1,11 +1,10 @@
 const axios = require("axios");
-const { sheetApi, mainsSheetID } = require("./config/keys");
+const { sheetApi, mainsSheetID, MEILISEARCH_URL } = require("../config/keys");
 const crypto = require("crypto");
 const { MeiliSearch } = require("meilisearch");
-const keys = require("./config/keys");
 
 const client = new MeiliSearch({
-  host: keys.MEILISEARCH_URL,
+  host: MEILISEARCH_URL,
   apiKey: "masterKey",
 });
 

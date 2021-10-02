@@ -252,7 +252,7 @@ app.post("/user_mains", async (req, res) => {
 
 app.get("/topics", (req, res) => {
   try {
-    const topicsJsonString = fs.readFileSync("./topics.json");
+    const topicsJsonString = fs.readFileSync("scripts/topics.json");
     const topicsJson = JSON.parse(topicsJsonString);
     res.json(topicsJson);
   } catch (err) {

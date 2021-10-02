@@ -1,13 +1,12 @@
 //While updating the sheet data, delete the old index.
 
 const axios = require("axios");
-const { sheetApi, visionSheetID } = require("./config/keys");
+const { sheetApi, visionSheetID, MEILISEARCH_URL } = require("../config/keys");
 const crypto = require("crypto");
 const { MeiliSearch } = require("meilisearch");
-const keys = require("./config/keys");
 
 const client = new MeiliSearch({
-  host: keys.MEILISEARCH_URL,
+  host: MEILISEARCH_URL,
   apiKey: "masterKey",
 });
 

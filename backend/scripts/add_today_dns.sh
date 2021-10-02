@@ -5,5 +5,5 @@ pip3 install -r requirements.txt
 cd ..
 
 python3 pyq_scrapers/scrape_today_rau.py
-node add_today_dns.js
+node scripts/add_today_dns.js
 deactivate

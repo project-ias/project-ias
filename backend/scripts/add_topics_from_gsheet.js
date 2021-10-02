@@ -1,7 +1,7 @@
 const axios = require("axios");
 const fs = require("fs");
 const crypto = require("crypto");
-const keys = require("./config/keys");
+const keys = require("../config/keys");
 
 const sheetNames = ["GS1", "GS2", "GS3", "GS4"];
 
@@ -25,7 +25,7 @@ async function gsheetToTopics() {
     // }
   }
   fs.writeFile(
-    "topics.json",
+    "scripts/topics.json",
     JSON.stringify({ label: "Mains", category: "examType", children: mainArr }),
     (err) => {
       if (err) console.log(err);

@@ -1,6 +1,6 @@
 const crypto = require("crypto");
 const { MeiliSearch } = require("meilisearch");
-const keys = require("./config/keys");
+const keys = require("../config/keys");
 
 const client = new MeiliSearch({
   host: keys.MEILISEARCH_URL,
@@ -8,7 +8,7 @@ const client = new MeiliSearch({
 });
 
 const fs = require("fs");
-fs.readFile("pyq_scrapers/rau_dns_latest.json", async (err, data) => {
+fs.readFile("scripts/today_raudns.json", async (err, data) => {
   if (err) throw err;
   let json_data = JSON.parse(data)["dns"];
   let array_length = json_data.length;

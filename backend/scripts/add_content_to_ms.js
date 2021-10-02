@@ -1,6 +1,6 @@
 const crypto = require("crypto");
 const { MeiliSearch } = require("meilisearch");
-const keys = require("./config/keys");
+const keys = require("../config/keys");
 
 const client = new MeiliSearch({
   host: keys.MEILISEARCH_URL,
@@ -8,15 +8,16 @@ const client = new MeiliSearch({
 });
 
 const fs = require("fs");
-fs.readFile("today_raudns.json", async (err, data) => {
+fs.readFile("pyq_scrapers/content.json", async (err, data) => {
   if (err) throw err;
-  let json_data = JSON.parse(data)["dns"];
+  let json_data = JSON.parse(data)["content"];
   let array_length = json_data.length;
   for (let i = 0; i < array_length; i++) {
     const id = crypto.randomBytes(20).toString("hex");
     json_data[i]["id"] = id;
     // console.log(json_data[i])
-    const x = await client.index("dns").addDocuments([json_data[i]]);
+    const x = await client.index("content").addDocuments([json_data[i]]);
+    // adding content to MeiliSearch database
     console.log("added ", x);
   }
 });
