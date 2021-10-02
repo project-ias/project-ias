@@ -15,11 +15,11 @@ const {Google} = ThirdPartyEmailPassword;
 
 const { UserModel } = require("./models/models");
 const keys = require("./config/keys");
-const { default: axios } = require("axios");
-const { slackApiUrl, BACKEND_URL, FRONTEND_URL, GOOGLE_CLIENT_SECRET, GOOGLE_CLIENT_ID, SUPERTOKENS_URI, SUPERTOKENS_APIKEY } = require("./config/keys");
+const { BACKEND_URL, FRONTEND_URL, GOOGLE_CLIENT_SECRET, GOOGLE_CLIENT_ID, SUPERTOKENS_URI, SUPERTOKENS_APIKEY } = require("./config/keys");
 const premium = require("./apis/premium");
 const manualMeilisearch = require("./apis/manual_meilisearch");
 const cronjobs = require("./apis/run_cronjob");
+const createAccountInMongo = require("./helpers/account_creator");
 require("./config/passport")(passport);
 
 const mongoDB = "mongodb://127.0.0.1/project_ias";
@@ -83,28 +83,13 @@ supertokens.init({
                 },
                 signUp: async (input) => {
                    // all new users are created in SuperTokens;
-                   const existUser = await UserModel.findOne({email: input.email}).exec();
-                   if(existUser === null) {
-                     //new user. create entry in mongodb
-                    const today = new Date();
-                    const date = today.getFullYear() + "-" + (today.getMonth() + 1) + "-" + today.getDate();
-                     let newUser = new UserModel({
-                       email: input.email,
-                       password: "supertokens",
-                       prelims: [],
-                       mains: [],
-                       payDate: date,
-                     });
-                     await newUser.save(err => console.log(err));
-                     //update on slack.
-                     axios
-                        .post(slackApiUrl, { text: `${input.email} just signed in` })
-                        .then()
-                        .catch((err) =>
-                          console.log("Error while updating on slack : " + err)
-                        );
-                   }
+                   createAccountInMongo(input.email);
                    return supertokensImpl.signUp(input);
+                },
+                signInUp: async (input) => {
+                  //this function runs for thirdparty authentication like google OAuth
+                  createAccountInMongo(input.email.id);
+                  return supertokensImpl.signInUp(input);
                 },
                 getUserByEmail: async (input) => {
                    let superTokensUser = await supertokensImpl.getUserByEmail(input);
