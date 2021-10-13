@@ -1,0 +1,100 @@
+.landing-page {
+    min-width: 100vw;
+    min-height: 100vh;
+    background-color: #eee;
+    box-sizing: border-box;
+}
+
+.header {
+
+    &-div {
+        display: flex;
+
+        @include sm {
+            display: block;
+        }
+    }
+
+    &-left {
+        width: 50%;
+        min-height: 80vh;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+
+        @include sm {
+            width: 100%;
+        }
+
+        &-text-div {
+            margin: 12rem 0 5rem 0;
+        }
+
+        &-text {
+            font-size: 5rem;
+            font-weight: 700;
+            letter-spacing: 3.5px;
+
+            @include sm {
+                font-size: 3rem;
+            }
+        }
+
+        &-subtext {
+            text-align: center;
+
+            @include sm {
+                font-size: 1rem;
+            }
+        }
+    }
+
+    &-right {
+        width: 50%;
+        min-height: 80vh;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+
+        @include sm {
+            display: none;
+        }
+    }
+}
+
+.red-btn {
+    background-color: #e02201cc;
+    color: #eee;
+    font-size: 1.5rem;
+}
+
+.navbar {
+
+    &-div {
+        min-height: 10vh;
+        min-width: 100%;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+    }
+
+    &-logo-div {
+        margin-left: 2rem;
+    }
+
+    &-logo {
+        width: 4rem;
+    }
+
+    &-links-div {
+        display: flex;
+        width: 50%;
+        justify-content: space-evenly;
+    }
+
+    &-link {
+        text-decoration: none;
+        color: #000;
+        font-weight: 600;
+    }
+}

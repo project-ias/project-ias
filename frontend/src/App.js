@@ -10,6 +10,7 @@ import Session from "supertokens-auth-react/recipe/session";
 import { BACKEND_URL, FRONTEND_URL, USER_URL } from "./constants/constants";
 import EmailPassword from "supertokens-auth-react/recipe/emailpassword";
 import { checkTrialStatus } from "./helpers/trialPeriod";
+import LandingPage from "./components/LandingPage/LandingPage";
 
 Session.addAxiosInterceptors(axios);
 
@@ -75,13 +76,16 @@ function App() {
           <Route path="/payment">
             <Payment/>
           </Route>
+          <Route path="/landing">
+              <LandingPage/>
+          </Route>
           <Route path="/">
             {!checkTrialStatus()
-            ? 
+            ?
             (<ThirdPartyEmailPasswordAuth>
                 <SearchPage/>
-            </ThirdPartyEmailPasswordAuth>) 
-            : 
+            </ThirdPartyEmailPasswordAuth>)
+            :
             <SearchPage/>}
           </Route>
         </Switch>
