@@ -27,7 +27,7 @@
         }
 
         &-text-div {
-            margin: 12rem 0 5rem 0;
+            margin: 5rem 0 5rem 0;
         }
 
         &-text {
@@ -47,6 +47,17 @@
                 font-size: 1rem;
             }
         }
+
+        &-cards-div {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 50px 50px;
+            margin: 2rem 0 6rem 0;
+
+            @include sm {
+                grid-template-columns: 1fr;
+            }
+        }
     }
 
     &-right {
@@ -59,13 +70,18 @@
         @include sm {
             display: none;
         }
+
+        &-img {
+            margin-top: 8rem;
+        }
     }
 }
 
-.red-btn {
-    background-color: #e02201cc;
+.black-btn {
+    background-color: #222;
     color: #eee;
     font-size: 1.5rem;
+    font-weight: bolder;
 }
 
 .navbar {
@@ -96,5 +112,43 @@
         text-decoration: none;
         color: #000;
         font-weight: 600;
+    }
+}
+
+.landing-card {
+
+    text-align: center;
+    padding: 1rem 1.2rem;
+    border-radius: 10px;
+    box-shadow: 0px 6px 12px rgba(0, 0, 0, 0.03);
+
+    &-title {
+        font-size: 1.5rem;
+        font-weight: bolder;
+        text-transform: uppercase;
+    }
+
+    &-text {
+        padding: .5rem .7rem;
+    }
+
+    &-green {
+        background-color: rgba($color: #6ECB63, $alpha: .5);
+        color: rgba($color: #32502E, $alpha: 1);
+    }
+
+    &-red {
+        background-color: rgba($color: #FF0000, $alpha: .3);
+        color: rgba($color: #8E0505, $alpha: 1);
+    }
+
+    &-blue {
+        background-color: rgba($color: #0F00FF, $alpha: .3);
+        color: rgba($color: #2C2891, $alpha: 1);
+    }
+
+    &-purple {
+        background-color: rgba($color: #FDB9FC, $alpha: 1);
+        color: rgba($color: #7027A0, $alpha: 1);
     }
 }
