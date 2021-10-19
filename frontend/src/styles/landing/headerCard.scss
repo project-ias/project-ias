@@ -1,0 +1,43 @@
+.header-card-div {
+
+    width: 100vw;
+    min-height: 90vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.header-card {
+
+    width: 20vw;
+    background-color: #fff;
+    padding: 2rem 2.5rem;
+    margin: .5rem;
+    border-radius: 10px;
+    box-shadow: 0px 6px 12px rgba(0, 0, 0, 0.03);
+
+    &-text {
+        text-align: justify;
+        font-size: 1.2rem;
+    }
+
+    &-info {
+        display: flex;
+        justify-content: space-between;
+        margin-top: 2rem;
+    }
+
+    &-author {
+        font-weight: bolder;
+        color: #333;
+    }
+
+    &-misc {
+        color: #333;
+    }
+}
+
+.slider {
+    display: flex;
+    align-items: center;
+}

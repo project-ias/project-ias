@@ -5,6 +5,7 @@ const NavBar = () => {
         <div className="navbar-div">
             <div className="navbar-logo-div">
                 <img src={FelvinLogo} className="navbar-logo" alt="logo"></img>
+                <div className="navbar-title">PROJECT IAS</div>
             </div>
             <div className="navbar-links-div">
                 <a className="navbar-link" href="/">Premium</a>

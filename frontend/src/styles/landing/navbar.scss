@@ -1,0 +1,39 @@
+.navbar {
+
+    &-div {
+        min-height: 10vh;
+        min-width: 100%;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+    }
+
+    &-logo-div {
+        margin-left: 2rem;
+        display: flex;
+        align-items: center;
+    }
+
+    &-logo {
+        width: 3.5rem;
+    }
+
+    &-title {
+        margin-left: 2rem;
+        font-weight: bolder;
+        font-size: 2rem;
+        margin-top: 0rem;
+    }
+
+    &-links-div {
+        display: flex;
+        width: 50%;
+        justify-content: space-evenly;
+    }
+
+    &-link {
+        text-decoration: none;
+        color: #000;
+        font-weight: 600;
+    }
+}
