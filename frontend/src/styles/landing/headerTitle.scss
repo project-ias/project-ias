@@ -1,0 +1,21 @@
+.title-box {
+    display: flex;
+    justify-content: space-evenly;
+    padding-bottom: 10rem;
+}
+
+.text-box {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+
+    .primary-title {
+        font-size: 4rem;
+        font-weight: bold;
+    }
+
+    .secondary-title {
+        font-size: 1.5rem;
+    }
+}
