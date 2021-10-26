@@ -6,6 +6,12 @@
         display: flex;
         justify-content: space-between;
         align-items: center;
+        z-index: 1;
+        background-color: #eee;
+
+        @include sm {
+            position: fixed;
+        }
     }
 
     &-logo-div {
@@ -16,6 +22,10 @@
 
     &-logo {
         width: 3.5rem;
+
+        @include sm {
+            display: none;
+        }
     }
 
     &-title {
@@ -23,6 +33,10 @@
         font-weight: bolder;
         font-size: 2rem;
         margin-top: 0rem;
+
+        @include sm {
+            margin-left: 0rem;
+        }
     }
 
     &-links-div {
@@ -35,5 +49,29 @@
         text-decoration: none;
         color: #000;
         font-weight: 600;
+
+        @include sm {
+            margin: 1.5rem auto;
+            font-size: 1.5rem;
+        }
+    }
+
+    &-menu {
+        margin-right: 2rem;
+        font-size: 1.5rem;
+    }
+
+    &-menu-list {
+        position: fixed;
+        top: 10vh;
+        left: 0;
+        width: 100%;
+        min-height: 90vh;
+        z-index: 1;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        background-color: #eee;
     }
 }
