@@ -1,4 +1,5 @@
 import React from "react";
+import DemoVideo from "./DemoVideo";
 import HeaderCard from "./HeaderCard";
 import HeaderTitle from "./HeaderTitle";
 import NavBar from "./NavBar";
@@ -12,6 +13,9 @@ const LandingPage = () => {
             </div>
             <div className="header-title">
                 <HeaderTitle/>
+            </div>
+            <div className="demo-video-div">
+                <DemoVideo/>
             </div>
         </div>
     )
