@@ -24,14 +24,12 @@ const DemoVideo = () => {
     }, [width]);
 
     const videos = importAll(require.context('../../assets/videos', false, /\.(mp4)$/));
-    console.log(JSON.stringify(videos));
     const videoURL = [];
     for(var i = 0; i < 6; i++) {
         videoURL.push({
             url: videos[`${i+1}.mp4`]['default'],
             desc: description[i]
         });
-        console.log(videoURL[i]);
     }
 
     return (
