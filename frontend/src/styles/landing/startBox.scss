@@ -1,0 +1,19 @@
+.start-box {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    min-height: 60vh;
+}
+
+.start-title {
+    font-size: 3rem;
+    margin: 4rem 0;
+}
+
+.black-btn {
+    background-color: #222;
+    color: #eee;
+    font-size: 1.5rem;
+    font-weight: bolder;
+}
