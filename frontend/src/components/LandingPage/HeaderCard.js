@@ -1,5 +1,7 @@
+import { useEffect, useState } from 'react';
 import { Carousel } from 'react-responsive-carousel';
 import "react-responsive-carousel/lib/styles/carousel.min.css";
+import useWindowDimensions from '../../helpers/WindowDimensions';
 
 const CardData = [
     {
@@ -37,6 +39,15 @@ const Card = (props) => {
 }
 
 const HeaderCard = () => {
+
+    const { width } = useWindowDimensions();
+    const [percentage, setPercentage] = useState(33);
+
+    useEffect(() => {
+        if(width < 1000) setPercentage(100);
+        else setPercentage(33);
+    }, [width]);
+
     return(
         <div className="header-card-div">
             <Carousel
@@ -46,8 +57,9 @@ const HeaderCard = () => {
             showArrows={false}
             showStatus={false}
             showIndicators={false}
+            showThumbs={false}
             stopOnHover={false}
-            centerSlidePercentage={33}
+            centerSlidePercentage={percentage}
             width="80vw"
             centerMode={true}>
                 {CardData.map((card) => {

@@ -9,7 +9,7 @@ const HeaderTitle = () => {
                 <div className="secondary-title">Search through PYQs, DNS and reading materials in a go</div>
             </div>
             <div className="gif-box">
-                <img src={landingSearchGif}></img>
+                <img src={landingSearchGif} className="landing-search-gif"></img>
             </div>
         </div>
     )
