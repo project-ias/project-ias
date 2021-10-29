@@ -1,4 +1,4 @@
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useRef } from 'react';
 import { Carousel } from 'react-responsive-carousel';
 import "react-responsive-carousel/lib/styles/carousel.min.css";
 import useWindowDimensions from '../../helpers/WindowDimensions';
@@ -32,6 +32,26 @@ const DemoVideo = () => {
         });
     }
 
+    const VideoSlide = ({ url, desc, isSelected }) => {
+
+        const vidRef = useRef(null);
+
+        useEffect(() => {
+            if(isSelected) vidRef.current.play();
+            else vidRef.current.pause();
+        }, [isSelected]);
+        return (
+            <div>
+                <div className="demo-desc">{desc}</div>
+                <video ref={vidRef} className="demo-video" loop muted>
+                    <source src={url} type="video/mp4"/>
+                </video>
+            </div>
+        );
+    }
+
+    const customRenderItem = (item, props) => <item.type {...item.props} {...props} />;
+
     return (
         <div className="demo-video-carousel">
             <Carousel
@@ -45,16 +65,11 @@ const DemoVideo = () => {
             stopOnHover={false}
             centerSlidePercentage={percentage}
             width="80vw"
-            centerMode={true}>
+            centerMode={true}
+            renderItem={customRenderItem}>
                 {videoURL.map((video, index) => {
                     return(
-                        <div>
-                            <div className="demo-title">{`Step : ${index+1}`}</div>
-                            <video className="demo-video" autoPlay loop muted controls>
-                                <source src={video.url} type="video/mp4"/>
-                            </video>
-                            <div className="demo-desc">{video.desc}</div>
-                        </div>
+                        <VideoSlide key="youtube-1" url={video.url} desc={video.desc} />
                     )
                 })}
             </Carousel>

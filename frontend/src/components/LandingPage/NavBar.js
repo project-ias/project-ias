@@ -35,6 +35,7 @@ const NavBar = () => {
                     <a className="navbar-link" href="/">Premium</a>
                     <a className="navbar-link" href="/">FAQ</a>
                     <a className="navbar-link" href="/">Contact Us</a>
+                    <a className="navbar-link navbar-link-special" href="/">LOGIN</a>
                 </div>
             )
         }
@@ -47,6 +48,7 @@ const NavBar = () => {
                 <a className="navbar-link" href="/">Premium</a>
                 <a className="navbar-link" href="/">FAQ</a>
                 <a className="navbar-link" href="/">Contact Us</a>
+                <a className="navbar-link navbar-link-special" href="/">LOGIN</a>
             </div>
         )
     }
@@ -58,7 +60,10 @@ const NavBar = () => {
             <div className="navbar-div">
                 <div className="navbar-logo-div">
                     <img src={FelvinLogo} className="navbar-logo" alt="logo"></img>
-                    <div className="navbar-title">PROJECT IAS</div>
+                    <div className="navbar-title">
+                        <span className="navbar-title-main">PROJECT IAS</span>
+                        <span className="navbar-title-sub">Search through PYQs, DNS and reading materials in a go</span>
+                    </div>
                 </div>
                 {navbarLinkDiv}
             </div>
