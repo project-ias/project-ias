@@ -50,6 +50,9 @@ const HeaderCard = () => {
 
     return(
         <div className="header-card-div">
+            <div className="header-card-title">
+                Why Project-IAS ?
+            </div>
             <Carousel
             autoPlay={true}
             interval={3000}
@@ -66,6 +69,9 @@ const HeaderCard = () => {
                     return(<Card text={card.text} author={card.author} misc={card.misc}/>)
                 })}
             </Carousel>
+            <div>
+                <iframe className="header-card-youtube" width="560" height="315" src="https://www.youtube.com/embed/FaNccksE7Rs" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+            </div>
         </div>
     )
 }
