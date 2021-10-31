@@ -1,7 +1,9 @@
-import { useEffect, useState } from 'react';
+import { useEffect, useState, useRef } from 'react';
 import { Carousel } from 'react-responsive-carousel';
 import "react-responsive-carousel/lib/styles/carousel.min.css";
 import useWindowDimensions from '../../helpers/WindowDimensions';
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faAngleDoubleDown } from "@fortawesome/free-solid-svg-icons";
 
 const CardData = [
     {
@@ -48,6 +50,13 @@ const HeaderCard = () => {
         else setPercentage(33);
     }, [width]);
 
+    const myRef = useRef(null);
+
+    const handleScroll = () => {
+
+        myRef.current.scrollIntoView();
+    }
+
     return(
         <div className="header-card-div">
             <div className="header-card-title">
@@ -69,7 +78,10 @@ const HeaderCard = () => {
                     return(<Card text={card.text} author={card.author} misc={card.misc}/>)
                 })}
             </Carousel>
-            <div>
+            <button className="landing-scroll" onClick={handleScroll}>
+                <FontAwesomeIcon icon={faAngleDoubleDown}/>
+            </button>
+            <div ref={myRef}>
                 <iframe className="header-card-youtube" width="560" height="315" src="https://www.youtube.com/embed/FaNccksE7Rs" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
             </div>
         </div>

@@ -15,10 +15,36 @@
 
     &-div {
         display: flex;
+        flex-direction: column;
 
         @include sm {
             display: block;
         }
+    }
+}
+
+.header-div, .header-title, .demo-video-div, .start-box-div {
+    display: flex;
+    flex-direction: column;
+}
+
+.landing-scroll {
+
+    border: none;
+    outline: none;
+    font-size: 3rem;
+    background-color: transparent;
+    animation: highlight 2s linear 1s infinite normal;
+}
+
+@keyframes highlight {
+    0% {
+        transform: none;
+        color: #000;
+    }
+    100% {
+        transform: translateY(1rem);
+        color: rgb(78, 17, 17);
     }
 }
 

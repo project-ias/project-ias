@@ -1,7 +1,6 @@
 .title-box {
     display: flex;
     justify-content: space-evenly;
-    padding-bottom: 10rem;
 
     @include sm {
         flex-direction: column;
