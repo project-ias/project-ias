@@ -26,7 +26,7 @@ print("Working on ",link)
 source = requests.get(link).text
 soupObject = BeautifulSoup(source,'lxml')
 
-    
+
 
 headings = soupObject.find_all('h2')
 for heading in headings:
@@ -58,5 +58,5 @@ for heading in headings:
                 })
     print("len ",len(data["content"]))
 
-with open('today_dhristi.json', 'w') as f:
+with open('scripts/today_dhristi.json', 'w') as f:
         json.dump(data, f)

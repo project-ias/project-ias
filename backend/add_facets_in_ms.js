@@ -1,4 +1,4 @@
-const { MeiliSearch } = require("meilisearch")
+const { MeiliSearch } = require("meilisearch");
 const keys = require("./config/keys");
 
 const client = new MeiliSearch({
@@ -6,8 +6,4 @@ const client = new MeiliSearch({
   apiKey: "masterKey",
 });
 
-client.index('pyqs')
-  .updateAttributesForFaceting([
-   'exam',
-   'topics'
-  ])
+client.index("pyqs").updateAttributesForFaceting(["exam", "topics"]);

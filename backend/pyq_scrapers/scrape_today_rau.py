@@ -22,7 +22,7 @@ def remove_time_stamp(title_with_time_stamp):
     seconds_str = characters[i+4] +  characters[i+5]
 
     seconds_for_timestamp = get_seconds(minutes_str, seconds_str)
-    
+
     for _ in range(7):
         del characters[i]
 
@@ -64,6 +64,6 @@ while len(array_of_lines[index]) != 0:
         print('error in adding is ',e)
         index = index + 1
         continue
-    
-with open('today_raudns.json', 'w') as f:
+
+with open('scripts/today_raudns.json', 'w') as f:
     json.dump(data, f)

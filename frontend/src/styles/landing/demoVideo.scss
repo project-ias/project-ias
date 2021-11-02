@@ -1,41 +1,41 @@
 .demo-video-carousel {
-    width: 100vw;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    padding: 1rem 0 1rem 0;
+  width: 100vw;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 1rem 0 1rem 0;
 }
 
 .carousel-root {
-    width: 100%;
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  .slide {
+    transform: scale(40%);
     display: flex;
+    flex-direction: column;
     align-items: center;
-    justify-content: center;
+  }
 
-    .slide {
-        transform: scale(40%);
-        display: flex;
-        flex-direction: column;
-        align-items: center;
-    }
-
-    .selected {
-        transform: scale(80%);
-    }
+  .selected {
+    transform: scale(80%);
+  }
 }
 
 .demo-video {
-    height: 40rem;
-    border-radius: 10px;
-    background-color: #e9ddcd;
-    
-    @include sm {
-        height: 25rem;
-    }
+  height: 40rem;
+  border-radius: 10px;
+  background-color: #e9ddcd;
+
+  @include sm {
+    height: 25rem;
+  }
 }
 
 .demo-desc {
-    font-weight: bold;
-    font-size: 2rem;
-    padding: 1rem 0;
+  font-weight: bold;
+  font-size: 2rem;
+  padding: 1rem 0;
 }

@@ -1,20 +1,23 @@
-import Loader from "react-loader-spinner";
-import { Highlight } from "react-instantsearch-dom";
-import React, { useEffect, useState } from "react";
-import "react-loader-spinner/dist/loader/css/react-spinner-loader.css";
 import axios from "axios";
+import React, { useEffect, useState } from "react";
+import { Highlight } from "react-instantsearch-dom";
+import Loader from "react-loader-spinner";
+import "react-loader-spinner/dist/loader/css/react-spinner-loader.css";
 import { USER_MAINS_URL } from "../../constants/constants";
-import { findRevisionInterval, hasRevisedChecker } from "../../helpers/spacedRepetition";
+import {
+  findRevisionInterval,
+  hasRevisedChecker,
+} from "../../helpers/spacedRepetition";
 
 export default function HitSecure(props) {
-  
   const [solved, setSolved] = useState(false);
   const [revised, setRevised] = useState(false);
 
   var solvedDate = null;
   var revisionCount = 0;
-  var userEmail = null, userMains = [], userMainsObj = [];
-
+  var userEmail = null,
+    userMains = [],
+    userMainsObj = [];
 
   try {
     userEmail = localStorage.getItem("userEmail");
@@ -23,11 +26,16 @@ export default function HitSecure(props) {
   } catch {}
 
   try {
-    const tempRevisionCount = userMainsObj[userMains.findIndex((id) => id === props.hit["id"])].hasRevised;
+    const tempRevisionCount =
+      userMainsObj[userMains.findIndex((id) => id === props.hit["id"])]
+        .hasRevised;
     if (tempRevisionCount === false) revisionCount = 0;
     //solving the problem that initially revisionCount is saved as false in database instead of 0.
     else revisionCount = tempRevisionCount;
-    solvedDate = userMainsObj[userMains.findIndex((id) => id === props.hit["id"])].date.split("-");
+    solvedDate =
+      userMainsObj[
+        userMains.findIndex((id) => id === props.hit["id"])
+      ].date.split("-");
   } catch {
     //question not solved. set default value.
     solvedDate = null;
@@ -35,7 +43,6 @@ export default function HitSecure(props) {
   }
 
   useEffect(() => {
-
     setSolved(
       userMains !== undefined &&
         userMains !== null &&
@@ -97,7 +104,9 @@ export default function HitSecure(props) {
   if (!revised) {
     revisionDiv = (
       <div className="pyqs-revised-div">
-        <div className="pyqs-revised-text">{`You solved this ${findRevisionInterval(solvedDate)} days ago. Solve again to remember.`}</div>
+        <div className="pyqs-revised-text">{`You solved this ${findRevisionInterval(
+          solvedDate
+        )} days ago. Solve again to remember.`}</div>
         <div className="pyqs-solved-toggle">
           <label className="pyqs-solved-toggle-text">Solved Again ?</label>
           <input

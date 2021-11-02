@@ -3,7 +3,6 @@ import { ENV_BACKEND_URL, ENV_FRONTEND_URL } from "./envConstants";
 export const BACKEND_URL = ENV_BACKEND_URL;
 export const FRONTEND_URL = ENV_FRONTEND_URL;
 
-
 export const SEARCHCLIENT_URL = "https://search.project-ias.com";
 export const GA_MEASUREMENT_ID = "G-QDM8PF4XX9";
 
@@ -27,7 +26,7 @@ export const USER_MAINS_URL = `${BACKEND_URL}/user_mains`;
 
 export const TOPICS_URL = `${BACKEND_URL}/topics`;
 
-const PREMIUM_URL = `${BACKEND_URL}/premium`
+const PREMIUM_URL = `${BACKEND_URL}/premium`;
 export const SUBSCRIPTION_PLANS_URL = `${PREMIUM_URL}/subscriptionPlans`;
 export const COUPON_URL = `${PREMIUM_URL}/coupon`;
 

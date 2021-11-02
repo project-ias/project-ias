@@ -1,1 +1,17 @@
-[{"tenure":"1 Month","fee":"50","link":"https://rzp.io/l/Project-IAS-1M"},{"tenure":"6 Months","fee":"250","link":"https://rzp.io/l/Project-IAS-6M"},{"tenure":"12 Months","fee":"400","link":"https://rzp.io/l/Project-IAS-12M"}]
+[
+  {
+    "tenure": "1 Month",
+    "fee": "50",
+    "link": "https://rzp.io/l/Project-IAS-1M"
+  },
+  {
+    "tenure": "6 Months",
+    "fee": "250",
+    "link": "https://rzp.io/l/Project-IAS-6M"
+  },
+  {
+    "tenure": "12 Months",
+    "fee": "400",
+    "link": "https://rzp.io/l/Project-IAS-12M"
+  }
+]

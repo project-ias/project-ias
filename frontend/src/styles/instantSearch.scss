@@ -7,7 +7,7 @@
 
 .menu-icon {
   font-size: 2rem;
-  color: #1E212D;
+  color: #1e212d;
 }
 
 .current-user {
@@ -17,7 +17,7 @@
 
   &-email {
     font-size: 1rem;
-    color: #1E212D;
+    color: #1e212d;
     font-weight: 500;
     letter-spacing: 2px;
 
@@ -28,10 +28,10 @@
 
   &-auth-btn {
     margin: 0 1rem;
-    padding: .7rem 1.5rem;
+    padding: 0.7rem 1.5rem;
     font-size: 1rem;
     background-color: #fefaee;
-    color: #1E212D;
+    color: #1e212d;
     border: none;
     border-radius: 10px;
     box-shadow: 0px 6px 12px rgba(0, 0, 0, 0.05);
@@ -56,8 +56,8 @@
     font-size: inherit;
     font-family: inherit;
     background: #fefaee;
-    border: 1px solid #FEF7DC;
-    color: #1E212D;
+    border: 1px solid #fef7dc;
+    color: #1e212d;
     box-sizing: border-box;
     box-shadow: 0px 6px 12px rgba(0, 0, 0, 0.05);
     border-radius: 6px;
@@ -82,13 +82,13 @@
     justify-content: center;
     align-items: center;
     border: none;
-    background-color: #FFEBC9;
+    background-color: #ffebc9;
     cursor: pointer;
 
     .search-logo {
       height: 2.7rem;
       width: 3.5rem;
-      stroke: #1E212D;
+      stroke: #1e212d;
       stroke-width: 4.5px;
     }
   }
@@ -132,7 +132,6 @@
 }
 
 .ais-Pagination {
-
   &-list {
     display: flex;
     list-style: none;
@@ -141,27 +140,26 @@
 
   &-item {
     background-color: #fefaee;
-    padding: .4rem .8rem;
+    padding: 0.4rem 0.8rem;
     margin-right: 1rem;
     display: flex;
     justify-content: center;
     border-radius: 5px;
 
     &--selected {
-      background-color: #FFEBC9;
+      background-color: #ffebc9;
     }
 
     &--disabled {
-      opacity: .6;
+      opacity: 0.6;
     }
   }
 
   &-link {
     text-decoration: none;
     display: inline-block;
-    color: #1E212D;
+    color: #1e212d;
   }
-
 }
 
 .ais-Hits {
@@ -173,7 +171,7 @@
 
     .ais-Hits-item {
       background: #fefaee;
-      border: 1px solid #FEF7DC;
+      border: 1px solid #fef7dc;
       box-shadow: 0px 6px 12px rgba(0, 0, 0, 0.05);
       border-radius: 4px;
       list-style: none;

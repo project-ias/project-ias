@@ -2,10 +2,10 @@ import {
   faCaretSquareRight,
   faCircle,
 } from "@fortawesome/free-solid-svg-icons";
-import { CircularProgressbar, buildStyles } from "react-circular-progressbar";
-import "react-circular-progressbar/dist/styles.css";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import React, { useState } from "react";
+import { buildStyles, CircularProgressbar } from "react-circular-progressbar";
+import "react-circular-progressbar/dist/styles.css";
 import { useHistory, useLocation } from "react-router-dom";
 import { updateSearchCountDashboard } from "../helpers/trialPeriod";
 
@@ -48,7 +48,7 @@ const TreeNode = ({ node }) => {
       userMains = [];
     }
 
-    if(node.category === "mainTopic") console.log(node.questions)
+    if (node.category === "mainTopic") console.log(node.questions);
 
     var temp = 0;
     for (var i = 0; i < userMains.length; i++) {
@@ -153,5 +153,3 @@ const TreeNode = ({ node }) => {
 };
 
 export default TreeMenu;
-
-

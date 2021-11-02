@@ -1,27 +1,25 @@
-//While updating the sheet data, delete the old index.
-
 const axios = require("axios");
-const { sheetApi, visionSheetID } = require("./config/keys");
+const { sheetApi, prelimsSheetID, MEILISEARCH_URL } = require("../config/keys");
 const crypto = require("crypto");
 const { MeiliSearch } = require("meilisearch");
-const keys = require("./config/keys");
 
 const client = new MeiliSearch({
-  host: keys.MEILISEARCH_URL,
+  host: MEILISEARCH_URL,
   apiKey: "masterKey",
 });
 
-const sheetNames = ["Sheet1"];
+const sheetNames = ["2020", "2019", "2018", "2017", "2016", "2015"];
 
 async function gsheetToMS() {
   for (var i = 0; i < sheetNames.length; i++) {
-    const dataArr = await sheetToJson(visionSheetID, sheetNames[i]);
+    const dataArr = await sheetToJson(prelimsSheetID, sheetNames[i]);
     var array_length = dataArr.length;
     for (let i = 0; i < array_length; i++) {
-      const id = crypto.randomBytes(20).toString("hex");
+      var idToken = dataArr[i].year + dataArr[i].qnumber;
+      const id = crypto.createHash("sha256").update(idToken).digest("hex");
       dataArr[i]["id"] = id;
-      //console.log(dataArr[i]);
-      const x = await client.index("vision").addDocuments([dataArr[i]]);
+      // console.log(dataArr[i]);
+      const x = await client.index("prelims_sheet").addDocuments([dataArr[i]]);
       console.log("added ", x);
     }
   }
@@ -35,19 +33,18 @@ async function sheetToJson(sheetId, sheetName) {
   const { data } = await axios.get(
     sheetToSheetAPIUrl(sheetId, sheetName, sheetApi)
   );
-  const mainArr = data["values"];
+  const mainArr = data.values;
   var convertedArr = [];
-  var subject, month, link;
   for (var i = 1; i < mainArr.length; i++) {
-    if (mainArr[i][0] == undefined || mainArr[i][3] == undefined) continue;
-    subject = (mainArr[i][1] == undefined) ? "" : mainArr[i][1];
-    month = (mainArr[i][2] == undefined) ? "" : mainArr[i][2];
-    link = (mainArr[i][3] == undefined) ? "" : mainArr[i][3];
+    if (mainArr[i][2] == undefined) continue;
     const tempObject = {
-      topic: mainArr[i][0],
-      subject: subject,
-      month: month,
-      link: link
+      qnumber: mainArr[i][0],
+      section: mainArr[i][1],
+      question: mainArr[i][2],
+      options: mainArr[i][3].split(";"),
+      correct: mainArr[i][4],
+      solution: mainArr[i][5],
+      year: sheetName,
     };
     convertedArr.push(tempObject);
   }

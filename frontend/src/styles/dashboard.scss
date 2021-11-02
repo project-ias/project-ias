@@ -1,188 +1,188 @@
 .dashboard-cover {
-    position: fixed;
-    width: 100%;
-    min-height: 100%;
-    top: 0;
-    left: 0;
-    z-index: 1;
-    background-color: rgba(0, 0, 0, 0.1);
-    backdrop-filter: brightness(40%);
-    animation: fadeIn .3s 1;
+  position: fixed;
+  width: 100%;
+  min-height: 100%;
+  top: 0;
+  left: 0;
+  z-index: 1;
+  background-color: rgba(0, 0, 0, 0.1);
+  backdrop-filter: brightness(40%);
+  animation: fadeIn 0.3s 1;
 
-    &-hide {
-        display: none;
-    }
+  &-hide {
+    display: none;
+  }
 }
 
 .dashboard-div {
-    position: fixed;
-    top: 0;
-    left: 0;
-    min-height: 100%;
-    height: 80vh;
-    min-width: 25%;
-    background-color: #feebc9;
-    //box-shadow: 0px 6px 12px rgba(0, 0, 0, 0.05);
-    z-index: 2;
-    animation: moveRight .2s 1;
-    animation-timing-function: ease-out;
-    display: flex;
-    flex-direction: column;
-    overflow-y: scroll;
-    overflow-x: hidden;
+  position: fixed;
+  top: 0;
+  left: 0;
+  min-height: 100%;
+  height: 80vh;
+  min-width: 25%;
+  background-color: #feebc9;
+  //box-shadow: 0px 6px 12px rgba(0, 0, 0, 0.05);
+  z-index: 2;
+  animation: moveRight 0.2s 1;
+  animation-timing-function: ease-out;
+  display: flex;
+  flex-direction: column;
+  overflow-y: scroll;
+  overflow-x: hidden;
 
-    @include sm {
-        min-width: 70%;
-       }
+  @include sm {
+    min-width: 70%;
+  }
 }
 
 .menu-exit {
-    text-align: right;
-    padding: 1rem 1.5rem;
+  text-align: right;
+  padding: 1rem 1.5rem;
 }
 
 .email-logo-div {
-    background-color: #fefaee;
-    box-shadow: 0px 6px 12px rgba(0, 0, 0, 0.05);
-    width: 8rem;
-    height: 8rem;
-    border-radius: 50%;
-    position: relative;
-    margin: 2rem auto;
+  background-color: #fefaee;
+  box-shadow: 0px 6px 12px rgba(0, 0, 0, 0.05);
+  width: 8rem;
+  height: 8rem;
+  border-radius: 50%;
+  position: relative;
+  margin: 2rem auto;
 
-    .email-logo {
-        position: absolute;
-        top: 50%;
-        left: 50%;
-        transform: translate(-50%, -50%);
-        font-size: 4rem;
-        text-transform: uppercase;
-        font-weight: bolder;
-    }
+  .email-logo {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    font-size: 4rem;
+    text-transform: uppercase;
+    font-weight: bolder;
+  }
 }
 
 .email-text {
-    text-align: center;
-    font-size: 1rem;
-    letter-spacing: 1.5px;
-    word-wrap: break-word;
-    padding: 0 .8rem;
-    font-weight: bolder;
-    margin-bottom: 4rem;
+  text-align: center;
+  font-size: 1rem;
+  letter-spacing: 1.5px;
+  word-wrap: break-word;
+  padding: 0 0.8rem;
+  font-weight: bolder;
+  margin-bottom: 4rem;
 }
 
 .tree-menu {
-    border-top: 2px solid black;
-    border-bottom: 2px solid black;
-    &-column {
-        list-style: none;
-        padding-left: 1rem;
-    }
-    &-item {
-        padding: 1rem .5rem;
-        vertical-align: middle;
-        display: flex;
-        align-items: center;
-        width: 100%;
-    }
-    &-caret {
-        display: inline-block;
-        font-size: 2rem;
-        color: #333;
-    }
-    &-label {
-        display: inline-block;
-        padding-left: 1rem;
-        padding-right: 1rem;
-        max-width: 40rem;
-        font-weight: 500;
+  border-top: 2px solid black;
+  border-bottom: 2px solid black;
+  &-column {
+    list-style: none;
+    padding-left: 1rem;
+  }
+  &-item {
+    padding: 1rem 0.5rem;
+    vertical-align: middle;
+    display: flex;
+    align-items: center;
+    width: 100%;
+  }
+  &-caret {
+    display: inline-block;
+    font-size: 2rem;
+    color: #333;
+  }
+  &-label {
+    display: inline-block;
+    padding-left: 1rem;
+    padding-right: 1rem;
+    max-width: 40rem;
+    font-weight: 500;
 
-        &:hover {
-            color: blue;
-            cursor: pointer;
-        }
+    &:hover {
+      color: blue;
+      cursor: pointer;
     }
-    &-solved {
-        margin-left: auto;
-        padding-right: 1rem;
-        min-width: 4rem;
-        width: 4rem;
-        font-weight: bolder;
+  }
+  &-solved {
+    margin-left: auto;
+    padding-right: 1rem;
+    min-width: 4rem;
+    width: 4rem;
+    font-weight: bolder;
 
-        &-fraction {
-            font-size: 80%;
-            margin-left: 1rem;
-        }
+    &-fraction {
+      font-size: 80%;
+      margin-left: 1rem;
+    }
 
-        &-svg {
-            .CircularProgressbar-trail {
-                stroke-width: 3px;
-            }
-            .CircularProgressbar-path {
-                stroke-width: 8px;
-                stroke-linecap: butt;
-            }
-        }
+    &-svg {
+      .CircularProgressbar-trail {
+        stroke-width: 3px;
+      }
+      .CircularProgressbar-path {
+        stroke-width: 8px;
+        stroke-linecap: butt;
+      }
     }
-    &-active {
-        transform: rotateZ(90deg);
-    }
+  }
+  &-active {
+    transform: rotateZ(90deg);
+  }
 }
 
 .subscription-status {
-    text-align: center;
-    margin-bottom: 1.5rem;
-    color: blue;
-    font-weight: bolder;
+  text-align: center;
+  margin-bottom: 1.5rem;
+  color: blue;
+  font-weight: bolder;
 }
 
 .contact-us {
-    // position: absolute;
-    // bottom: 2rem;
+  // position: absolute;
+  // bottom: 2rem;
+  width: 100%;
+  border-top: 2px solid black;
+  border-bottom: 2px solid black;
+  margin-top: 2rem;
+
+  &-text {
+    text-align: center;
+    padding: 2rem 4rem;
+    font-weight: bolder;
+    letter-spacing: 1px;
+    font-size: 1rem;
+  }
+
+  .icons-div {
+    font-size: 2rem;
+    display: flex;
+    justify-content: space-evenly;
     width: 100%;
-    border-top: 2px solid black;
-    border-bottom: 2px solid black;
-    margin-top: 2rem;
-
-    &-text {
-        text-align: center;
-        padding: 2rem 4rem;
-        font-weight: bolder;
-        letter-spacing: 1px;
-        font-size: 1rem;
-    }
-
-    .icons-div {
-        font-size: 2rem;
-        display: flex;
-        justify-content: space-evenly;
-        width: 100%;
-        padding-bottom: 1.5rem;
-    }
+    padding-bottom: 1.5rem;
+  }
 }
 
 .link-icon {
-    color: #1E212D;
+  color: #1e212d;
 
-    &:hover {
-        color: blue;
-    }
+  &:hover {
+    color: blue;
+  }
 }
 
 @keyframes fadeIn {
-    0% {
-        opacity: 0;
-    }
-    100% {
-        opacity: 1;
-    }
+  0% {
+    opacity: 0;
+  }
+  100% {
+    opacity: 1;
+  }
 }
 
 @keyframes moveRight {
-    0% {
-        margin-left: -20%;
-    }
-    100% {
-        margin-left: 0;
-    }
+  0% {
+    margin-left: -20%;
+  }
+  100% {
+    margin-left: 0;
+  }
 }

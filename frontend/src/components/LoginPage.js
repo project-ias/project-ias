@@ -1,8 +1,7 @@
-import React, { useState } from "react";
 import axios from "axios";
+import React, { useState } from "react";
 import { useHistory } from "react-router-dom";
-
-import { SIGNUP_URL, SIGNIN_URL, USER_URL } from "../constants/constants";
+import { SIGNIN_URL, SIGNUP_URL, USER_URL } from "../constants/constants";
 
 const LoginPage = () => {
   const [loginMode, setLoginMode] = useState(0); // 0 - Sign-In page   1 - Sign-Up page

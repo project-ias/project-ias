@@ -5,3 +5,19 @@
     overflow-x: scroll;
   }
 }
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  display: flex;
+  overflow-x: scroll;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  background-color: #e9ddcd;
+}
+
+#root {
+  margin: 0 auto;
+}

@@ -1,191 +1,191 @@
 .payment {
-	&-card {
-		background-color: #fefaee;
-		margin: 10vh 0 5vh 0;
-		min-height: 60vh;
-		width: 38rem;
-		border-radius: 5px;
-		display: flex;
-		flex-direction: column;
-		align-items: center;
-		padding: 1rem 0.2rem;
-		box-shadow: 0px 6px 12px rgba(0, 0, 0, 0.05);
+  &-card {
+    background-color: #fefaee;
+    margin: 10vh 0 5vh 0;
+    min-height: 60vh;
+    width: 38rem;
+    border-radius: 5px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 1rem 0.2rem;
+    box-shadow: 0px 6px 12px rgba(0, 0, 0, 0.05);
 
-		@include sm {
-			width: 20rem;
-			margin-top: 15vh;
-		}
-	}
+    @include sm {
+      width: 20rem;
+      margin-top: 15vh;
+    }
+  }
 
-	&-logo {
-		width: 5rem;
-		margin: 1.5rem 0 0.5rem 0;
+  &-logo {
+    width: 5rem;
+    margin: 1.5rem 0 0.5rem 0;
 
-		@include sm {
-			width: 3rem;
-		}
-	}
+    @include sm {
+      width: 3rem;
+    }
+  }
 
-	&-heading {
-		font-size: 2.5rem;
-		letter-spacing: 4px;
+  &-heading {
+    font-size: 2.5rem;
+    letter-spacing: 4px;
 
-		@include sm {
-			font-size: 1.5rem;
-		}
-	}
+    @include sm {
+      font-size: 1.5rem;
+    }
+  }
 
-	&-benefit {
-		&-list {
-			list-style: none;
-			padding: 0 2rem 0 2.2rem;
-		}
+  &-benefit {
+    &-list {
+      list-style: none;
+      padding: 0 2rem 0 2.2rem;
+    }
 
-		&-item {
-			padding: 0.5rem 0;
-			font-size: 1.5rem;
+    &-item {
+      padding: 0.5rem 0;
+      font-size: 1.5rem;
 
-			@include sm {
-				font-size: 1.3rem;
-			}
-		}
-	}
+      @include sm {
+        font-size: 1.3rem;
+      }
+    }
+  }
 
-	&-topbar {
-		position: absolute;
-		top: 1rem;
-		left: 0;
-		width: 100vw;
-		display: flex;
-		justify-content: space-between;
-	}
+  &-topbar {
+    position: absolute;
+    top: 1rem;
+    left: 0;
+    width: 100vw;
+    display: flex;
+    justify-content: space-between;
+  }
 
-	&-rate {
-		color: #1e212d;
-		width: 30rem;
+  &-rate {
+    color: #1e212d;
+    width: 30rem;
 
-		@include sm {
-			width: 18rem;
-			font-size: 1rem;
-		}
+    @include sm {
+      width: 18rem;
+      font-size: 1rem;
+    }
 
-		&-slider {
-			width: 30rem;
+    &-slider {
+      width: 30rem;
 
-			@include sm {
-				width: 18rem;
-			}
-		}
+      @include sm {
+        width: 18rem;
+      }
+    }
 
-		&-label {
-			display: flex;
-			justify-content: space-between;
+    &-label {
+      display: flex;
+      justify-content: space-between;
 
-			.left {
-				text-align: left;
-			}
+      .left {
+        text-align: left;
+      }
 
-			.center {
-				text-align: center;
-			}
+      .center {
+        text-align: center;
+      }
 
-			.right {
-				text-align: right;
-			}
+      .right {
+        text-align: right;
+      }
 
-			.bold {
-				font-weight: bolder;
-			}
-		}
-	}
+      .bold {
+        font-weight: bolder;
+      }
+    }
+  }
 
-	&-links-div {
-		display: flex;
-		justify-content: center;
-	}
+  &-links-div {
+    display: flex;
+    justify-content: center;
+  }
 
-	&-button {
-		margin: 2.5rem 1rem 1rem 1rem;
-		background-color: #ffebc9;
-		padding: 0.7rem 1.5rem;
-		border-radius: 5px;
+  &-button {
+    margin: 2.5rem 1rem 1rem 1rem;
+    background-color: #ffebc9;
+    padding: 0.7rem 1.5rem;
+    border-radius: 5px;
 
-		@include sm {
-			margin: 1rem 0.5rem;
-		}
+    @include sm {
+      margin: 1rem 0.5rem;
+    }
 
-		&-link {
-			color: #1e212d;
-			text-decoration: none;
-			font-weight: bolder;
-			font-size: 1.5rem;
-			letter-spacing: 2px;
+    &-link {
+      color: #1e212d;
+      text-decoration: none;
+      font-weight: bolder;
+      font-size: 1.5rem;
+      letter-spacing: 2px;
 
-			@include sm {
-				font-size: 1rem;
-			}
-		}
+      @include sm {
+        font-size: 1rem;
+      }
+    }
 
-		&-green {
-			background-color: #57cc99;
-		}
-	}
+    &-green {
+      background-color: #57cc99;
+    }
+  }
 
-	&-coupon {
-		display: flex;
-		align-items: center;
-		margin-top: 2rem;
+  &-coupon {
+    display: flex;
+    align-items: center;
+    margin-top: 2rem;
 
-		&-input {
-			height: 2rem;
-			align-self: center;
-			padding: 0.5rem 0.8rem;
-			border-radius: 5px 0 0 5px;
-			border: 2px solid #57cc99;
-			background-color: #ffebc9;
-			font-size: 1rem;
+    &-input {
+      height: 2rem;
+      align-self: center;
+      padding: 0.5rem 0.8rem;
+      border-radius: 5px 0 0 5px;
+      border: 2px solid #57cc99;
+      background-color: #ffebc9;
+      font-size: 1rem;
 
-			&:focus {
-				border: 2px solid #57cc99;
-				outline: none;
-			}
+      &:focus {
+        border: 2px solid #57cc99;
+        outline: none;
+      }
 
-			@include sm {
-				padding: 0.2rem 0.5rem;
-				width: 9rem;
-			}
-		}
+      @include sm {
+        padding: 0.2rem 0.5rem;
+        width: 9rem;
+      }
+    }
 
-		&-button {
-			margin: 0;
-			padding: 0.5rem 0.8rem;
-			border-radius: 0 5px 5px 0;
-			border: 2px solid #57cc99;
-			height: 2rem;
-			display: flex;
-			flex-direction: column;
-			justify-content: center;
+    &-button {
+      margin: 0;
+      padding: 0.5rem 0.8rem;
+      border-radius: 0 5px 5px 0;
+      border: 2px solid #57cc99;
+      height: 2rem;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
 
-			@include sm {
-				padding: 0.2rem 0.5rem;
-			}
+      @include sm {
+        padding: 0.2rem 0.5rem;
+      }
 
-			.payment-button-link {
-				font-size: 1rem;
-			}
-		}
-	}
+      .payment-button-link {
+        font-size: 1rem;
+      }
+    }
+  }
 
-	&-server-error {
-		background-color: #fefaee;
-		position: absolute;
-		left: 50vw;
-		top: 50vh;
-		transform: translate(-50%, -50%);
-		width: 30rem;
-		padding: 2rem 2.5rem;
-		border-radius: 10px;
-		text-align: center;
-		font-weight: bolder;
-	}
+  &-server-error {
+    background-color: #fefaee;
+    position: absolute;
+    left: 50vw;
+    top: 50vh;
+    transform: translate(-50%, -50%);
+    width: 30rem;
+    padding: 2rem 2.5rem;
+    border-radius: 10px;
+    text-align: center;
+    font-weight: bolder;
+  }
 }
