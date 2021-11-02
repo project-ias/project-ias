@@ -19,12 +19,13 @@ export const LOG_URL = `${BACKEND_URL}/log`;
 export const SIGNUP_URL = `${BACKEND_URL}/signup`;
 export const SIGNIN_URL = `${BACKEND_URL}/signin`;
 
-export const USER_URL = `${BACKEND_URL}/currentuser`;
+export const USER_ROUTE_URL = `${BACKEND_URL}/user`;
+export const USER_URL = `${USER_ROUTE_URL}/currentuser`;
 
 export const USER_PRELIMS_URL = `${BACKEND_URL}/user_prelims`;
-export const USER_MAINS_URL = `${BACKEND_URL}/user_mains`;
+export const USER_MAINS_URL = `${USER_ROUTE_URL}/user_mains`;
 
-export const TOPICS_URL = `${BACKEND_URL}/topics`;
+export const TOPICS_URL = `${USER_ROUTE_URL}/topics`;
 
 const PREMIUM_URL = `${BACKEND_URL}/premium`;
 export const SUBSCRIPTION_PLANS_URL = `${PREMIUM_URL}/subscriptionPlans`;
