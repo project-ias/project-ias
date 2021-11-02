@@ -3,6 +3,7 @@ import useWindowDimensions from "../../helpers/WindowDimensions";
 import { useEffect, useState } from "react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faBars, faTimes } from "@fortawesome/free-solid-svg-icons";
+import { TELEGRAM_URL } from "../../constants/constants";
 
 const NavBar = () => {
 
@@ -32,10 +33,10 @@ const NavBar = () => {
         else {
             setNavbarLinkDiv(
                 <div className="navbar-links-div">
-                    <a className="navbar-link" href="/">Premium</a>
-                    <a className="navbar-link" href="/">FAQ</a>
-                    <a className="navbar-link" href="/">Contact Us</a>
-                    <a className="navbar-link navbar-link-special" href="/">LOGIN</a>
+                    <a className="navbar-link" href="/payment">Premium</a>
+                    <a className="navbar-link" href={TELEGRAM_URL}>FAQ</a>
+                    <a className="navbar-link" href={TELEGRAM_URL}>Contact Us</a>
+                    <a className="navbar-link navbar-link-special" href="/auth">LOGIN</a>
                 </div>
             )
         }
@@ -45,10 +46,10 @@ const NavBar = () => {
     if(showMenu) {
         menuDiv = (
             <div className="navbar-menu-list">
-                <a className="navbar-link" href="/">Premium</a>
-                <a className="navbar-link" href="/">FAQ</a>
-                <a className="navbar-link" href="/">Contact Us</a>
-                <a className="navbar-link navbar-link-special" href="/">LOGIN</a>
+                <a className="navbar-link" href="/payment">Premium</a>
+                <a className="navbar-link" href={TELEGRAM_URL}>FAQ</a>
+                <a className="navbar-link" href={TELEGRAM_URL}>Contact Us</a>
+                <a className="navbar-link navbar-link-special" href="/auth">LOGIN</a>
             </div>
         )
     }
