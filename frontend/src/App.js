@@ -9,6 +9,7 @@ import ThirdPartyEmailPassword, {
   Google,
   ThirdPartyEmailPasswordAuth,
 } from "supertokens-auth-react/recipe/thirdpartyemailpassword";
+import LandingPage from "./components/LandingPage/LandingPage";
 import Payment from "./components/Payment";
 import SearchPage from "./components/SearchPage";
 import { BACKEND_URL, FRONTEND_URL, USER_URL } from "./constants/constants";
@@ -70,6 +71,9 @@ function App() {
           {getSuperTokensRoutesForReactRouterDom(require("react-router-dom"))}
           <Route path="/payment">
             <Payment />
+          </Route>
+          <Route path="/landing">
+            <LandingPage />
           </Route>
           <Route path="/">
             {!checkTrialStatus() ? (

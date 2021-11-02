@@ -21,6 +21,7 @@
     "react-html-parser": "^2.0.2",
     "react-instantsearch-dom": "^6.11.2",
     "react-loader-spinner": "^4.0.0",
+    "react-responsive-carousel": "^3.2.21",
     "react-router-dom": "^5.2.0",
     "react-scripts": "4.0.3",
     "sass-loader": "^12.1.0",

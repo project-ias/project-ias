@@ -1,0 +1,105 @@
+.navbar {
+  &-div {
+    min-height: 10vh;
+    min-width: 100%;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    z-index: 1;
+    background-color: #eee;
+
+    @include sm {
+      position: fixed;
+    }
+  }
+
+  &-logo-div {
+    margin-left: 2rem;
+    display: flex;
+    align-items: center;
+
+    @include sm {
+      margin-left: 0.5rem;
+    }
+  }
+
+  &-logo {
+    width: 3.5rem;
+
+    @include sm {
+      display: none;
+    }
+  }
+
+  &-title {
+    margin-left: 2rem;
+    margin-top: 0rem;
+    display: flex;
+    flex-direction: column;
+
+    &-main {
+      font-weight: bolder;
+      font-size: 2rem;
+
+      @include sm {
+        font-size: 1.5rem;
+      }
+    }
+
+    &-sub {
+      font-size: 0.8rem;
+
+      @include sm {
+        display: none;
+      }
+    }
+
+    @include sm {
+      margin-left: 0rem;
+    }
+  }
+
+  &-links-div {
+    display: flex;
+    width: 50%;
+    justify-content: space-evenly;
+    align-items: center;
+  }
+
+  &-link {
+    text-decoration: none;
+    color: #000;
+    font-weight: 600;
+
+    &-special {
+      background-color: #000;
+      color: #eee;
+      padding: 0.3rem 0.5rem;
+      border-radius: 5px;
+    }
+
+    @include sm {
+      margin: 1.5rem auto;
+      font-size: 1.5rem;
+    }
+  }
+
+  &-menu {
+    margin-right: 2rem;
+    font-size: 1.5rem;
+  }
+
+  &-menu-list {
+    position: fixed;
+    top: 10vh;
+    left: 0;
+    width: 100%;
+    min-height: 90vh;
+    z-index: 1;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    background-color: #eee;
+  }
+}

@@ -1,0 +1,88 @@
+@import "navbar.scss";
+@import "headerCard.scss";
+@import "headerTitle.scss";
+@import "demoVideo.scss";
+@import "startBox.scss";
+
+.landing-page {
+  min-width: 100vw;
+  min-height: 100vh;
+  background-color: #eee;
+  box-sizing: border-box;
+}
+
+.header {
+  &-div {
+    display: flex;
+    flex-direction: column;
+
+    @include sm {
+      display: block;
+    }
+  }
+}
+
+.header-div,
+.header-title,
+.demo-video-div,
+.start-box-div {
+  display: flex;
+  flex-direction: column;
+}
+
+.landing-scroll {
+  border: none;
+  outline: none;
+  font-size: 3rem;
+  background-color: transparent;
+  animation: highlight 2s linear 1s infinite normal;
+}
+
+@keyframes highlight {
+  0% {
+    transform: none;
+    color: #000;
+  }
+  100% {
+    transform: translateY(1rem);
+    color: rgb(78, 17, 17);
+  }
+}
+
+// .landing-card {
+
+//     text-align: center;
+//     padding: 1rem 1.2rem;
+//     border-radius: 10px;
+//     box-shadow: 0px 6px 12px rgba(0, 0, 0, 0.03);
+
+//     &-title {
+//         font-size: 1.5rem;
+//         font-weight: bolder;
+//         text-transform: uppercase;
+//     }
+
+//     &-text {
+//         padding: .5rem .7rem;
+//     }
+
+//     &-green {
+//         background-color: rgba($color: #6ECB63, $alpha: .5);
+//         color: rgba($color: #32502E, $alpha: 1);
+//     }
+
+//     &-red {
+//         background-color: rgba($color: #FF0000, $alpha: .3);
+//         color: rgba($color: #8E0505, $alpha: 1);
+//     }
+
+//     &-blue {
+//         background-color: rgba($color: #0F00FF, $alpha: .3);
+//         color: rgba($color: #2C2891, $alpha: 1);
+//     }
+
+//     &-purple {
+//         background-color: rgba($color: #FDB9FC, $alpha: 1);
+//         color: rgba($color: #7027A0, $alpha: 1);
+//     }
+// }
