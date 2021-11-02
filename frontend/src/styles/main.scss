@@ -5,6 +5,7 @@
 @import "loginPage.scss";
 @import "dashboard.scss";
 @import "payment.scss";
+@import "landing/landingPage.scss";
 
 .main {
   display: flex;
@@ -62,7 +63,7 @@
     }
   }
 
-  
+
 
   .types {
     display: flex;
