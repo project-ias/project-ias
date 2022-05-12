@@ -43,14 +43,15 @@ The data has been stored in the form of JSON files in the `backend/pyq-scrapers`
 
 # Deployment
 
-- Frontend, backend and MeiliSearch all are deployed on t2 micro instance.
-- Frontend build is served by Nginx
+- Backend and MeiliSearch are deployed on t2 micro instance.
 - Backend runs in background via pm2
 - Meilisearch is hosted via ngrok
+- Frontend build is automatically created using Netlify.
 
 To deploy
 
-- If you want your changes(both frontend and backend) to be deployed. SSH to the server. Run the `deploy.sh` script present in the home directory.
+- If you want your changes(backend only) to be deployed. SSH to the server. Run the `deploy.sh` script present in the home directory.
+- Frontend will be automatically updated when `master` branch is updated.
 
 # Project Structure
 
