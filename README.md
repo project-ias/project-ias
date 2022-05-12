@@ -88,3 +88,17 @@ Below are the related files for 2 cronjobs - Rau DNS, Dhristi Content
 - [Script that runs when Endpoint `/cron_dhristi` is hit](https://github.com/Neera-AI/project-ias/blob/master/backend/add_today_dhristi.sh)
 - [Python Script that creates a `today_dhristi.json`](https://github.com/Neera-AI/project-ias/blob/master/backend/pyq_scrapers/scrape_today_dhristi.py)
 - [JS Script to add `today_dhristi.json` to MeiliSearch](https://github.com/Neera-AI/project-ias/blob/master/backend/add_today_dhristi.js)
+
+
+# Steps to perform while restarting the server.
+
+1. SSH into the server.
+2. Run meilisearch instance by the following steps.
+ - open a tmux terminal by running the command `tmux`.
+ - run the command `./meilisearch` while being in the home directory.
+ - to return back press `CTRL + B` and then press `D`.
+3. Run the backend nodejs server by the following steps.
+ - go to `/project-ias/backend`
+ - run `pm2 start index.js`
+4. Run nginx service by the following method.
+ - run `sudo service nginx start`
