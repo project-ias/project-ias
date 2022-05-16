@@ -22,4 +22,9 @@ const subscription = (payDate) => {
   }
 };
 
+export const isPremiumUser = () => {
+  const payDate = localStorage.getItem("payDate");
+  return subscription(payDate) > 0;
+};
+
 export default subscription;
