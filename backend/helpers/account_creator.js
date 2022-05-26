@@ -1,6 +1,5 @@
 const { UserModel } = require("../models/models");
-const { default: axios } = require("axios");
-const { slackApiUrl } = require("../config/keys");
+const slackNotifier = require("./slack_notifier");
 
 const createAccountInMongo = async (email) => {
   const existUser = await UserModel.findOne({ email: email }).exec();
@@ -22,10 +21,7 @@ const createAccountInMongo = async (email) => {
     });
     newUser.save((err) => console.log(err));
     //update on slack.
-    axios
-      .post(slackApiUrl, { text: `${email} just signed in` })
-      .then()
-      .catch((err) => console.log("Error while updating on slack : " + err));
+    slackNotifier(`${email} just signed in`);
   }
 };
 
