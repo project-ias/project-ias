@@ -6,7 +6,6 @@ const crypto = require("crypto");
 const bcrypt = require("bcryptjs");
 const mongoose = require("mongoose");
 const passport = require("passport");
-const fs = require("fs");
 
 const supertokens = require("supertokens-node");
 const Session = require("supertokens-node/recipe/session");
@@ -28,6 +27,7 @@ const manualMeilisearch = require("./apis/manual_meilisearch");
 const cronjobs = require("./apis/run_cronjob");
 const user = require("./apis/user");
 const createAccountInMongo = require("./helpers/account_creator");
+const slackNotifier = require("./helpers/slack_notifier");
 require("./config/passport")(passport);
 
 const mongoDB = "mongodb://127.0.0.1/project_ias";
@@ -181,14 +181,19 @@ app.post("/payment", async (req, res) => {
     const status = req.body.event;
     const amount = req.body.payload.payment.entity.amount / 100;
 
-    if (status !== "payment.captured") res.status(400).send("Payment failed.");
-    else {
+    if (status !== "payment.captured") {
+      slackNotifier(
+        `Payment failed for ${email}. Check Razorpay dashboard for details.`
+      );
+      res.send("OK");
+    } else {
       UserModel.findOne({ email: email }, (err, docs) => {
         if (err) res.status(400).send(err);
         else if (docs === null) {
-          //user not found in db.
-          console.log("paid user email not found.");
-          res.status(400).send("unknown email.");
+          slackNotifier(
+            `Payment done for ${email}. Email not found in database. Subscription cannot be added.`
+          );
+          res.send("OK");
         } else {
           var payDate = docs.payDate.split("-").map((i) => Number(i));
           const daysLeft =
@@ -238,9 +243,14 @@ app.post("/payment", async (req, res) => {
             { new: true },
             (err, result) => {
               if (err) {
-                console.log(err);
-                res.status(400).send(err);
+                slackNotifier(
+                  `Payment done for ${email}. Error with mongodb. Subscription cannot be added. Details: ${err}`
+                );
+                res.send("OK");
               } else {
+                slackNotifier(
+                  `Payment done for ${email}. Subscription added successfully. Amount: ${amount}`
+                );
                 res.send("OK");
               }
             }
