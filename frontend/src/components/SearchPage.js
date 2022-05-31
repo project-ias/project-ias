@@ -23,7 +23,7 @@ import {
   VISION_URL,
   WFV_URL,
 } from "../constants/constants";
-import subscription from "../helpers/subscription";
+import subscription, { isPremiumUser } from "../helpers/subscription";
 import {
   checkMaxSearchLimit,
   checkTrialStatus,
@@ -127,7 +127,7 @@ export default function SearchPage() {
       console.log(err);
     }
 
-    const data = { query: query };
+    const data = { query: query, length: isPremiumUser() ? 50 : 3 };
 
     if (materialType === "dns") {
       axios
@@ -179,13 +179,13 @@ export default function SearchPage() {
   function handleChange(e) {
     // prevent default can be removed?
     e.preventDefault();
-    var data = { query: "" };
+    var data = { query: "", length: isPremiumUser() ? 50 : 3 };
     if (e.target.value === undefined || e.target.value === null) {
       setQuery("");
-      data = { query: "" };
+      data = { query: "", length: isPremiumUser() ? 50 : 3 };
     } else {
       setQuery(e.target.value);
-      data = { query: e.target.value };
+      data = { query: e.target.value, length: isPremiumUser() ? 50 : 3 };
     }
 
     updateSearchCount();
@@ -337,7 +337,7 @@ export default function SearchPage() {
         Search through PYQs, DNS & Reading Content{" "}
       </h3>
       <InstantSearch indexName={examType} searchClient={searchClient}>
-        <Configure hitsPerPage={25} />
+        <Configure hitsPerPage={isPremiumUser() ? 25 : 3} />
         <SearchBox
           defaultRefinement={query}
           onChange={processChange}
@@ -351,7 +351,7 @@ export default function SearchPage() {
         />
         {width <= 1000 && (
           <div className="mobile-view">
-            {pagination}
+            {isPremiumUser() && pagination}
             <div className="types">
               <div
                 className={`type ${examType === "pyqs" && "current"}`}
@@ -411,7 +411,13 @@ export default function SearchPage() {
             ) : null}
 
             <Hits hitComponent={ReturnHitComponent(examType)} />
-            {pagination}
+            {isPremiumUser() ? (
+              pagination
+            ) : (
+              <div className="premium-alert">
+                Become a Premium user to unlock further search results
+              </div>
+            )}
           </div>
         )}
         {width > 1000 && (
@@ -440,11 +446,17 @@ export default function SearchPage() {
                 </div>
               </div>
 
-              {pagination}
+              {isPremiumUser() && pagination}
 
               <Hits hitComponent={ReturnHitComponent(examType)} />
 
-              {pagination}
+              {isPremiumUser() ? (
+                pagination
+              ) : (
+                <div className="premium-alert">
+                  Become a Premium user to unlock further search results
+                </div>
+              )}
             </div>
 
             <div className="division">
