@@ -29,7 +29,9 @@ const user = require("./apis/user");
 const createAccountInMongo = require("./helpers/account_creator");
 const slackNotifier = require("./helpers/slack_notifier");
 require("./config/passport")(passport);
+require("dotenv").config();
 
+//init mongodb. Ensure mongodb is installed in the machine. Terminal shows "mongo connected" when everything is alright.
 const mongoDB = "mongodb://127.0.0.1/project_ias";
 mongoose.connect(mongoDB, {
   useNewUrlParser: true,
@@ -39,12 +41,13 @@ mongoose.connect(mongoDB, {
 const db = mongoose.connection;
 db.on("open", () => console.log("mongo connected"));
 
-require("dotenv").config();
+//init meilisearch
 const client = new MeiliSearch({
   host: keys.MEILISEARCH_URL,
   apiKey: "masterKey",
 });
 
+//init supertokens for user auth.
 supertokens.init({
   supertokens: {
     connectionURI: SUPERTOKENS_URI,
@@ -141,6 +144,7 @@ supertokens.init({
   ],
 });
 
+//setup cors and middleware.
 const app = express();
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
@@ -156,15 +160,18 @@ app.options("*", cors());
 app.use(morgan("tiny"));
 app.use(passport.initialize());
 
+//testing route
 app.get("/", (req, res) => {
   res.send("helo");
 });
 
+//api handled in specific routes. visit corresponding file.
 app.use("/user", user);
 app.use("/cronjobs", cronjobs);
 app.use("/search", manualMeilisearch);
 app.use("/premium", premium);
 
+//keeps a log of queries searched in project-ias.
 app.post("/log", async (req, res) => {
   const query_data = req.body.query_data;
   const id = crypto.randomBytes(20).toString("hex");
@@ -173,6 +180,7 @@ app.post("/log", async (req, res) => {
   res.send("Added");
 });
 
+//api for payment webhook. Razorpay
 app.post("/payment", async (req, res) => {
   const today = new Date();
   const date = [today.getFullYear(), today.getMonth(), today.getDate()];
@@ -263,6 +271,7 @@ app.post("/payment", async (req, res) => {
   }
 });
 
+//supertokens error handler. part of their documentation.
 app.use(supertokens.errorHandler());
 
 const PORT = process.env.PORT || 5000;
