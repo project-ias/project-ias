@@ -8,6 +8,7 @@ import {
   findRevisionInterval,
   hasRevisedChecker,
 } from "../../helpers/spacedRepetition";
+import { isPremiumUser } from "../../helpers/subscription";
 
 export default function HitPyqs(props) {
   const [solved, setSolved] = useState(false);
@@ -144,16 +145,18 @@ export default function HitPyqs(props) {
             {props.hit["year"]}
             {")"}
           </span>
-          <div className="pyqs-solved-toggle">
-            <label className="pyqs-solved-toggle-text">Solved ?</label>
-            <input
-              type="checkbox"
-              className="pyqs-solved-toggle-check"
-              onChange={() => completeCheckHandler(solved, 0)}
-              checked={solved}
-            ></input>
-          </div>
-          {!revised && revisionDiv}
+          {isPremiumUser() && (
+            <div className="pyqs-solved-toggle">
+              <label className="pyqs-solved-toggle-text">Solved ?</label>
+              <input
+                type="checkbox"
+                className="pyqs-solved-toggle-check"
+                onChange={() => completeCheckHandler(solved, 0)}
+                checked={solved}
+              ></input>
+            </div>
+          )}
+          {isPremiumUser() && !revised && revisionDiv}
         </div>
       )}
     </div>
