@@ -3,11 +3,13 @@ import React, { useEffect, useState } from "react";
 import { Highlight } from "react-instantsearch-dom";
 import Loader from "react-loader-spinner";
 import "react-loader-spinner/dist/loader/css/react-spinner-loader.css";
+import { toast } from "react-toastify";
 import { USER_MAINS_URL } from "../../constants/constants";
 import {
   findRevisionInterval,
   hasRevisedChecker,
 } from "../../helpers/spacedRepetition";
+import { isPremiumUser } from "../../helpers/subscription";
 
 export default function HitSecure(props) {
   const [solved, setSolved] = useState(false);
@@ -157,16 +159,23 @@ export default function HitSecure(props) {
               Reference
             </a>
           </div>
-          <div className="pyqs-solved-toggle">
+          <div
+            className="pyqs-solved-toggle"
+            onClick={() =>
+              !isPremiumUser() &&
+              toast.warn("You need to buy premium to use this feature.")
+            }
+          >
             <label className="pyqs-solved-toggle-text">Solved ?</label>
             <input
               type="checkbox"
               className="pyqs-solved-toggle-check"
               onChange={() => completeCheckHandler(solved, 0)}
               checked={solved}
+              disabled={!isPremiumUser()}
             ></input>
           </div>
-          {revisionDiv}
+          {isPremiumUser() && revisionDiv}
         </div>
       )}
     </div>

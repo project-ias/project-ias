@@ -1,5 +1,7 @@
 import axios from "axios";
 import { BrowserRouter, Route, Switch } from "react-router-dom";
+import { ToastContainer } from "react-toastify";
+import "react-toastify/dist/ReactToastify.min.css";
 import SuperTokens, {
   getSuperTokensRoutesForReactRouterDom,
 } from "supertokens-auth-react";
@@ -85,6 +87,7 @@ function App() {
             )}
           </Route>
         </Switch>
+        <ToastContainer theme="dark" />
       </div>
     </BrowserRouter>
   );
